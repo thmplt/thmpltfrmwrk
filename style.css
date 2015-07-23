@@ -14,7 +14,7 @@
  
 
 
-/* Reset all UL's */
+/* Reset all UL's  */
 .tpf-dropdown, .tpf-dropdown ul{margin:0;padding:0;list-style:none}
 .tpf-dropdown.vertical {width:100%}
 
