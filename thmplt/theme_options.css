@@ -1,0 +1,33 @@
+/**
+ * Options page styling
+ */
+ 
+ 
+
+/* Logo option Styling */
+	#remove_logo, #add_logo {display: block; margin: 10px 0 0; }
+	#logo_img {max-width:350px; max-height:200px}	
+
+	/* for when the logo is inactive */ 
+		.inactivelogo #logo_img {display:none}
+		.inactivelogo #remove_logo {display:none}
+
+
+	/* for when the logo is active */ 
+		.activelogo #logo_img {display:block}
+		.activelogo #add_logo {display:none}
+
+
+
+/* favicon option Styling */
+	#remove_favicon, #add_favicon {display: block; margin: 10px 0 0; }
+	#favicon_img {max-width:350px; max-height:200px}	
+
+	/* for when the favicon is inactive */ 
+		.inactivefavicon #favicon_img {display:none}
+		.inactivefavicon #remove_favicon {display:none}
+
+
+	/* for when the favicon is active */ 
+		.activefavicon #favicon_img {display:block}
+		.activefavicon #add_favicon {display:none}

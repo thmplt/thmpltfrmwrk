@@ -1,0 +1,156 @@
+/**
+ * Theme Name: thmpltfrmwrk
+ * Theme URI: http://www.thmplt.com/thmpltfrmwrk
+ * Github Theme URI: https://github.com/thmplt/thmpltfrmwrk
+ * Description: Bootstrap 3 ready, responsive theme by thmplt. 
+ * Version: 1.0.1
+ *
+ * Author: thmplt team
+ * Author URI: http://www.thmplt.com
+ *
+ * License: GNU General Public License v3
+ * License URI: http://www.gnu.org/licenses/gpl.html
+ */
+ 
+
+
+/* Reset all UL's */
+.tpf-dropdown, .tpf-dropdown ul{margin:0;padding:0;list-style:none}
+.tpf-dropdown.vertical {width:100%}
+
+/* Top LI's */
+.tpf-dropdown>li{float:left;margin:0;padding:0;position:relative}
+.tpf-dropdown>li>a{float:left;overflow:hidden}
+.tpf-dropdown.vertical>li {width:100%} 
+/* Sub menu items  - level 1*/
+.tpf-dropdown>li>ul {position:absolute;display:none;clear:left;z-index:10000;left:0;top:100%}
+	.tpf-dropdown>li>ul>li{float:left;margin:0;padding:0;position:relative;width:100%}
+	.tpf-dropdown>li>ul>li>a{display:block;overflow:hidden}
+	.tpf-dropdown.vertical>li>ul {left:100%;top:0}	
+	.tpf-dropdown.reverse>li>ul {left:auto;top:0;right:100%}	
+		/*-- On hover */
+		.tpf-dropdown>li:hover>ul {display:block}
+/* Sub menu items  - level 2*/
+.tpf-dropdown>li>ul>li>ul {position:absolute;display:none;clear:left;z-index:10000;left:100%;top:0}
+	.tpf-dropdown>li>ul>li>ul>li{float:left;margin:0;padding:0;position:relative;width:100%}
+	.tpf-dropdown>li>ul>li>ul>li>a{display:block;overflow:hidden}
+		/*-- On hover */
+		.tpf-dropdown>li>ul>li:hover>ul {display:block}
+	  .tpf-dropdown.reverse>li>ul>li>ul {left:auto;top:0;right:100%}		
+/* Sub menu items  - level 3*/
+.tpf-dropdown>li>ul>li>ul>li>ul {position:absolute;display:none;clear:left;z-index:10000;left:100%;top:0}
+	.tpf-dropdown>li>ul>li>ul>li>ul>li{float:left;margin:0;padding:0;position:relative;width:100%}
+	.tpf-dropdown>li>ul>li>ul>li>ul>li>a{display:block;overflow:hidden}
+		/*-- On hover */
+		.tpf-dropdown>li>ul>li>ul>li:hover>ul {display:block}
+		.tpf-dropdown.reverse>li>ul>li>ul>li>ul {left:auto;top:0;right:100%}		
+/* Sub menu items  - level 4*/
+.tpf-dropdown>li>ul>li>ul>li>ul>li>ul {position:absolute;display:none;clear:left;z-index:10000;left:100%;top:0}
+	.tpf-dropdown>li>ul>li>ul>li>ul>li>ul>li{float:left;margin:0;padding:0;position:relative;width:100%}
+	.tpf-dropdown>li>ul>li>ul>li>ul>li>ul>li>a{display:block;overflow:hidden}
+		/*-- On hover */
+		.tpf-dropdown>li>ul>li>ul>li>ul>li:hover>ul {display:block}
+		.tpf-dropdown.reverse>li>ul>li>ul>li>ul>li>ul {left:auto;top:0;right:100%}		
+/* Sub menu items  - level 5*/
+.tpf-dropdown>li>ul>li>ul>li>ul>li>ul>li>ul {position:absolute;display:none;clear:left;z-index:10000;left:100%;top:0}
+	.tpf-dropdown>li>ul>li>ul>li>ul>li>ul>li>ul>li{float:left;margin:0;padding:0;position:relative;width:100%}
+	.tpf-dropdown>li>ul>li>ul>li>ul>li>ul>li>ul>li>a{display:block;overflow:hidden}
+		/*-- On hover */
+		.tpf-dropdown>li>ul>li>ul>li>ul>li>ul>li:hover>ul {display:block}
+		.tpf-dropdown.reverse>li>ul>li>ul>li>ul>li>ul>li>ul {left:auto;top:0;right:100%}		
+/* Sub menu items  - level 6*/
+.tpf-dropdown>li>ul>li>ul>li>ul>li>ul>li>ul {position:absolute;display:none;clear:left;z-index:10000;left:100%;top:0}
+	.tpf-dropdown>li>ul>li>ul>li>ul>li>ul>li>ul>li{float:left;margin:0;padding:0;position:relative;width:100%}
+	.tpf-dropdown>li>ul>li>ul>li>ul>li>ul>li>ul>li>a{display:block;overflow:hidden}
+		/*-- On hover */
+		.tpf-dropdown>li>ul>li>ul>li>ul>li>ul>li:hover>ul {display:block}
+		.tpf-dropdown.reverse>li>ul>li>ul>li>ul>li>ul>li>ul {left:auto;top:0;right:100%}		
+/* Sub menu items  - level 7*/
+.tpf-dropdown>li>ul>li>ul>li>ul>li>ul>li>ul>li>ul {position:absolute;display:none;clear:left;z-index:10000;left:100%;top:0}
+	.tpf-dropdown>li>ul>li>ul>li>ul>li>ul>li>ul>li>ul>li{float:left;margin:0;padding:0;position:relative;width:100%}
+	.tpf-dropdown>li>ul>li>ul>li>ul>li>ul>li>ul>li>ul>li>a{display:block;overflow:hidden}
+		/*-- On hover */
+		.tpf-dropdown>li>ul>li>ul>li>ul>li>ul>li>ul>li:hover>ul {display:block}
+		.tpf-dropdown.reverse>li>ul>li>ul>li>ul>li>ul>li>ul>li>ul {left:auto;top:0;right:100%}		
+/* Sub menu items  - level 8*/
+.tpf-dropdown>li>ul>li>ul>li>ul>li>ul>li>ul>li>ul>li>ul {position:absolute;display:none;clear:left;z-index:10000;left:100%;top:0}
+	.tpf-dropdown>li>ul>li>ul>li>ul>li>ul>li>ul>li>ul>li>ul>li{float:left;margin:0;padding:0;position:relative;width:100%}
+	.tpf-dropdown>li>ul>li>ul>li>ul>li>ul>li>ul>li>ul>li>ul>li>a{display:block;overflow:hidden}
+		/*-- On hover */
+		.tpf-dropdown>li>ul>li>ul>li>ul>li>ul>li>ul>li>ul>li:hover>ul {display:block}
+		.tpf-dropdown.reverse>li>ul>li>ul>li>ul>li>ul>li>ul>li>ul>li>ul {left:auto;top:0;right:100%}					
+/* Sub menu items  - level 9*/
+.tpf-dropdown>li>ul>li>ul>li>ul>li>ul>li>ul>li>ul>li>ul>li>ul {position:absolute;display:none;clear:left;z-index:10000;left:100%;top:0}
+	.tpf-dropdown>li>ul>li>ul>li>ul>li>ul>li>ul>li>ul>li>ul>li>ul>li{float:left;margin:0;padding:0;position:relative;width:100%}
+	.tpf-dropdown>li>ul>li>ul>li>ul>li>ul>li>ul>li>ul>li>ul>li>ul>li>a{display:block;overflow:hidden}
+		/*-- On hover */
+		.tpf-dropdown>li>ul>li>ul>li>ul>li>ul>li>ul>li>ul>li>ul>li:hover>ul {display:block}
+		.tpf-dropdown.reverse>li>ul>li>ul>li>ul>li>ul>li>ul>li>ul>li>ul>li>ul {left:auto;top:0;right:100%}			
+
+	.holdit{display:block!important}
+	.hideit{display:none!important}
+
+		/*.reverse_dd {}*/  
+		.tpf-dropdown>.reverse_dd > ul, .tpf-dropdown>.reversedd > ul  {left:auto; right:0}
+		.tpf-dropdown>.reverse_dd > ul > li  ul, .tpf-dropdown>.reversedd > ul > li  ul	{left:auto; right:100%}
+
+ 
+
+/**
+ * 8.0 Alignments from WP 
+ */
+
+.alignleft {
+	display: inline;
+	float: left;
+}
+
+.alignright {
+	display: inline;
+	float: right;
+}
+
+.aligncenter {
+	display: block;
+	margin-right: auto;
+	margin-left: auto;
+}
+
+blockquote.alignleft,
+.wp-caption.alignleft,
+img.alignleft {
+	margin: 0.4em 1.6em 1.6em 0;
+}
+
+blockquote.alignright,
+.wp-caption.alignright,
+img.alignright {
+	margin: 0.4em 0 1.6em 1.6em;
+}
+
+blockquote.aligncenter,
+.wp-caption.aligncenter,
+img.aligncenter {
+	clear: both;
+	margin-top: 0.4em;
+	margin-bottom: 1.6em;
+}
+
+.wp-caption.alignleft,
+.wp-caption.alignright,
+.wp-caption.aligncenter {
+	margin-bottom: 1.2em;
+}
+
+.wp-caption-text {
+	color: #707070;
+	color: rgba(51, 51, 51, 0.7);
+	padding: 0.5em 0;
+}
+
+.gallery-caption {
+	color: #707070;
+	color: rgba(51, 51, 51, 0.7);
+	display: block;
+	padding: 0.5em 0;
+}
