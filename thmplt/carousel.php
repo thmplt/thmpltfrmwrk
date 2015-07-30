@@ -319,7 +319,7 @@ function carousel_options_callback () {
 function thmplt_carousel_dropdown($name, $selected_id){
 	
 
-	$args = array('sort_column' => 'post_title', 'post_type' => 'thmplt_carousel', 'post_status' => 'publish');
+	$args = array('sort_column' => 'post_title', 'post_type' => 'thmplt_carousel', 'post_status' => 'publish', 'posts_per_page' => -1);
 	$pages = get_posts($args);
 
 	

@@ -85,6 +85,7 @@ function content_options_callback () {
 	if (!empty($_POST)){ 
 		$thmplt_content = $_POST['thmplt_content']; 
 	}
+
 	
 	echo "<div class='wrap'>";
 		echo "<h2>content Settings</h2>";
@@ -161,7 +162,7 @@ function content_options_callback () {
 function thmplt_content_dropdown($name, $selected_id){
 	
 
-	$args = array('sort_column' => 'post_title', 'post_type' => 'thmplt_content', 'post_status' => 'publish');
+	$args = array('sort_column' => 'post_title', 'post_type' => 'thmplt_content', 'post_status' => 'publish', 'posts_per_page' => -1);
 	$pages = get_posts($args);
 
 	
