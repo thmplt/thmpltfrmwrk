@@ -3,6 +3,11 @@
  * Template Name: No Sidebar 
  * page template with no sidebar
  */		
+
+global $thmplt;
+
+$thmplt['nosidebar'] = true;
+ 
 get_header(); ?>
     
 	<?php

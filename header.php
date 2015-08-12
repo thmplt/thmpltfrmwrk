@@ -6,6 +6,9 @@
  *
  */
 global $thmplt;
+global $post;
+
+$thmplt['pageID'] = $post->ID;
 
 // Get the options for the theme   
 $thmplt_options = get_option('thmplt_options'); 
@@ -98,6 +101,10 @@ $thmplt_options = get_option('thmplt_options');
 </head>
 
 <body <?php body_class(); ?>>
+
+
+<!-- Beginning of page --> 
+<div class='pagewrapper'>
 
 <?php 
 /**

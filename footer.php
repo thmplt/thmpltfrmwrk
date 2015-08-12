@@ -14,6 +14,9 @@
 
 	<?php wp_footer(); ?>
 
+</div>
+<!-- ./ pagewrapper --> 
+
 </body>
 <?php do_action('thmplt_after_body_tag'); ?>
 </html>

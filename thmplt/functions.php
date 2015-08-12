@@ -306,7 +306,9 @@ add_action("wp_enqueue_scripts", "thmplt_do_registered_styles");
  */
 add_filter('body_class','thmplt_special_body_classes');
 function thmplt_special_body_classes($classes) {
-	 global $post;
+	// global $post;
+	
+	global $thmplt;
 	 
 	// Detect Browser and OS of device and pass the info to the "body_spc_class" (BODY SPECIAL CLASS) to be appended to the body
 	if( preg_match('/mac/i', $_SERVER['HTTP_USER_AGENT'])) { $classes[] =  "mac"; } 
@@ -327,12 +329,19 @@ function thmplt_special_body_classes($classes) {
 	if( preg_match('/ipod/i', $_SERVER['HTTP_USER_AGENT'])) { $classes = thmplt_del_value($classes,"mac"); $classes[] =  "ipod"; }
 	if( preg_match('/chrome/i', $_SERVER['HTTP_USER_AGENT'])) { $classes = thmplt_del_value($classes,"safari");  $classes[] =  "chrome"; }
 	
-	if (!empty($post)){
+	
+	if  ( !empty($thmplt['nosidebar']) && $thmplt['nosidebar'] == true ) { 
+
+		$classes[] = "nosidebar no-sidebar";
+	
+	}
+	
+	//if (!empty($post)){
 		//$classes[] = "top-parent-". get_top_parent($post->ID) ;
 		
-		$template = get_post_meta( $post->ID, '_wp_page_template', true );		
-		$classes[] = str_replace(".php","",$template);		
-	}
+		//$template = get_post_meta( $post->ID, '_wp_page_template', true );		
+		//$classes[] = str_replace(".php","",$template);		
+	//}
 
 	// return the $classes array
 	return $classes;

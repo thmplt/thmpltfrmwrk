@@ -227,14 +227,13 @@ add_action('save_post', 'save_thmplt_sidebar');
 function thmplt_sidebar_content($page_ID=NULL){
 	wp_reset_postdata();	
 
-	global $post; global $_site;
+	global $post; global $thmplt;
+	$sb_output = "";
 	$_sb_content = array();
-	@$_sb_content['pid'] = $_site['start_pid']; // Get the ID of the page when it started
+	@$_sb_content['pid'] = $thmplt['pageID']; // Get the ID of the page when it started
 	$_sb_content = apply_filters('sb_content', $_sb_content ); // Apply Filters
 	
 	$page_ID = !empty($page_ID)? $page_ID : $_sb_content['pid'];
-
-//echo $page_ID ;
 
 
 	// Get All Published Sidebar Content				
@@ -244,8 +243,6 @@ function thmplt_sidebar_content($page_ID=NULL){
 		$custom = get_post_custom($post->ID);
 		$include_data = unserialize($custom['include'][0]);
 		$exclude_data = unserialize($custom['exclude'][0]);	
-
-		//var_dump($include_data);
 
 		// Include Content Conditions
 		if (!empty($include_data['all']) && $include_data['all'] == "on"){ // if its to be included in all pages 		
@@ -291,12 +288,13 @@ function thmplt_sidebar_content($page_ID=NULL){
 			$post_content = apply_filters('thmplt_sidebar_content_pid-'.$page_ID , $post_content );	
 			wp_reset_postdata();
 			
-			return $post_content;
-			
-			
 		}#end If 
-		
+
+		$sb_output .= $post_content;		
+
 	endwhile;				
+
+	return $sb_output;		
 
 	wp_reset_postdata();
 
@@ -304,7 +302,7 @@ function thmplt_sidebar_content($page_ID=NULL){
 
 
 function thmplt_sidebar_content_add_to_dynamic_sidebar( $index ){
-
+	//global $post;
 	if ($index == "thmplt_dynamic_sidebar"){ 
 		echo  thmplt_sidebar_content();
 	}
