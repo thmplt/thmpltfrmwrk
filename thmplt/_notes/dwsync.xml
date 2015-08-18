@@ -8,9 +8,16 @@
 <file name="theme_options.php" server="ftp.amicuslawyersites.com" local="130807416394540990" remote="130801615800000000" Dst="2" />
 <file name="carousel.php" server="204.12.88.92/httpdocs/" local="130827460620965048" remote="130838628600000000" Dst="2" />
 <file name="content.php" server="204.12.88.92/httpdocs/" local="130827460876445052" remote="130838628600000000" Dst="2" />
-<file name="theme_options.php" server="204.12.88.92/httpdocs/" local="130827453878071160" remote="130838628600000000" Dst="2" />
+<file name="theme_options.php" server="204.12.88.92/httpdocs/" local="130843743953246651" remote="130843743600000000" Dst="2" />
 <file name="functions.php" server="204.12.88.92/httpdocs/" local="130837955834654872" remote="130837955400000000" Dst="2" />
 <file name="theme_options.css" server="204.12.88.92/httpdocs/" local="130827453875716530" remote="130838628600000000" Dst="2" />
 <file name="theme_options.js" server="204.12.88.92/httpdocs/" local="130827453877474370" remote="130838628600000000" Dst="2" />
-<file name="dynamic_sidebars.php" server="204.12.88.92/httpdocs/" local="130838628214880444" remote="130838628000000000" Dst="2" />
+<file name="dynamic_sidebars.php" server="204.12.88.92/httpdocs/" local="130843741956006619" remote="130843741800000000" Dst="2" />
+<file name="carousel.php" server="45.79.158.100:2222" local="130827460620965048" remote="130843749050000000" Dst="2" />
+<file name="content.php" server="45.79.158.100:2222" local="130827460876445052" remote="130843749050000000" Dst="2" />
+<file name="dynamic_sidebars.php" server="45.79.158.100:2222" local="130843741956006619" remote="130843749050000000" Dst="2" />
+<file name="theme_options.php" server="45.79.158.100:2222" local="130843743953246651" remote="130843749050000000" Dst="2" />
+<file name="functions.php" server="45.79.158.100:2222" local="130837955834654872" remote="130843749050000000" Dst="2" />
+<file name="theme_options.css" server="45.79.158.100:2222" local="130827453875716530" remote="130843749050000000" Dst="2" />
+<file name="theme_options.js" server="45.79.158.100:2222" local="130827453877474370" remote="130843749050000000" Dst="2" />
 </dwsync>

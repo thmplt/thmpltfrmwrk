@@ -4,7 +4,8 @@
  */
  
 
-
+add_shortcode('show_on_page', 'thmplt_is_page');
+add_shortcode('thmplt_show_on_page', 'thmplt_is_page');
 add_shortcode('thmplt_is_page', 'thmplt_is_page');
 
 

@@ -150,7 +150,7 @@ function thmplt_options_callback () {
 					 * HTML/Option for bootstrap
 					 */ 
 					echo "<tr>";
-					echo "<th scope='row'><label for='fonts'>Boostrap</label></th>";
+					echo "<th scope='row'><label for='fonts'>Bootstrap</label></th>";
 					echo "<td>";
 					
 						echo "<fieldset>";

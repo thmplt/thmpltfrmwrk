@@ -267,7 +267,8 @@ function thmplt_sidebar_content($page_ID=NULL){
 			$top_page_ID = $top_page_ID[0];
 			$display = ($exclude_data[$top_page_ID] == "on")? false: $display; // if its to be included in all pages 			
 		}
-
+		
+		$post_content = ""; // make sure post_content is empty ( especially fromt he previous loop )
 	
 		// Display The Content Based on its Conditions
 		if ($display == true){
@@ -287,11 +288,11 @@ function thmplt_sidebar_content($page_ID=NULL){
 			// Apply filters Specifically to the running content area 
 			$post_content = apply_filters('thmplt_sidebar_content_pid-'.$page_ID , $post_content );	
 			wp_reset_postdata();
-			
+						
 		}#end If 
 
-		$sb_output .= $post_content;		
-
+		$sb_output .= $post_content;
+			
 	endwhile;				
 
 	return $sb_output;		

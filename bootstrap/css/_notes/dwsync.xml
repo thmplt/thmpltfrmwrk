@@ -12,4 +12,10 @@
 <file name="bootstrap-theme.css" server="204.12.88.92/httpdocs/" local="130827453581436740" remote="130838628600000000" Dst="2" />
 <file name="bootstrap-theme.css.map" server="204.12.88.92/httpdocs/" local="130827453585869090" remote="130838628600000000" Dst="2" />
 <file name="bootstrap.css.map" server="204.12.88.92/httpdocs/" local="130827453583623340" remote="130838628600000000" Dst="2" />
+<file name="bootstrap.css" server="45.79.158.100:2222" local="130827453577361450" remote="130843749030000000" Dst="2" />
+<file name="bootstrap.css.map" server="45.79.158.100:2222" local="130827453583623340" remote="130843749040000000" Dst="2" />
+<file name="bootstrap.min.css" server="45.79.158.100:2222" local="130827453580277840" remote="130843749040000000" Dst="2" />
+<file name="bootstrap-theme.min.css" server="45.79.158.100:2222" local="130827453587778260" remote="130843749040000000" Dst="2" />
+<file name="bootstrap-theme.css" server="45.79.158.100:2222" local="130827453581436740" remote="130843749040000000" Dst="2" />
+<file name="bootstrap-theme.css.map" server="45.79.158.100:2222" local="130827453585869090" remote="130843749040000000" Dst="2" />
 </dwsync>

@@ -6,4 +6,7 @@
 <file name="footer.php" server="204.12.88.92/httpdocs/" local="130827453859134130" remote="130838628600000000" Dst="2" />
 <file name="header.php" server="204.12.88.92/httpdocs/" local="130827453859654300" remote="130838628600000000" Dst="2" />
 <file name="sidebar.php" server="204.12.88.92/httpdocs/" local="130827453863099740" remote="130838628600000000" Dst="2" />
+<file name="footer.php" server="45.79.158.100:2222" local="130827453859134130" remote="130843749020000000" Dst="2" />
+<file name="header.php" server="45.79.158.100:2222" local="130827453859654300" remote="130843749020000000" Dst="2" />
+<file name="sidebar.php" server="45.79.158.100:2222" local="130827453863099740" remote="130843749020000000" Dst="2" />
 </dwsync>

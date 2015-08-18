@@ -6,4 +6,7 @@
 <file name="npm.js" server="204.12.88.92/httpdocs/" local="130827453608851300" remote="130838628600000000" Dst="2" />
 <file name="bootstrap.js" server="204.12.88.92/httpdocs/" local="130827453604180920" remote="130838628600000000" Dst="2" />
 <file name="bootstrap.min.js" server="204.12.88.92/httpdocs/" local="130827453606832640" remote="130838628600000000" Dst="2" />
+<file name="bootstrap.js" server="45.79.158.100:2222" local="130827453604180920" remote="130843749040000000" Dst="2" />
+<file name="npm.js" server="45.79.158.100:2222" local="130827453608851300" remote="130843749040000000" Dst="2" />
+<file name="bootstrap.min.js" server="45.79.158.100:2222" local="130827453606832640" remote="130843749040000000" Dst="2" />
 </dwsync>
