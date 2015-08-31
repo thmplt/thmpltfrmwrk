@@ -3,7 +3,7 @@
  * Theme URI: http://www.thmplt.com/thmpltfrmwrk
  * Github Theme URI: https://github.com/thmplt/thmpltfrmwrk
  * Description: Bootstrap 3 ready, responsive theme by thmplt. 
- * Version: 1.0.6
+ * Version: 1.0.7
  *
  * Author: thmplt team
  * Author URI: http://www.thmplt.com
@@ -154,3 +154,67 @@ img.aligncenter {
 	display: block;
 	padding: 0.5em 0;
 }
+
+
+/**
+ * Additional responsive classes
+ */
+ .col-xs-25 {
+        width: 20%;
+        float: left;
+    }
+
+    .txt-xs-center {text-align:center;}
+    .txt-xs-left {text-align:left}
+    .txt-xs-right {text-align:right}   
+    .align-xs-center {display:block; float:none; margin-left:auto; margin-right:auto}
+    .align-xs-left {float:left; margin-right:30px}
+    .align-xs-right {float:right; margin-left:30px}
+    .align-xs-none {float:none; display:inline}   
+
+
+@media (min-width: 768px) {
+    .col-sm-25 {
+        width: 20%;
+        float: left;
+    }
+   
+    .txt-sm-center {text-align:center}
+    .txt-sm-left {text-align:left}
+    .txt-sm-right {text-align:right}   
+    .align-sm-center {display:block; float:none; margin-left:auto; margin-right:auto}
+    .align-sm-left {float:left; margin-right:30px}
+    .align-sm-right {float:right; margin-left:30px}
+    .align-sm-none {float:none; display:inline;}
+}
+
+@media (min-width: 992px) {
+    .col-md-25 {
+        width: 20%;
+        float: left;
+    }
+   
+    .txt-md-center {text-align:center}
+    .txt-md-left {text-align:left}
+    .txt-md-right {text-align:right}   
+    .align-md-center {display:block; float:none; margin-left:auto; margin-right:auto}
+    .align-md-left {float:left; margin-right:30px}
+    .align-md-right {float:right; margin-left:30px}
+    .align-md-none {float:none; display:inline}   
+}
+
+@media (min-width: 1200px) {
+    .col-lg-25 {
+        width: 20%;
+        float: left;
+    }
+   
+    .txt-lg-center {text-align:center}
+    .txt-lg-left {text-align:left}
+    .txt-lg-right {text-align:right}   
+    .align-lg-center {display:block; float:none; margin-left:auto; margin-right:auto}
+    .align-lg-left {float:left; margin-right:30px}
+    .align-lg-right {float:right; margin-left:30px}
+    .align-lg-none {float:none; display:inline}
+}
+
