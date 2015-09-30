@@ -74,23 +74,26 @@ function thmplt_sidebar_html() {
 
 
 	// default sidebar API include data
-	thmplt_sidebar_create_check_boxes( array ( "post_type"=>"page", "label"=>"Pages", "style"=>'page', "type" => "include" ),$include_data);
+	// thmplt_sidebar_create_check_boxes( array ( "post_type"=>"page", "label"=>"Pages", "style"=>'page', "type" => "include" ),$include_data);
+	
+	thmplt_add_post_types_to_sb($include_data, "include");
 	do_action('thmplt_sidebar_include_checkboxes',$include_data);
 
 	echo "<br />";
 	
-echo "</div>";	
-echo "<br /><hr style='height:1px; border:0; border-top:1px solid #ccc'/>";
-echo "<strong> Select Pages to Exclude</strong><br /><br />";
-
-
-$all_children_checked = ($exclude_data['all_children'] == "on")? "checked":NULL;	
-echo "<label style='padding:0 15px 0 0 '><input type='checkbox' class='' name='exclude[all_children]' ".$all_children_checked."/> ";
-echo "Automatically exclude children pages </label><br /><br />";
-echo "<div style='padding:8px; background:#FFF9E8;'>";
+	echo "</div>";	
+	echo "<br /><hr style='height:1px; border:0; border-top:1px solid #ccc'/>";
+	echo "<strong> Select Pages to Exclude</strong><br /><br />";
+	
+	
+	$all_children_checked = ($exclude_data['all_children'] == "on")? "checked":NULL;	
+	echo "<label style='padding:0 15px 0 0 '><input type='checkbox' class='' name='exclude[all_children]' ".$all_children_checked."/> ";
+	echo "Automatically exclude children pages </label><br /><br />";
+	echo "<div style='padding:8px; background:#FFF9E8;'>";
 
 	// default sidebar API include data
-	thmplt_sidebar_create_check_boxes( array ( "post_type"=>"page", "label"=>"Pages", "style"=>'page', "type" => "exclude" ),$exclude_data);
+	//thmplt_sidebar_create_check_boxes( array ( "post_type"=>"page", "label"=>"Pages", "style"=>'page', "type" => "exclude" ),$exclude_data);
+	thmplt_add_post_types_to_sb($exclude_data, "exclude");
 	do_action('thmplt_sidebar_exclude_checkboxes',$exclude_data);
 
 echo "</div>";	
@@ -235,6 +238,11 @@ function thmplt_sidebar_content($page_ID=NULL){
 	
 	$page_ID = !empty($page_ID)? $page_ID : $_sb_content['pid'];
 
+	$post_type = get_post_type( $page_ID );
+	
+	//echo "POSTTYPE:" .$post_type;
+	
+
 
 	// Get All Published Sidebar Content				
 	$the_query = new WP_Query( "post_type=thmplt_sidebar&post_status=publish&posts_per_page=5000" );
@@ -259,6 +267,16 @@ function thmplt_sidebar_content($page_ID=NULL){
 			$display = ($include_data[$top_page_ID] == "on")? true: $display; // if its to be included in all pages 			
 		}
 
+
+		// Include if it's on this post type
+		if ( !empty($include_data[$post_type]) && $include_data[$post_type] == "on" ) {
+		
+			$display = true;
+			
+		}
+
+
+
 		// Exclude content conditions
 		$display = ($exclude_data[$page_ID] == "on")? false: $display; // if its to be included in all pages 	
 		
@@ -267,6 +285,14 @@ function thmplt_sidebar_content($page_ID=NULL){
 			$top_page_ID = $top_page_ID[0];
 			$display = ($exclude_data[$top_page_ID] == "on")? false: $display; // if its to be included in all pages 			
 		}
+		
+		
+		// Include if it's on this post type
+		if ( !empty($exclude_data[$post_type]) && $exclude_data[$post_type] == "on" ) {
+		
+			$display = false;
+			
+		}		
 		
 		$post_content = ""; // make sure post_content is empty ( especially fromt he previous loop )
 	
@@ -327,3 +353,54 @@ add_action ('dynamic_sidebar_before','thmplt_sidebar_content_add_to_dynamic_side
 		}
 		
 	}
+
+
+/**
+ * Create the include/exclude boxes for 
+ */
+function thmplt_add_post_types_to_sb($include_data, $type="include"){
+
+	$args = array(
+	   'public'   => true,
+	   'hierarchical' => true
+	  // '_builtin' => false
+	);
+
+	$page_types = get_post_types( $args, 'objects' );	
+
+	foreach ( $page_types as $pgt => $pob) {
+	   
+		thmplt_sidebar_create_check_boxes( array ( "post_type"=> $pgt, "label"=> $pob->labels->name, "style"=> "page", "type" => $type ), $include_data);
+	   
+	}
+
+	echo "<hr style='border-color:#ccc'/><strong>Post Types:</strong><br><br>";
+	
+	$args = array(
+	   'public'   => true,
+	   'hierarchical' => false
+	  // '_builtin' => false
+	);
+
+	$post_types = get_post_types( $args, 'objects' );
+
+	foreach ( $post_types as $pt => $ob) {
+	   
+		@$current_checked = ($include_data[$pt] == "on")? "checked":NULL;
+
+		echo "<label style='padding:0 15px 0 0 '>";
+		
+			// create the input check box 
+			if ($type == "include"){ 
+				echo "<input type='checkbox' name='include[".$pt."]' ".$current_checked."> ";
+			} elseif ($type == "exclude") {
+				echo "<input type='checkbox' name='exclude[".$pt."]' ".$current_checked."> ";			
+			}		
+		
+			echo $ob->labels->name . " <em>[". $pt ."]</em>";
+		echo "</label>";
+		
+		$current_checked = NULL;
+	   
+	}
+}
