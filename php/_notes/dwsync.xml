@@ -5,4 +5,6 @@
 <file name="wp_conditional.php" server="204.12.88.92/httpdocs/" local="130843745496296676" remote="130843745400000000" Dst="2" />
 <file name="wp_conditional.php" server="45.79.158.100:2222" local="130843745496296676" remote="130843749020000000" Dst="2" />
 <file name="wp_bootstrap_navwalker.php" server="45.79.158.100:2222" local="130827453842815270" remote="130843749020000000" Dst="2" />
+<file name="wp_conditional.php" server="45.79.223.192:2222" local="130900015924143784" remote="130900056580000000" Dst="1" />
+<file name="wp_bootstrap_navwalker.php" server="45.79.223.192:2222" local="130900015924053724" remote="130900056580000000" Dst="1" />
 </dwsync>

@@ -36,4 +36,22 @@
 <file name="screenshot.png" server="45.79.158.100:2222" local="130827453857269810" remote="130843749020000000" Dst="2" />
 <file name="sidebar.php" server="45.79.158.100:2222" local="130827453854207140" remote="130843749040000000" Dst="2" />
 <file name="archive.php" server="45.79.158.100:2222" local="130827453570959310" remote="130843749040000000" Dst="2" />
+<file name="404.php" server="45.79.223.192:2222" local="130900015919180245" remote="130900056520000000" Dst="1" />
+<file name="page.php" server="45.79.223.192:2222" local="130900015920421131" remote="130900056520000000" Dst="1" />
+<file name="category.php" server="45.79.223.192:2222" local="130900015919610567" remote="130900056520000000" Dst="1" />
+<file name="page-no-title-and-no-sidebar.php" server="45.79.223.192:2222" local="130900015920241009" remote="130900056520000000" Dst="1" />
+<file name="footer.php" server="45.79.223.192:2222" local="130911278988848633" remote="130911279020000000" Dst="1" />
+<file name="comments.php" server="45.79.223.192:2222" local="130900015919710622" remote="130900056530000000" Dst="1" />
+<file name="style.css" server="45.79.223.192:2222" local="130911228201774757" remote="130933820260000000" Dst="1" />
+<file name="page-no-title.php" server="45.79.223.192:2222" local="130900015920331065" remote="130900056530000000" Dst="1" />
+<file name="page-no-sidebar.php" server="45.79.223.192:2222" local="130900015920160949" remote="130900056530000000" Dst="1" />
+<file name="single.php" server="45.79.223.192:2222" local="130900015920721355" remote="130900056560000000" Dst="1" />
+<file name="README.md" server="45.79.223.192:2222" local="130900015919280333" remote="130900056590000000" Dst="1" />
+<file name="author.php" server="45.79.223.192:2222" local="130900015919500470" remote="130900056590000000" Dst="1" />
+<file name="functions.php" server="45.79.223.192:2222" local="130900015919900756" remote="130900056590000000" Dst="1" />
+<file name="index.php" server="45.79.223.192:2222" local="130900015920070886" remote="130900056590000000" Dst="1" />
+<file name="header.php" server="45.79.223.192:2222" local="130900015919980813" remote="130900056590000000" Dst="1" />
+<file name="screenshot.png" server="45.79.223.192:2222" local="130933641812233200" remote="130933641960000000" Dst="1" />
+<file name="sidebar.php" server="45.79.223.192:2222" local="130900015920631296" remote="130900056680000000" Dst="1" />
+<file name="archive.php" server="45.79.223.192:2222" local="130900015919390413" remote="130900056680000000" Dst="1" />
 </dwsync>

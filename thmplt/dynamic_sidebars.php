@@ -14,7 +14,7 @@
 		"public" => true, 
 		
 		'labels' => array(
-			'name' => 'Sidebars', // general name for the post type, usually plural
+			'name' => 'thpmlt Sidebars', // general name for the post type, usually plural
 			'singular_name' => 'Sidebar', // Singular name for one object of this post type
 			'add_new' => 'Add New Sidebar', 
 			'add_new_item' => 'New Sidebar',
@@ -27,7 +27,8 @@
 		),
 		'public' => false,
 		'show_ui' => true,
-		'show_in_menu' => 'thmplt-options', // Put it in the "theme egg menu"
+		//'show_in_menu' => 'thmplt-options', // Put it in the "theme egg menu"
+		'menu_icon' => THMPLT_SVG_B64,
 		'hierarchical' => false, // true to treat as pages... can have parent/children	
 		'has_archive' => false, // archive/results page (can be set to slug of archive)
 		'rewrite' => false, 
@@ -60,7 +61,7 @@ function thmplt_sidebar_html() {
 	
 	// Selections for all pages and children pages. 
 	echo "<strong>Select which pages this content should display on</strong><br /><br />";
-	$all_checked = ($include_data['all'] == "on")? "checked":NULL;
+	@$all_checked = ($include_data['all'] == "on")? "checked":NULL;
 	@$all_children_checked = ($include_data['all_children'] == "on")? "checked":NULL;	
 	echo "<label style='padding:0 15px 0 0 '><input type='checkbox' class='' name='include[all]' ".$all_checked." /> ";
 		echo " Display on all pages</label>";
@@ -256,7 +257,7 @@ function thmplt_sidebar_content($page_ID=NULL){
 		if (!empty($include_data['all']) && $include_data['all'] == "on"){ // if its to be included in all pages 		
 			$display = true;
 		}else{
-			$display = ($include_data[$page_ID] == "on")? true: $display; // if its to be included in all pages 		
+			@$display = ($include_data[$page_ID] == "on")? true: $display; // if its to be included in all pages 		
 		}
 		
 		//echo $display;
@@ -278,12 +279,12 @@ function thmplt_sidebar_content($page_ID=NULL){
 
 
 		// Exclude content conditions
-		$display = ($exclude_data[$page_ID] == "on")? false: $display; // if its to be included in all pages 	
+		@$display = ($exclude_data[$page_ID] == "on")? false: $display; // if its to be included in all pages 	
 		
 		if ($exclude_data['all_children'] == "on"){
 			$top_page_ID = get_post_ancestors($page_ID);
-			$top_page_ID = $top_page_ID[0];
-			$display = ($exclude_data[$top_page_ID] == "on")? false: $display; // if its to be included in all pages 			
+			@$top_page_ID = $top_page_ID[0];
+			@$display = ($exclude_data[$top_page_ID] == "on")? false: $display; // if its to be included in all pages 			
 		}
 		
 		
@@ -321,9 +322,11 @@ function thmplt_sidebar_content($page_ID=NULL){
 			
 	endwhile;				
 
+	wp_reset_postdata(); // ALWAYS COMES BEFORE AND RETURN OR ESCAPE
+
 	return $sb_output;		
 
-	wp_reset_postdata();
+	
 
 }
 

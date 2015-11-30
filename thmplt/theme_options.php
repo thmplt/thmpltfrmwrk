@@ -1,10 +1,13 @@
 <?php
 /**
- * ThemeEgss' theme options functions 
+ * thmplt's theme options functions 
  *
  */
  
- 
+
+
+
+
 
 /**
  * Create a logo and favicon upload option
@@ -15,12 +18,12 @@ function thmplt_options() {
 	//$parent_slug = "themes.php";
 	$parent_slug = "thmplt-options";	
 	$page_title = "Theme Options";
-	$menu_title = "Thmplt Options";
+	$menu_title = "thmplt Options";
 	$capability = "publish_posts";
 	$menu_slug = "thmplt-options";	
 	$function = "thmplt_options_callback";		
 	// add_submenu_page( $parent_slug, $page_title, $menu_title, $capability, $menu_slug, $function );
-	add_menu_page($page_title, $menu_title, $capability, $menu_slug);
+	add_menu_page($page_title, $menu_title, $capability, $menu_slug, NULL, THMPLT_SVG_B64);
 	add_submenu_page( $parent_slug, $page_title, "Theme Options", $capability, $menu_slug, $function );	
 } 
 
@@ -41,11 +44,11 @@ function thmplt_options_callback () {
 
 	echo "<div class='wrap'>";
 		echo "<h2>Theme Options and Settings</h2>";
+		echo "<em><strong>You can also update these settings through the customize section</strong></em>";
 		
 		echo "<form method='post' name='options'>";
 			echo "<table class='form-table' >";
 				echo "<tbody>";
-
 
 
 					/**
@@ -313,7 +316,7 @@ function thmplt_favicon_url() {
  * @param string $href The HREF to link to 
  * @param string $alt The Alt attribute 
  */
-function thtmplt_logo($src=NULL, $href=NULL, $alt=NULL){
+function thmplt_logo($src=NULL, $href=NULL, $alt=NULL){
 	
 	$src = is_null($src) ? 	false : $src;
 	$href = is_null($href) ? get_bloginfo('url'): $href;
@@ -323,25 +326,25 @@ function thtmplt_logo($src=NULL, $href=NULL, $alt=NULL){
 	
 	if ( thmplt_logo_url() ) {
 		
-		$html .= "\n <a href='".$href."'> \n";
-		$html .= "\t <img class='logoimg' src='".thmplt_logo_url()."' alt='".$alt."' /> \n";
+		$html .= "\n <a href='".$href."' class='tpf-logo'> \n";
+		$html .= "\t <img class='logoimg tpf-logo' src='".thmplt_logo_url()."' alt='".$alt."' /> \n";
 		$html .= " </a> \n";
 		
 	} elseif ( $src ) { 	
 	
-		$html .= "\n <a href='".$href."'> \n";
-		$html .= "\t <img class='logoimg' src='".$src." ' alt='".$alt."' /> \n";
+		$html .= "\n <a href='".$href."' class='tpf-logo'> \n";
+		$html .= "\t <img class='logoimg tpf-logo' src='".$src." ' alt='".$alt."' /> \n";
 		$html .= " </a> \n";		
 		
 	} else { 
 	
-		$html .= "\n <h1 class='thmplt_logo'> \n";
+		$html .= "\n <h1 class='thmplt_logo tpf-logo'> \n";
 		$html .= " <a href='".$href."'> \n";
 		$html .= get_bloginfo( 'name' ) ."\n";
 		$html .= " </a> \n";
 		$html .= " </h1> \n";
 		
-		$html .= "\n <h2 class='thmplt_logo'> \n";
+		$html .= "\n <h2 class='thmplt_logo tpf-logo'> \n";
 		$html .= " <a href='".$href."'> \n";
 		$html .= get_bloginfo('description')."\n";
 		$html .= " </a> \n";
@@ -352,3 +355,147 @@ function thtmplt_logo($src=NULL, $href=NULL, $alt=NULL){
 	return $html;
 	
 }
+
+
+
+/**
+ * Depecrate this @TYPO LOOK THERE'S AND EXTRA T :'(
+ */
+function thtmplt_logo ($src=NULL, $href=NULL, $alt=NULL) { 
+
+	return thmplt_logo($src=NULL, $href=NULL, $alt=NULL); // use the right one  
+
+}
+
+
+
+/**
+ * Theme Options 
+ */
+function thmplt_register_customizer_settings( $wp_customize ) {
+   //All our sections, settings, and controls will be added here
+
+	
+	/* Main panel for all thmpltfrmwrk options */
+	$wp_customize->add_panel( 'thmplt_options', array(
+		/*'priority'       => 40,*/
+		'capability'     => 'edit_theme_options',
+		'theme_supports' => '',
+		'title'          => __('thmplt Options' ),
+		'description' => __('Update all thmpltfrmwrk options', 'mytheme'), 
+	));
+
+
+
+	/* logo/brand section */
+	$wp_customize->add_section( 'thmplt_brand' , array(
+		'title'       => __( 'thmplt Branding', 'thmplt' ),
+		'priority'    => 30,
+		'description' => 'Manage the websites logo and brand',
+		'panel' => 'thmplt_options'
+	));
+
+
+
+	// Upload a logo to replace the default site name and description in the header
+	$wp_customize->add_setting( 'thmplt_options[logo]', array( 'type' => 'option' ));
+	$wp_customize->add_setting( 'thmplt_options[favicon]', array( 'type' => 'option' ) );
+	$wp_customize->add_setting( 'thmplt_options[logon_logo]', array( 'type' => 'option' ) );	
+
+
+	$wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'thmplt_logo', array(
+		'label'    => __( 'Main logo', 'thmplt' ),
+		'section'  => 'thmplt_brand',
+		'settings' => 'thmplt_options[logo]',
+	)));
+
+
+	$wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'thmplt_favicon', array(
+		'label'    => __( 'Favicon', 'thmplt' ),
+		'section'  => 'thmplt_brand',
+		'settings' => 'thmplt_options[favicon]',
+	)));
+
+	$wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'thmplt_login_logo', array(
+		'label'    => __( 'Login Logo (550 x 114)', 'thmplt' ),
+		'section'  => 'thmplt_brand',
+		'settings' => 'thmplt_options[logon_logo]',
+	)));
+
+
+
+	/* settings section */
+	$wp_customize->add_section( 'thmplt_settings' , array(
+		'title'       => __( 'thmplt Settings', 'thmplt' ),
+		//'priority'    => 30,
+		'description' => 'Manage the website\'s file loading',
+		'panel' => 'thmplt_options'
+	));
+
+
+
+	/* the settings options */
+	$wp_customize->add_setting( 'thmplt_options[fonts]', array( 'type' => 'option', 'default'=> 'on' ) );
+	$wp_customize->add_setting( 'thmplt_options[bootstrap]', array( 'type' => 'option', 'default'=> 'on' ) );	
+
+
+	/* Settings controls */
+	$wp_customize->add_control('thmplt_use_fonts', array(
+		'label' => __('Enable/Disable default fonts used in theme','thmplt'),
+		'section' => 'thmplt_settings',
+		'settings' => 'thmplt_options[fonts]',
+		'type' => 'select',
+		'choices' => array(
+			'on' => "On",
+			'off' => 'Off'
+		)
+	));
+
+
+	$wp_customize->add_control('thmplt_use_bootstrap', array(
+		'label' => __('Enable/Disable default Bootstrap loaded with Framework','thmplt'),
+		'section' => 'thmplt_settings',
+		'settings' => 'thmplt_options[bootstrap]',
+		'type' => 'select',
+		'choices' => array(
+			'on' => "On",
+			'off' => 'Off'
+		)
+	));
+
+   
+}
+add_action( 'customize_register', 'thmplt_register_customizer_settings' );
+
+
+// custom admin login logo
+function custom_login_logo() {
+	
+	
+	if ( thmplt_option('logon_logo', false)) {
+	
+		echo '<style type="text/css">
+			h1 a { 
+				background-image: url('.thmplt_option('logon_logo', false).') !important; 
+				padding-bottom:30px!important;  
+				background-size: auto auto!important;
+				width:auto!important;
+			}
+		</style>';		
+		
+	}
+
+}
+add_action('login_head', 'custom_login_logo');
+
+
+/*function my_login_logo() { ?>
+    <style type="text/css">
+        .login h1 a {
+            background-image: url(<?php echo get_stylesheet_directory_uri(); ?>/images/site-login-logo.png);
+            padding-bottom: 30px;
+        }
+    </style>
+<?php }
+add_action( 'login_enqueue_scripts', 'my_login_logo' );*/
+

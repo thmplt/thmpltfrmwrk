@@ -9,4 +9,7 @@
 <file name="footer.php" server="45.79.158.100:2222" local="130827453859134130" remote="130843749020000000" Dst="2" />
 <file name="header.php" server="45.79.158.100:2222" local="130827453859654300" remote="130843749020000000" Dst="2" />
 <file name="sidebar.php" server="45.79.158.100:2222" local="130827453863099740" remote="130843749020000000" Dst="2" />
+<file name="footer.php" server="45.79.223.192:2222" local="130900015924413982" remote="130900056560000000" Dst="1" />
+<file name="header.php" server="45.79.223.192:2222" local="130900015924504223" remote="130900056560000000" Dst="1" />
+<file name="sidebar.php" server="45.79.223.192:2222" local="130900015924614128" remote="130900056570000000" Dst="1" />
 </dwsync>

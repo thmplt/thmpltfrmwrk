@@ -9,7 +9,7 @@
 		"public" => true, 
 		
 		'labels' => array(
-			'name' => 'Content', // general name for the post type, usually plural
+			'name' => 'thmplt Content', // general name for the post type, usually plural
 			'singular_name' => 'Content', // Singular name for one object of this post type
 			'add_new' => 'Add New Content', 
 			'add_new_item' => 'New Content',
@@ -22,7 +22,9 @@
 		),
 		'public' => false,
 		'show_ui' => true,
-		'show_in_menu' => 'thmplt-options', // Put it in the "theme egg menu"
+		//'show_in_menu' => 'thmplt-options', // Put it in the "theme egg menu"
+		//'menu_position' => 61.1,
+		'menu_icon' => THMPLT_SVG_B64,
 		'hierarchical' => false, // true to treat as pages... can have parent/children	
 		'has_archive' => false, // archive/results page (can be set to slug of archive)
 		'rewrite' => false, 
@@ -54,8 +56,8 @@
 
 add_action ('admin_menu','thmplt_content_options');
 function thmplt_content_options() {
-	//$parent_slug = "edit.php?post_type=thmplt_content";
-	$parent_slug = "thmplt-options";
+	$parent_slug = "edit.php?post_type=thmplt_content";
+	//$parent_slug = "thmplt-options";
 	$page_title = "Content Options";
 	$menu_title = "Content Options";
 	$capability = "publish_posts";
@@ -113,7 +115,11 @@ function content_options_callback () {
 							if (!empty($arg['description'])) { 
 								echo "<br /><span class='description'>". $arg['description'] . "</span> <br />";
 							}
+							
+							echo "<span class='shortcode'>[thmplt_content cid='".$id."' ]</span> <br />";
+							
 							@thmplt_content_dropdown( "thmplt_content[".$id."]" , $thmplt_content[$id] );
+							//echo "<br /><strong>Shortcode:</strong>&nbsp;&nbsp;&nbsp; [thmplt_content cid='".$id."' ]";
 							echo "<br /><br />";
 						}
 						
@@ -246,6 +252,34 @@ function thmplt_show_content($id) {
 }
 
 
+
+/**
+ * display the content based on the registered ID through wp shortcode method
+ * 
+ * @param array $atts The attributes passed on from wp shortcode
+ * @return string The content fromt the attached post
+ */
+function thmplt_show_content_shortcode($atts) {
+
+	extract( shortcode_atts( array(
+		'cid' => '', // Which content ID to pull 
+		'id' => '',	// selector/s	
+		'class' => ''
+	), $atts ) );
+	
+	$html = "<div ";
+	$html .= (empty($id))? "": " id='".$id."'"; 
+	$html .= "class='thmplt_content ". $class ."'> \n";
+	
+	$html .= thmplt_show_content($cid);
+	$html .= "</div> \n\n";
+	
+}
+add_shortcode('thmplt_content', 'thmplt_show_content_shortcode');
+
+
+
+
 /**
  * Add all filters from "the_content" and apply it to "thmplt_content"
  * for compatibility reasons
@@ -261,4 +295,4 @@ function thmplt_show_content($id) {
 	}
 
 
-?>
+

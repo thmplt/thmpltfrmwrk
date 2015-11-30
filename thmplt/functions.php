@@ -5,6 +5,20 @@
 
 
 /**
+ * thmplt current version 
+ */
+define("THMPLT_VERSION", "1.0.9");
+
+
+
+/**
+ * thmplt SVG logo
+ */
+define("THMPLT_SVG_B64" , "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz48c3ZnIHZlcnNpb249IjEuMSIgaWQ9IkxheWVyXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IiB2aWV3Qm94PSIwIDAgMzIgMzIiIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDMyIDMyIiB4bWw6c3BhY2U9InByZXNlcnZlIj48ZyBpZD0iTGF5ZXJfMV8xXyIgZGlzcGxheT0ibm9uZSI+PHBhdGggZGlzcGxheT0iaW5saW5lIiBmaWxsPSIjRUY0MjczIiBkPSJNMjcuNywwSDQuNEMyLDAsMC4xLDEuOSwwLjEsNC4zdjIzLjNjMCwyLjQsMS45LDQuMyw0LjMsNC4zaDIzLjNjMi40LDAsNC4zLTEuOSw0LjMtNC4zVjQuM0MzMiwxLjksMzAuMSwwLDI3LjcsMHogTTguNywyNS44Yy0yLDAtMy42LTAuOS0zLjYtMy40YzAtMC43LDAuMS0xLjQsMC4yLTJjMC4xLTAuNywwLjItMS4zLDAuMi0yYzAtMS43LTItMi4zLTItMi41YzAtMC4yLDItMC44LDItMi40YzAtMC43LTAuMS0xLjQtMC4yLTIuMWMtMC4xLTAuNy0wLjItMS40LTAuMi0yYzAtMi4zLDEuNS0zLjIsMi45LTMuMmgxLjFjMCwwLTAuNywwLjEtMS4yLDAuNUM3LjUsNyw2LjksNy44LDYuOCw5LjZjMCwwLjYsMC4xLDEuMiwwLjIsMS43YzAuMSwwLjYsMC4yLDEuMiwwLjIsMS45YzAsMS42LTAuNywyLjQtMS44LDIuN2wwLDBjMS4xLDAuMywxLjgsMS4xLDEuOCwyLjdjMCwwLjctMC4xLDEuMy0wLjIsMS45cy0wLjIsMS4yLTAuMiwxLjhjMCwxLjQsMC40LDIuMywwLjcsMi42YzAuOCwwLjksMS42LDAuOSwxLjYsMC45SDguN3ogTTE4LjMsMTQuMnYxMS41Yy00LjcsMC00LjYtMy41LTQuNi0zLjV2LTguMUg5LjF2LTEuMmMyLjQsMCwzLjktMS43LDQuMy0yLjdDMTQuMiw4LjMsMTMuNyw2LDEzLjcsNmM0LjksMCw0LjYsNC42LDQuNiw0LjZIMjNDMjMsMTQuMiwxOC4zLDE0LjIsMTguMywxNC4yeiBNMjYuNiwxOC40YzAsMC43LDAuMSwxLjQsMC4yLDIuMXMwLjIsMS40LDAuMiwyYzAsMi4zLTEuNSwzLjItMi45LDMuMkgyM2MwLDAsMC43LTAuMSwxLjItMC41czEuMS0xLjEsMS4yLTNjMC0wLjYtMC4xLTEuMi0wLjItMS43Yy0wLjEtMC42LTAuMi0xLjItMC4yLTEuOWMwLTEuNiwwLjctMi40LDEuOC0yLjdsMCwwYy0xLjEtMC4zLTEuOC0xLjEtMS44LTIuN2MwLTAuNywwLjEtMS4zLDAuMi0xLjljMC4xLTAuNiwwLjItMS4yLDAuMi0xLjhjMC0xLjQtMC40LTIuMy0wLjctMi42QzIzLjgsNi4xLDIzLDYuMiwyMyw2LjJoMC40YzIsMCwzLjYsMC45LDMuNiwzLjRjMCwwLjctMC4xLDEuNC0wLjIsMmMtMC4xLDAuNy0wLjIsMS4zLTAuMiwyYzAsMS43LDIsMi4zLDIsMi41QzI4LjYsMTYuMiwyNi42LDE2LjgsMjYuNiwxOC40eiIvPjwvZz48ZyBpZD0iTGF5ZXJfMiIgZGlzcGxheT0ibm9uZSI+PGcgZGlzcGxheT0iaW5saW5lIj48ZWxsaXBzZSBkaXNwbGF5PSJub25lIiBmaWxsPSIjRUY0MjczIiBjeD0iMTYuMiIgY3k9IjE1LjkiIHJ4PSIxNS43IiByeT0iMTUuOSIvPjxwYXRoIGRpc3BsYXk9Im5vbmUiIGZpbGw9IiNFRjQyNzMiIGQ9Ik0xOS43LDMySDEyQzUuNCwzMiwwLDI2LjYsMCwyMHYtOEMwLDUuNCw1LjQsMCwxMiwwaDcuN2M2LjYsMCwxMiw1LjQsMTIsMTJ2OEMzMS43LDI2LjYsMjYuMywzMiwxOS43LDMyeiIvPjxwYXRoIGRpc3BsYXk9Im5vbmUiIGZpbGw9IiNGRkZGRkYiIGQ9Ik0xNywwLjJjMCwwLDAuOCw0LjQtMC41LDguM2MtMC43LDItMy4xLDEuOC02LjksMS45VjE2SDE3djE1LjhjMCwwLTAuMiw2LjgsNy40LDYuOFYxNS45YzAsMCw3LjQsMCw3LjQtNi43aC03LjRDMjQuNCw5LjIsMjQuOCwwLjIsMTcsMC4yeiIvPjxnIGRpc3BsYXk9Im5vbmUiPjxwYXRoIGRpc3BsYXk9ImlubGluZSIgZmlsbD0iIzQwODBDMiIgZD0iTTI3LjUsMTkuMmMwLDAuOSwwLjIsMS45LDAuNCwyLjhjMC4yLDAuOSwwLjQsMS44LDAuNCwyLjhjMCwzLjEtMi44LDQuNC01LjYsNC40aC0yLjFjMCwwLDEuMy0wLjEsMi4yLTAuN2MwLjktMC41LDIuMS0xLjUsMi4yLTQuMWMwLTAuOC0wLjEtMS42LTAuMy0yLjRjLTAuMi0wLjgtMC4zLTEuNi0wLjMtMi41YzAtMi4xLDEuMy0zLjIsMy40LTMuNnYtMC4xYy0yLjEtMC40LTMuNC0xLjUtMy40LTMuN2MwLTAuOSwwLjEtMS43LDAuMy0yLjVDMjQuOSw4LjgsMjUsOCwyNSw3LjJjMC0xLjktMC44LTMuMS0xLjMtMy41Yy0xLjUtMS4zLTMuMS0xLjItMy4xLTEuMmwwLjgtMC4xYzMuOSwwLDYuOCwxLjIsNi44LDQuNmMwLDAuOS0wLjIsMS44LTAuNCwyLjdjLTAuMiwwLjktMC40LDEuOC0wLjQsMi43YzAsMi4zLDMuOCwzLjEsMy44LDMuM1MyNy41LDE3LDI3LjUsMTkuMnoiLz48L2c+PGcgZGlzcGxheT0ibm9uZSI+PHBhdGggZGlzcGxheT0iaW5saW5lIiBmaWxsPSIjNDE4MUMzIiBkPSJNNCwxMi41YzAtMC45LTAuMi0xLjktMC40LTIuOEMzLjQsOC44LDMuMiw3LjksMy4yLDYuOWMwLTMuMSwyLjktNC40LDUuOS00LjRoMi4xYzAsMC0xLjQsMC4xLTIuMywwLjdDOCwzLjcsNi43LDQuNyw2LjYsNy4yYzAsMC44LDAuMSwxLjYsMC4zLDIuNGMwLjIsMC44LDAuMywxLjYsMC4zLDIuNmMwLDIuMS0xLjMsMy4yLTMuNSwzLjZ2MC4xYzIuMiwwLjQsMy42LDEuNSwzLjUsMy43YzAsMC45LTAuMSwxLjctMC4zLDIuNmMtMC4yLDAuOC0wLjMsMS42LTAuMywyLjRjMCwxLjksMC44LDMuMSwxLjQsMy41YzEuNSwxLjMsMy4yLDEuMiwzLjIsMS4ybC0wLjksMC4xYy00LjEsMC03LjEtMS4yLTcuMS00LjZjMC0wLjksMC4yLTEuOCwwLjQtMi44QzMuOCwyMSw0LDIwLjEsNCwxOS4yYzAtMi4zLTQtMy4xLTQtMy4zQzAsMTUuNiw0LDE0LjcsNCwxMi41eiIvPjwvZz48cmVjdCB4PSIxLjMiIHk9IjEwLjMiIGRpc3BsYXk9Im5vbmUiIGZpbGw9IiNGRkZGRkYiIHdpZHRoPSI2IiBoZWlnaHQ9IjUuNiIvPjxnIGRpc3BsYXk9Im5vbmUiPjxwYXRoIGRpc3BsYXk9ImlubGluZSIgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyLjMsMjguMXYxLjZoLTEuMmMtMywwLTUuMS0wLjUtNi4xLTEuNWMtMC44LTAuNy0xLjItMS45LTEuMi0zLjVjMC0wLjYsMC0xLjIsMC4xLTEuOGMwLTAuNiwwLjEtMS4yLDAuMS0xLjhjMC0xLjEtMC4yLTItMC43LTIuNWMtMC42LTAuOC0xLjctMS4zLTMuMy0xLjV2LTEuNGMxLjYtMC4yLDIuNy0wLjcsMy4zLTEuNEMzLjcsMTMuNyw0LDEyLjksNCwxMS44YzAtMC41LTAuMS0xLjMtMC4yLTIuMmMtMC4xLTEtMC4xLTEuNS0wLjEtMS43YzAtMS41LDAuNS0yLjcsMS40LTMuNGMxLjMtMC45LDMuNy0xLjQsNy4yLTEuNHYxLjZDMTAuMSw0LjgsOC41LDUuMyw3LjYsNmMtMC43LDAuNS0xLDEuNC0xLDIuNWMwLDAuNSwwLjEsMS4yLDAuMiwyLjFjMC4xLDEsMC4yLDEuNiwwLjIsMS44YzAsMS0wLjIsMS44LTAuNywyLjRjLTAuNiwwLjgtMS43LDEuMy0zLjIsMS43YzEuNSwwLjQsMi42LDAuOSwzLjIsMS43QzYuOCwxOC44LDcsMTkuNiw3LDIwLjZjMCwwLjQtMC4xLDEuMS0wLjIsMnMtMC4yLDEuNS0wLjIsMS45YzAsMS4xLDAuMywxLjksMSwyLjRDOC41LDI3LjUsMTAuMSwyOCwxMi4zLDI4LjF6Ii8+PC9nPjxjaXJjbGUgZGlzcGxheT0ibm9uZSIgZmlsbD0iI0ZGRkZGRiIgY3g9IjQuNyIgY3k9IjIzLjMiIHI9IjEuMiIvPjxjaXJjbGUgZGlzcGxheT0ibm9uZSIgZmlsbD0iI0ZGRkZGRiIgY3g9IjQuOCIgY3k9IjIwLjMiIHI9IjAuNiIvPjxwYXRoIGZpbGw9IiNFRjQyNzMiIGQ9Ik0yNy41LDI4LjhjLTEuMiwwLjUtMi4xLDAuNy0yLjgsMC44Yy01LDAuNi02LjYtMC44LTcuMS01LjNsLTEuMS05LjdMMTIuNiwxNWwtMC43LTAuN2wtMC41LTQuNmw0LjUtMC41bC0wLjctNi40TDIyLjMsMmwxLjEsMC4zbDAuNyw2bDUuNy0wLjdDMzAuNyw4LDMxLjEsMTIuNSwzMCwxM2wtNS4yLDAuNmwwLjksOC4yYzAuNCwzLjIsMi4yLDMuNiwzLjMsMy41YzAuOS0wLjEsMS45LTAuNCwyLjktMC45VjQuM0MzMS45LDEuOSwzMCwwLDI3LjYsMEg0LjRDMiwwLDAuMSwxLjksMC4xLDQuM3YyMy40QzAuMSwzMC4xLDIsMzIsNC40LDMyaDIzLjJjMi40LDAsNC4zLTEuOSw0LjMtNC4zdi0xLjJMMjcuNSwyOC44eiBNOS4yLDI5LjVjLTIuNywwLTQuOS0yLjItNC45LTQuOXMyLjItNC45LDQuOS00LjlzNC45LDIuMiw0LjksNC45UzExLjksMjkuNSw5LjIsMjkuNXoiLz48ZyBkaXNwbGF5PSJub25lIj48cGF0aCBkaXNwbGF5PSJpbmxpbmUiIGZpbGw9IiNGRkZGRkYiIGQ9Ik0xLjcsMTguNWMwLTAuMS0wLjEtMC4zLTAuMS0wLjVzMC0wLjQsMC0wLjZjMC0wLjUsMC4yLTAuNiwwLjgtMC44YzEuOS0wLjgsMS4zLTMuNCwxLjUtNi44QzQsOC4zLDQuNiw3LjEsNS42LDZjMC44LTAuOSwyLTEuNiwzLjMtMi4xYzAuMSwwLDAuMy0wLjEsMC40LTAuMWMwLjMsMCwwLjUsMC4xLDAuNywwLjRzMC4zLDAuOSwwLjQsMS4xYzAsMC4zLTAuMSwwLjQtMC42LDAuN2MtMS42LDAuOS0yLDIuNS0yLjIsNS4xYy0wLjEsMi42LTAuMSw1LTIuMSw2LjNjMiwwLjMsMi4yLDEuOCwzLjMsNS41YzAuNywyLjMsMS40LDQsMy4xLDQuN2MwLjYsMC4yLDAuOCwwLjMsMC45LDAuN2MwLDAuNC0wLjEsMC44LTAuMiwxLjJjLTAuMSwwLjMtMC4yLDAuNC0wLjUsMC40Yy0wLjEsMC0wLjMsMC0wLjUsMGMtMS43LTAuMi0zLTAuOC00LTEuN2MtMS0wLjgtMS42LTEuOS0yLTMuMmMtMC45LTMuMy0wLjYtNS42LTIuNy01LjlDMi4yLDE5LjEsMS45LDE5LDEuNywxOC41eiIvPjwvZz48cmVjdCB4PSIxMC4xIiB5PSIxMC42IiB0cmFuc2Zvcm09Im1hdHJpeCgtMC45OTU4IDkuMTk5MjQ2ZS0wMDIgLTkuMTk5MjQ2ZS0wMDIgLTAuOTk1OCAyOC43NzY1IDI3LjY3MDkpIiBkaXNwbGF5PSJub25lIiBmaWxsPSIjRUY0MjczIiB3aWR0aD0iNy4zIiBoZWlnaHQ9IjcuOCIvPjwvZz48L2c+PHBhdGggZmlsbD0iI0NDMzM2NiIgZD0iTTIzLjksMEMyMy4zLDAsMi43LDAsMi40LDBDMi4xLDAsMS4xLDAuMSwwLjYsMC42UzAsMS45LDAsMi4yYzAsMC4zLDAsMjAuMywwLDIxLjJjMCwwLjgsMC41LDIsMS45LDJzMS45LTEuMywxLjktMmMwLTAuNywwLTE5LjUsMC0xOS41czE5LjMsMCwyMCwwYzAuNywwLDEuNi0wLjcsMS42LTJDMjUuNCwwLjYsMjQuNCwwLDIzLjksMHoiLz48cGF0aCBmaWxsPSIjQ0MzMzY2IiBkPSJNOC44LDMyYzAuNiwwLDIwLjYsMCwyMC45LDBjMC4zLDAsMS4zLTAuMSwxLjgtMC42YzAuNS0wLjUsMC42LTEuMywwLjYtMS42czAtMjAuMywwLTIxLjJjMC0wLjgtMC42LTItMS45LTJjLTEuNCwwLTEuOCwxLjMtMS44LDJzMCwxOS41LDAsMTkuNXMtMTguOCwwLTE5LjQsMGMtMC42LDAtMS43LDAuNi0xLjcsMkM3LjIsMzEuNSw4LjMsMzIsOC44LDMyeiIvPjxwYXRoIGZpbGw9IiNDQzMzNjYiIGQ9Ik0xMiwxMS4yYzAuMSwwLDAuNywwLDEuOCwwYzAsMCwwLjEtMi45LDAuMS0zLjFjMC0wLjUsMC40LTEuNCwxLjUtMS40QzE2LjIsNi43LDE3LDcuMSwxNyw4YzAsMC4xLDAuMSwzLjMsMC4xLDMuM2MwLjcsMC4xLDIuNiwwLDIuOSwwYzEuMiwwLDEuOSwwLjcsMS45LDEuN2MwLDEuMi0wLjgsMS43LTEuOCwxLjhjLTAuMywwLTMsMC4xLTMsMC4xUzE3LDE2LjQsMTcsMTkuMWMwLDAuNS0wLjIsMi4zLDEuMywyLjRjMC40LDAsMi4xLTAuMSwyLjcsMGMwLjYsMC4xLDEuMSwwLjYsMC45LDEuM2MtMC4yLDEtMS43LDEuNS0zLjIsMS42Yy0xLjUsMC4xLTIuNiwwLTMuMS0wLjFjLTEuNC0wLjMtMS45LTEuNS0yLjEtMi41Yy0wLjEtMC42LTAuMS03LjEtMC4xLTcuMXMtMS4zLDAtMS44LDBjLTAuOSwwLTEuNy0wLjQtMS43LTEuN1MxMC45LDExLjIsMTIsMTEuMnoiLz48L3N2Zz4=");
+
+
+
+/**
  * pass classes to the sidebar globally
  *
  */
@@ -73,7 +87,6 @@ function thmplt_add_main_section_classes($classes, $post_id=NULL){
 add_filter('main_section_class','thmplt_add_main_section_classes');
 
 
-
 /**
  * The pagination 
  *
@@ -121,8 +134,6 @@ function thmplt_title($before, $after, $args=array()) {
 
 		// Merge Defaults with real values 	
 		$args = array_merge($defaults,$args); // Overwrite Defaults
-
-	
 		
 	//$post = $posts[0]; // Hack. Set $post so that the_date() works. 
 		if ( is_category() ) { 
@@ -149,6 +160,7 @@ function thmplt_title($before, $after, $args=array()) {
 }
 
 
+
 /**
  * Resgister a font for later enqueuing 
  * 
@@ -156,7 +168,6 @@ function thmplt_title($before, $after, $args=array()) {
  * @param string $scr URL source to stylesheet
  * @param string $inline Inline CSS to be added to this stylesheet
  */
-
 function thmplt_register_font ($id, $src, $inline=NULL) {
 
 	global $thmplt_style;
@@ -172,6 +183,8 @@ function thmplt_register_font ($id, $src, $inline=NULL) {
 	);
 	
 }
+
+
 
 /**
  * Add the style using wp_enqueue_style and wp_add_inline_style
@@ -211,7 +224,6 @@ add_action("wp_print_styles", "thmplt_do_registered_font") ;
  * If this parameter is true, the script is placed before the </body> end tag
  * 
  */
-
 function thmplt_register_script ($id, $src=false, $deps=array(), $ver=false, $in_footer=false) {
 
 	global $thmplt_scripts;
@@ -229,6 +241,8 @@ function thmplt_register_script ($id, $src=false, $deps=array(), $ver=false, $in
 		);
 	
 }
+
+
 
 /**
  * Add the scripts using wp_enqueue_script 
@@ -249,6 +263,7 @@ function thmplt_do_registered_scripts () {
 add_action("wp_enqueue_scripts", "thmplt_do_registered_scripts");
 
 
+
 /**
  * Resgister a Styles file for later enqueuing 
  * 
@@ -262,7 +277,6 @@ add_action("wp_enqueue_scripts", "thmplt_do_registered_scripts");
  * If this parameter is true, the script is placed before the </body> end tag
  * 
  */
-
 function thmplt_register_styles ($id, $src=false, $deps=array(), $ver=false, $media='all') {
 
 	global $thmplt_styles;
@@ -282,6 +296,7 @@ function thmplt_register_styles ($id, $src=false, $deps=array(), $ver=false, $me
 }
 
 
+
 /**
  * Add the styles using wp_enqueue_script 
  * that was registered with thmplt_register_styles
@@ -299,6 +314,7 @@ function thmplt_do_registered_styles () {
 	}
 }
 add_action("wp_enqueue_scripts", "thmplt_do_registered_styles");
+
 
 
 /**
@@ -348,6 +364,7 @@ function thmplt_special_body_classes($classes) {
 }#end function
 
 
+
 /**
  * Function allows to delete an array based on value
  */
@@ -370,7 +387,6 @@ function thmplt_remove_empty_p($content){
 	
 }
 add_filter('the_content', 'thmplt_remove_empty_p', 20, 1);
-
 
 
 
@@ -402,6 +418,7 @@ function thmplt_clone_list($atts){
 add_shortcode('thmplt_clone_list','thmplt_clone_list');
 
 
+
 /**
  * lists all sub-nav items based on menu location in the admin
  *
@@ -426,6 +443,26 @@ function thmplt_wp_nav($atts){
 	 return $html;
 }
 add_shortcode('thmplt_wp_nav','thmplt_wp_nav');
+
+
+/**
+ * Get the sidebar/widgets to return through a shortcode 
+ *
+ */
+function thmplt_dynamic_sidebar_shortcode($atts){
+	extract( shortcode_atts( array(
+		'sidebar' => '',
+	), $atts ) );
+		
+    ob_start();
+    dynamic_sidebar($sidebar);
+    $sidebar_ob = ob_get_contents();
+    ob_end_clean();
+	
+	return $sidebar_ob;
+}
+add_shortcode('thmplt_dynamic_sidebar','thmplt_dynamic_sidebar_shortcode');
+
 
 
 include ( TEMPLATEPATH . "/thmplt/theme_options.php" );	

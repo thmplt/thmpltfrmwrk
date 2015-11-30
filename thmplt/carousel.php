@@ -9,7 +9,7 @@
 		"public" => true, 
 		
 		'labels' => array(
-			'name' => 'Carousel', // general name for the post type, usually plural
+			'name' => 'thmplt Carousel', // general name for the post type, usually plural
 			'singular_name' => 'Carousel', // Singular name for one object of this post type
 			'add_new' => 'Add New Slide', 
 			'add_new_item' => 'New Slide',
@@ -22,7 +22,8 @@
 		),
 		'public' => false,
 		'show_ui' => true,		
-		'show_in_menu' => 'thmplt-options', // Put it in the "theme egg tab"
+		//'show_in_menu' => 'thmplt-options', // Put it in the "theme egg tab"
+		'menu_icon' => THMPLT_SVG_B64,
 		'hierarchical' => false, // true to treat as pages... can have parent/children	
 		'has_archive' => false, // archive/results page (can be set to slug of archive)
 		'rewrite' => false, 
@@ -54,8 +55,8 @@
 
 add_action ('admin_menu','thmplt_carousel_options');
 function thmplt_carousel_options() {
-	//$parent_slug = "edit.php?post_type=thmplt_carousel";
-	$parent_slug = "thmplt-options";
+	$parent_slug = "edit.php?post_type=thmplt_carousel";
+	//$parent_slug = "thmplt-options";
 	$page_title = "Carousel Options";
 	$menu_title = "Carousel Options";
 	$capability = "publish_posts";

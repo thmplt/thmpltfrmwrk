@@ -21,4 +21,4 @@
 <?php do_action('thmplt_after_body_tag'); ?>
 </html>
 <?php do_action('thmplt_after_html_tag'); ?>
-<!-- Developed with thmpltfrmwrk v1.1 --> 
+<!-- Developed with thmpltfrmwrk <?php echo THMPLT_VERSION; ?> --> 
