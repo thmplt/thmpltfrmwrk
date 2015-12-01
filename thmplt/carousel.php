@@ -73,7 +73,7 @@ function thmplt_carousel_options() {
  */
 function carousel_options_callback () {
 	
-	$number_of_slides = 5;
+	$default_number_of_slides = 5;
 	
 	$thmplt_carousel_options = get_option('thmplt_carousel_options');
 	$thmplt_carousel_slides = get_option('thmplt_carousel_slides');
@@ -83,12 +83,42 @@ function carousel_options_callback () {
 
 	}
 	
+	$number_of_slides = empty($thmplt_carousel_options['number_of_slides']) ? $default_number_of_slides : $thmplt_carousel_options['number_of_slides'];
+	
 	echo "<div class='wrap'>";
 		echo "<h2>Carousel Settings</h2>";
 		
 		echo "<form method='post' name='options'>";
 			echo "<table class='form-table' >";
 				echo "<tbody>";
+
+
+					/**
+					 * HTML/Option for the slides 
+					 */ 
+					echo "<tr>";
+					echo "<th scope='row'><label for='blogname'>Slide Amount</label></th>";
+					echo "<td>";
+					
+						echo "<fieldset>";
+						echo "<label>Choose how many slides the carousel will hold.</label><br /><br />";
+					
+						echo "<select name='thmplt_carousel_options[number_of_slides]'>";
+						/**
+						 * loop creates the drop downs for selecting the amount of slides go on the front page
+						 */
+						for ( $as=1; $as <= 15; $as++ ) { 
+							
+							$as_selected = ($as == $number_of_slides) ? "selected": NULL;
+							echo "<option value='".$as."' ".$as_selected."  >".$as."</option>";
+					
+						}
+						echo "</select>";
+						
+						echo "</fieldset>";
+					echo "</td>";
+					echo "</tr>";
+
 				
 					/**
 					 * HTML/Option for the slides 
@@ -106,7 +136,7 @@ function carousel_options_callback () {
 						for ( $s=1; $s <= $number_of_slides; $s++ ) { 
 						
 							echo "<strong> Slide " .$s . "</strong> ";
-							thmplt_carousel_dropdown( "thmplt_carousel_slides[slide". $s ."]" , $thmplt_carousel_slides['slide'.$s ] );
+						@	thmplt_carousel_dropdown( "thmplt_carousel_slides[slide". $s ."]" , $thmplt_carousel_slides['slide'.$s ] );
 							echo "<br />";
 						}
 						

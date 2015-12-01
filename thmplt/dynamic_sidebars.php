@@ -14,7 +14,7 @@
 		"public" => true, 
 		
 		'labels' => array(
-			'name' => 'thpmlt Sidebars', // general name for the post type, usually plural
+			'name' => 'thmplt Sidebars', // general name for the post type, usually plural
 			'singular_name' => 'Sidebar', // Singular name for one object of this post type
 			'add_new' => 'Add New Sidebar', 
 			'add_new_item' => 'New Sidebar',
