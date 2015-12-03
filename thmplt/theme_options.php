@@ -468,8 +468,10 @@ function thmplt_register_customizer_settings( $wp_customize ) {
 add_action( 'customize_register', 'thmplt_register_customizer_settings' );
 
 
-// custom admin login logo
-function custom_login_logo() {
+/**
+ * custom admin login logo
+ */
+function thmplt_custom_login_logo() {
 	
 	
 	if ( thmplt_option('logon_logo', false)) {
@@ -486,16 +488,24 @@ function custom_login_logo() {
 	}
 
 }
-add_action('login_head', 'custom_login_logo');
+add_action('login_head', 'thmplt_custom_login_logo');
 
 
-/*function my_login_logo() { ?>
-    <style type="text/css">
-        .login h1 a {
-            background-image: url(<?php echo get_stylesheet_directory_uri(); ?>/images/site-login-logo.png);
-            padding-bottom: 30px;
-        }
-    </style>
-<?php }
-add_action( 'login_enqueue_scripts', 'my_login_logo' );*/
+/**
+ * Change the URL of the login header to the homepage of the site
+ */
+function thmplt_loginpage_custom_link() {
+	return get_bloginfo('url');
+}
+add_filter('login_headerurl','thmplt_loginpage_custom_link');
+
+
+/**
+ * Change the name of the login header to the site's name 
+ */
+function thmplt_loginpage_headertitle() {
+	return get_bloginfo('name');
+}
+add_filter('login_headertitle', 'thmplt_loginpage_headertitle');
+
 

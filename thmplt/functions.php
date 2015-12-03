@@ -465,6 +465,20 @@ add_shortcode('thmplt_dynamic_sidebar','thmplt_dynamic_sidebar_shortcode');
 
 
 
+/**
+ * Get bloginfo in the editor as a shortcode
+ */
+function thmplt_bloginfo_shortcode($atts){
+	extract( shortcode_atts( array(
+		'info' => ''
+	), $atts ) );	
+	
+	return get_bloginfo($info);
+	
+}
+add_shortcode('thmplt_bloginfo','thmplt_bloginfo_shortcode');
+
+
 include ( TEMPLATEPATH . "/thmplt/theme_options.php" );	
 include ( TEMPLATEPATH . "/thmplt/carousel.php" );
 include ( TEMPLATEPATH . "/thmplt/content.php" );
