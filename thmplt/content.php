@@ -273,6 +273,8 @@ function thmplt_show_content_shortcode($atts) {
 	
 	$html .= thmplt_show_content($cid);
 	$html .= "</div> \n\n";
+
+	return $html;
 	
 }
 add_shortcode('thmplt_content', 'thmplt_show_content_shortcode');
