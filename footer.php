@@ -11,6 +11,7 @@
     locate_template('/structure/footer.php', true); 
     
     ?>
+	<?php do_action('thmplt_after_main_footer'); ?>   
 
 	<?php wp_footer(); ?>
 

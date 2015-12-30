@@ -1,0 +1,28 @@
+/* CSS Document */
+
+
+
+.tpf-jq-sortable, .tpf-jq-sortable-master {
+    background: #fff none repeat scroll 0 0;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    max-width: 650px;
+    padding: 10px 10px 4px;
+    width: 100%;
+	font-weight: normal;
+}
+
+
+
+.ui-sortable-handle, .ui-draggable-handle {
+    border: 1px solid #ddd;
+    padding: 5px;
+	background:#f7f7f7;
+	font-weight: normal;
+	cursor:move;
+}
+
+.ui-sortable-helper {
+	background:#E8F4F9;
+}
+

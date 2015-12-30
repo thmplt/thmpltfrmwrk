@@ -44,7 +44,7 @@ get_header(); ?>
                         </li>
                         <?php if ( comments_open() ) { ?>
                        	<li class="comments-link">
-	                        <?php comments_popup_link( '<span class="leave-reply">' . "Leave a reponse" . '</span>', "one reponse", "View all % reponses" ); ?>
+	                        <?php comments_popup_link( '<span class="leave-reply">' . "Leave a response" . '</span>', "one response", "View all % responses" ); ?>
                         </li>
                         <?php } ?>
 					</ul>                    

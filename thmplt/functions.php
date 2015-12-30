@@ -7,7 +7,7 @@
 /**
  * thmplt current version 
  */
-define("THMPLT_VERSION", "1.0.9");
+define("THMPLT_VERSION", "1.1.0");
 
 
 
@@ -483,3 +483,5 @@ include ( TEMPLATEPATH . "/thmplt/theme_options.php" );
 include ( TEMPLATEPATH . "/thmplt/carousel.php" );
 include ( TEMPLATEPATH . "/thmplt/content.php" );
 include ( TEMPLATEPATH . "/thmplt/dynamic_sidebars.php" );	
+include ( TEMPLATEPATH . "/thmplt/sections.php" );
+include ( TEMPLATEPATH . "/thmplt/sections_options.php" );	

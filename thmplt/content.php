@@ -231,7 +231,7 @@ function thmplt_show_content($id) {
 	
 	
 	$content = get_post($thmplt_content[$id]);
-	$post_content = $content->post_content;
+	@$post_content = $content->post_content;
 
 
 	// call actions here for things like removing filters

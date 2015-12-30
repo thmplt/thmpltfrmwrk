@@ -106,6 +106,7 @@ $thmplt_options = get_option('thmplt_options');
 <!-- Beginning of page --> 
 <div class='pagewrapper'>
 
+<?php do_action('thmplt_before_main_header'); ?>
 <?php 
 /**
  * load extra header.php code/html here 
