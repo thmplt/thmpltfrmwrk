@@ -55,9 +55,12 @@ $thmplt_options = get_option('thmplt_options');
     if ( in_array('ie6',$bclasess) || in_array('ie7',$bclasess) || in_array('ie8',$bclasess) || in_array('ie9',$bclasess) ) { 
 
 		function thmplt_ie_html5_scripts(){
-			
+			echo "<!-- IE SCRIPTS START --> \n";
+			wp_register_script( 'ie-html5-js',esc_url( get_template_directory_uri() ) . '/js/my-script.js' );			
+			wp_register_script( 'ie-respond-js', esc_url( get_template_directory_uri() ) . '/js/my-script.js' );						
 			wp_enqueue_script('ie-html5-js',esc_url( get_template_directory_uri() )."/js/html5.js" );
 			wp_enqueue_script('ie-respond-js', esc_url( get_template_directory_uri() )."/js/respond.min.js" );
+			echo "<!-- IE SCRIPTS END --> \n";
 		}
 
 		add_action('wp_enqueue_scripts','thmplt_ie_html5_scripts');

@@ -7,7 +7,7 @@
 /**
  * thmplt current version 
  */
-define("THMPLT_VERSION", "1.1.0");
+define("THMPLT_VERSION", "1.0.9");
 
 
 
@@ -119,6 +119,12 @@ function thmplt_content_pagination(){
  */
 function thmplt_title($before, $after, $args=array()) {
 	global $post;
+	
+		// If there is a page_for_posts set... get the page
+		if ( get_option( 'page_for_posts' ) ) { 
+			 $hostpost = get_post( get_option( 'page_for_posts' ) );
+		} 
+	
 		$defaults = array(
 				'cat' => '{title}',
 				'tax' => '{title}',
@@ -127,8 +133,8 @@ function thmplt_title($before, $after, $args=array()) {
 				'month' => 'Posts From {title}',
 				'year' => 'Posts From {title}',
 				'author' => 'Achives from {title}',
-				'archived'=>'Latest Posts'
-				//'default' =>  $hostpost->post_title 
+				'archived'=>'Latest Posts',
+				'default' =>  $hostpost->post_title 
 			);
 	
 

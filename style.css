@@ -3,7 +3,7 @@
  * Theme URI: http://www.thmplt.com/thmpltfrmwrk
  * Github Theme URI: https://github.com/thmplt/thmpltfrmwrk
  * Description: Bootstrap 3 ready, responsive theme by thmplt. 
- * Version: 1.1.0
+ * Version: 1.1.1
  *
  * Author: thmplt team
  * Author URI: http://www.thmplt.com
@@ -100,70 +100,51 @@
  * 8.0 Alignments from WP 
  */
 
-.alignleft {
-	display: inline;
-	float: left;
-}
-
-.alignright {
-	display: inline;
-	float: right;
-}
-
-.aligncenter {
-	display: block;
-	margin-right: auto;
-	margin-left: auto;
-}
+.alignleft {display: inline;float: left;}
+.alignright {display: inline;float: right;}
+.aligncenter {display: block;margin-right: auto;margin-left: auto;}
 
 blockquote.alignleft,
 .wp-caption.alignleft,
-img.alignleft {
-	margin: 0.4em 1.6em 1.6em 0;
-}
+img.alignleft {	margin: 0.4em 1.6em 1.6em 0;}
 
 blockquote.alignright,
 .wp-caption.alignright,
-img.alignright {
-	margin: 0.4em 0 1.6em 1.6em;
-}
+img.alignright {margin: 0.4em 0 1.6em 1.6em; }
 
 blockquote.aligncenter,
 .wp-caption.aligncenter,
-img.aligncenter {
-	clear: both;
-	margin-top: 0.4em;
-	margin-bottom: 1.6em;
-}
+img.aligncenter {clear: both;margin-top: 0.4em;	margin-bottom: 1.6em;}
 
 .wp-caption.alignleft,
 .wp-caption.alignright,
-.wp-caption.aligncenter {
-	margin-bottom: 1.2em;
-}
+.wp-caption.aligncenter {margin-bottom: 1.2em;}
 
-.wp-caption-text {
-	color: #707070;
-	color: rgba(51, 51, 51, 0.7);
-	padding: 0.5em 0;
-}
+.wp-caption-text {color: #707070; color: rgba(51, 51, 51, 0.7);padding: 0.5em 0;}
+.gallery-caption {color: #707070;color: rgba(51, 51, 51, 0.7);display: block;padding: 0.5em 0;}
 
-.gallery-caption {
-	color: #707070;
-	color: rgba(51, 51, 51, 0.7);
-	display: block;
-	padding: 0.5em 0;
-}
 
+/* -- Quick Columns --*/
+[class*="qcol-"] { -webkit-column-gap: 30px;  -moz-column-gap: 30px;  column-gap: 30px;	}
+[class*="qcol-"] img { max-width:100%; height:auto; margin-bottom:10px}
+
+.qcol-xs-rule { -webkit-column-rule: 1px solid #ccc; -moz-column-rule: 1px solid #ccc; column-rule: 1px solid #ccc;} 
+.qcol-xs-rule-off { -webkit-column-rule: 0; -moz-column-rule:0; column-rule: 0} 
+
+.qcol-xs-one{ -webkit-column-count: 1; -moz-column-count: 1; column-count: 1}
+.qcol-xs-two { -webkit-column-count: 2; -moz-column-count: 2; column-count: 2}
+.qcol-xs-three { -webkit-column-count: 3; -moz-column-count: 3; column-count: 3}
+.qcol-xs-four { -webkit-column-count: 4; -moz-column-count: 4; column-count: 4}
+.qcol-xs-five { -webkit-column-count: 5; -moz-column-count: 5; column-count: 5}
+.qcol-xs-six { -webkit-column-count: 6; -moz-column-count: 6; column-count: 6}
+ 
 
 /**
  * Additional responsive classes
  */
- .col-xs-25 {
-        width: 20%;
-        float: left;
-    }
+ .col-xs-25 { width: 20%;float: left;}
 
+    .txt-xs-justify {text-align:justify;}
     .txt-xs-center {text-align:center;}
     .txt-xs-left {text-align:left}
     .txt-xs-right {text-align:right}   
@@ -174,11 +155,9 @@ img.aligncenter {
 
 
 @media (min-width: 768px) {
-    .col-sm-25 {
-        width: 20%;
-        float: left;
-    }
-   
+    .col-sm-25 { width: 20%;float: left;}
+
+    .txt-sm-justify {text-align:justify;}   
     .txt-sm-center {text-align:center}
     .txt-sm-left {text-align:left}
     .txt-sm-right {text-align:right}   
@@ -186,29 +165,48 @@ img.aligncenter {
     .align-sm-left {float:left; margin-right:30px}
     .align-sm-right {float:right; margin-left:30px}
     .align-sm-none {float:none; display:inline;}
+
+
+	.qcol-sm-rule { -webkit-column-rule: 1px solid #ccc; -moz-column-rule: 1px solid #ccc; column-rule: 1px solid #ccc;} 
+	.qcol-sm-rule-off { -webkit-column-rule: 0; -moz-column-rule:0; column-rule: 0} 	
+	
+	.qcol-sm-one { -webkit-column-count: 1; -moz-column-count: 1; column-count: 1}
+	.qcol-sm-two { -webkit-column-count: 2; -moz-column-count: 2; column-count: 2}
+	.qcol-sm-three { -webkit-column-count: 3; -moz-column-count: 3; column-count: 3}
+	.qcol-sm-four { -webkit-column-count: 4; -moz-column-count: 4; column-count: 4}
+	.qcol-sm-five { -webkit-column-count: 5; -moz-column-count: 5; column-count: 5}
+	.qcol-sm-six { -webkit-column-count: 6; -moz-column-count: 6; column-count: 6}	
+	
 }
 
 @media (min-width: 992px) {
-    .col-md-25 {
-        width: 20%;
-        float: left;
-    }
-   
+    .col-md-25 { width: 20%; float: left; }
+
+    .txt-md-justify {text-align:justify;}    
     .txt-md-center {text-align:center}
     .txt-md-left {text-align:left}
     .txt-md-right {text-align:right}   
     .align-md-center {display:block; float:none; margin-left:auto; margin-right:auto}
     .align-md-left {float:left; margin-right:30px}
     .align-md-right {float:right; margin-left:30px}
-    .align-md-none {float:none; display:inline}   
+    .align-md-none {float:none; display:inline}
+
+	.qcol-md-rule { -webkit-column-rule: 1px solid #ccc; -moz-column-rule: 1px solid #ccc; column-rule: 1px solid #ccc;} 
+	.qcol-md-rule-off { -webkit-column-rule: 0; -moz-column-rule:0; column-rule: 0} 
+	
+	.qcol-md-one { -webkit-column-count: 1; -moz-column-count: 1; column-count: 1}
+	.qcol-md-two { -webkit-column-count: 2; -moz-column-count: 2; column-count: 2}
+	.qcol-md-three { -webkit-column-count: 3; -moz-column-count: 3; column-count: 3}
+	.qcol-md-four { -webkit-column-count: 4; -moz-column-count: 4; column-count: 4}
+	.qcol-md-five { -webkit-column-count: 5; -moz-column-count: 5; column-count: 5}
+	.qcol-md-six { -webkit-column-count: 6; -moz-column-count: 6; column-count: 6}		
+	   
 }
 
 @media (min-width: 1200px) {
-    .col-lg-25 {
-        width: 20%;
-        float: left;
-    }
-   
+    .col-lg-25 { width: 20%; float: left; }
+
+    .txt-lg-justify {text-align:justify;}    
     .txt-lg-center {text-align:center}
     .txt-lg-left {text-align:left}
     .txt-lg-right {text-align:right}   
@@ -216,5 +214,16 @@ img.aligncenter {
     .align-lg-left {float:left; margin-right:30px}
     .align-lg-right {float:right; margin-left:30px}
     .align-lg-none {float:none; display:inline}
+
+	.qcol-lg-rule { -webkit-column-rule: 1px solid #ccc; -moz-column-rule: 1px solid #ccc; column-rule: 1px solid #ccc;} 
+	.qcol-lg-rule-off { -webkit-column-rule: 0; -moz-column-rule:0; column-rule: 0} 
+	
+	.qcol-lg-one { -webkit-column-count: 1; -moz-column-count: 1; column-count: 1}
+	.qcol-lg-two { -webkit-column-count: 2; -moz-column-count: 2; column-count: 2}
+	.qcol-lg-three { -webkit-column-count: 3; -moz-column-count: 3; column-count: 3}
+	.qcol-lg-four { -webkit-column-count: 4; -moz-column-count: 4; column-count: 4}
+	.qcol-lg-five { -webkit-column-count: 5; -moz-column-count: 5; column-count: 5}
+	.qcol-lg-six { -webkit-column-count: 6; -moz-column-count: 6; column-count: 6}	
+	
 }
 

@@ -11,7 +11,7 @@ get_header(); ?>
         
 			echo "<div "; thmplt_main_section_class( array('main_section') );  echo "> \n";
 
-			//echo "<h1 class='heading'>Recent posts</h1> \n";
+			thmplt_title("<h1 class='topheader'>","</h1>");
         
             // Start the loop.		 		
             while ( have_posts() ) : the_post(); ?>
