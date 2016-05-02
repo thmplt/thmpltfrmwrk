@@ -237,7 +237,7 @@ function thmplt_section_selectbox($name, $selected_id){
 
 
 /**
- * register a section/hooko to be used as part of a theme layout
+ * register a section/hook to be used as part of a theme layout
  * 
  * @param string $id The ID name of the content
  * @param array $args The arguments passed 

@@ -184,4 +184,35 @@ jQuery(document).ready(function(){
 	jQuery('.tpf-target-blank a, .tpf-target-blank').attr('target','_blank');
 	jQuery('.tpf-remove-target-blank a, .tpf-remove-target-blank').removeAttr('target');
 
-});	
+
+/**
+ * Create a full width bleed "breakout" of the container 
+ * 
+ */
+	if ( jQuery(".tpf-fwbleed").length ) { 
+		jQuery('.tpf-fwbleed').each( function( ){
+			tpfFWBleedMargin( jQuery(this) );
+//			jQuery(this).css("width", "100vw");
+		});  
+		jQuery( window ).resize(function() {
+			jQuery('.tpf-fwbleed').each( function( ){
+				tpfFWBleedMargin( jQuery(this) );
+			});    
+		});
+	}
+	
+	/**
+	 * Calculate the margin left of the element
+	 * based on the left of the container and the outerwidth 
+	 */		
+	function tpfFWBleedMargin( e ){
+		var outerW = ( e.closest(".container").outerWidth(true) - e.closest(".container").width() ) / 2; 
+		var parentW = e.closest(".wrapper").outerWidth(true);
+		e.css("margin-left", ( ( e.closest(".container").position().left + outerW ) * -1 ) + "px");
+		e.css("width", parentW + "px");	
+		// ( e.outerWidth(true) - e.width() ) / 2; // <-- Outerwidth formula 
+	}	
+
+
+
+});	// Close Jquery document ready 

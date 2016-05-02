@@ -353,10 +353,12 @@ function thmplt_special_body_classes($classes) {
 	
 	
 	if  ( !empty($thmplt['nosidebar']) && $thmplt['nosidebar'] == true ) { 
-
 		$classes[] = "nosidebar no-sidebar";
-	
 	}
+	
+	if ( !is_front_page()){ 
+		$classes[] = "inside";
+	} 
 	
 	//if (!empty($post)){
 		//$classes[] = "top-parent-". get_top_parent($post->ID) ;
