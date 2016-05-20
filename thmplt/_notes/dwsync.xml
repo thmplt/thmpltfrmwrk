@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <dwsync>
-<file name="sections_options.php" server="162.242.246.160:2222" local="131062297683506148" remote="131062297710000000" Dst="2" />
-<file name="dynamic_sidebars.php" server="162.242.246.160:2222" local="131052118390000000" remote="131052118390000000" Dst="2" />
-<file name="functions.php" server="162.242.246.160:2222" local="131062299847839090" remote="131062299870000000" Dst="2" />
-<file name="carousel.php" server="162.242.246.160:2222" local="131052118390000000" remote="131052118390000000" Dst="2" />
-<file name="content.php" server="162.242.246.160:2222" local="131052118390000000" remote="131052118390000000" Dst="2" />
-<file name="theme_options.php" server="162.242.246.160:2222" local="131052118390000000" remote="131052118390000000" Dst="2" />
-<file name="theme_options.js" server="162.242.246.160:2222" local="131052118390000000" remote="131052118390000000" Dst="2" />
-<file name="section_options.js" server="162.242.246.160:2222" local="131052118390000000" remote="131052118390000000" Dst="2" />
-<file name="section_options.css" server="162.242.246.160:2222" local="131052118390000000" remote="131052118390000000" Dst="2" />
-<file name="theme_options.css" server="162.242.246.160:2222" local="131052118390000000" remote="131052118390000000" Dst="2" />
-<file name="sections.php" server="162.242.246.160:2222" local="131062293311490805" remote="131062293340000000" Dst="2" />
+<file name="sections_options.php" server="162.242.246.160:2222" local="131062297683506148" remote="131066650720000000" Dst="2" />
+<file name="dynamic_sidebars.php" server="162.242.246.160:2222" local="131052118390000000" remote="131066650710000000" Dst="2" />
+<file name="functions.php" server="162.242.246.160:2222" local="131080464246364237" remote="131081446410000000" Dst="2" />
+<file name="carousel.php" server="162.242.246.160:2222" local="131052118390000000" remote="131066650710000000" Dst="2" />
+<file name="content.php" server="162.242.246.160:2222" local="131052118390000000" remote="131066650710000000" Dst="2" />
+<file name="theme_options.php" server="162.242.246.160:2222" local="131052118390000000" remote="131066650710000000" Dst="2" />
+<file name="theme_options.js" server="162.242.246.160:2222" local="131052118390000000" remote="131066650720000000" Dst="2" />
+<file name="section_options.js" server="162.242.246.160:2222" local="131052118390000000" remote="131066650710000000" Dst="2" />
+<file name="section_options.css" server="162.242.246.160:2222" local="131052118390000000" remote="131066650720000000" Dst="2" />
+<file name="theme_options.css" server="162.242.246.160:2222" local="131052118390000000" remote="131066650720000000" Dst="2" />
+<file name="sections.php" server="162.242.246.160:2222" local="131062293311490805" remote="131066650720000000" Dst="2" />
+<file name="latest.php" server="162.242.246.160:2222" local="131081545743232260" remote="131081545760000000" Dst="2" />
 </dwsync>

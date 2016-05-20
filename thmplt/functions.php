@@ -493,3 +493,4 @@ include ( TEMPLATEPATH . "/thmplt/content.php" );
 include ( TEMPLATEPATH . "/thmplt/dynamic_sidebars.php" );	
 include ( TEMPLATEPATH . "/thmplt/sections.php" );
 include ( TEMPLATEPATH . "/thmplt/sections_options.php" );	
+include ( TEMPLATEPATH . "/thmplt/latest.php" );
