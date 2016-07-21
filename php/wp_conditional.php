@@ -18,21 +18,67 @@ function thmplt_is_page($atts, $content = NULL ){
 	
     $a = shortcode_atts( array(
 		'is' => '',
+		'ifis' => '',
         'pids' => '',
-		'not' => '' 
+		'not' => '',
+		'ifnot' => ''		 
     ), $atts );	
+
 	
-	$pids = !empty($a['pids']) ? explode(",", $a['pids']): NULL ;
-	$is = !empty($a['is']) ? explode(",", $a['is']): NULL ;	
-	$not = !empty($a['not']) ? explode(",", $a['not']): NULL ;
+	$pids = !empty($a['pids']) ? $a['pids']: "" ;
+	$pids = !empty($a['is']) ? $a['is']: $pids ;
+	$pids = !empty($a['ifis']) ? $a['ifis']: $pids ;	
+	$pids = !empty($pids) ? explode(",", $pids): "";
+
+	$nids = !empty($a['not']) ? $a['not']: "" ;
+	$nids = !empty($a['ifnot']) ? $a['ifnot']: $nids ;
+	$nids = !empty($nids) ? explode(",", $nids): "";	
+
+	$pids = thmplt_convert_numeric($pids);
+	$nids = thmplt_convert_numeric($nids);	
 	
-	$pids = is_array($is) ? $is : $pids; // $is takes precedence 
-	
-	$is_pid = is_array($pis) ? is_page($pids) : is_page();
-	$is_not_pid	= is_array($not) ? !is_page($not) : true;
-	
-	// if both it is on a page is true and it's not on a certain page is true
-	if ( $is_pid && $is_not_pid ) {
-			return do_shortcode($content);
+	$showonpage = false;	
+
+	$ifis = is_page($pids)? true : ( is_single($pids) ? true : false );
+	$ifnot = is_page($nids)? true : ( is_single($nids) ? true : false );
+
+
+	if ( is_array($pids) && $ifis ){
+		$showonpage = true;
+	} elseif ( is_array($nids) && !$ifnot ){
+		$showonpage = true;
 	}
-}
+	
+	if ( $showonpage === true ){
+		return do_shortcode($content);		
+	}
+	
+}#End function 
+
+
+
+/**
+ * Converts numeric values to intergers 
+ */
+function thmplt_convert_numeric($arr){
+	$nummeric = array();
+	
+	if (!empty($arr) && !is_array( $arr ) ){ 
+		$arr = array($arr);
+	}
+	
+	if ( is_array($arr) ){ 
+		foreach ($arr as $n) {
+			if (is_numeric($n)) {
+				$nummeric[] = (int)$n;
+			} else {
+				$nummeric[] = $n;
+			}
+		}
+		return $nummeric;		
+	}
+	
+	
+	return "-";
+
+}#End Function 

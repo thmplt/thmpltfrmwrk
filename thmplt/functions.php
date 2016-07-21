@@ -7,7 +7,7 @@
 /**
  * thmplt current version 
  */
-define("THMPLT_VERSION", "1.0.9");
+define("THMPLT_VERSION", "1.1.4");
 
 
 

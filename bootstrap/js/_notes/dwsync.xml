@@ -3,4 +3,7 @@
 <file name="bootstrap.min.js" server="162.242.246.160:2222" local="131052118390000000" remote="131066650700000000" Dst="2" />
 <file name="npm.js" server="162.242.246.160:2222" local="131052118390000000" remote="131066650700000000" Dst="2" />
 <file name="bootstrap.js" server="162.242.246.160:2222" local="131052118390000000" remote="131066650700000000" Dst="2" />
+<file name="bootstrap.js" server="146.20.39.50:2222" local="131134896800872833" remote="131134904010000000" Dst="2" />
+<file name="npm.js" server="146.20.39.50:2222" local="131134896801648210" remote="131134904010000000" Dst="2" />
+<file name="bootstrap.min.js" server="146.20.39.50:2222" local="131134896801458133" remote="131134904020000000" Dst="2" />
 </dwsync>

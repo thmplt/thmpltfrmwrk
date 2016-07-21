@@ -15,12 +15,13 @@ jQuery(document).ready(function(){
 		}
 	});
 
-
+	
+	
 /*
  * Preload and allow to create image hovers by swicthing the src
  * with the hover source
  */
-	jQuery(".imghover, .tpf-img-hover").each(
+	jQuery(".imghover, .tpf-img-hover, .tpf-section-hover img").each(
 		function(){
 		var thesrc = jQuery(this).attr('src');
 		var name = thesrc.substring(0, thesrc.lastIndexOf('.'));
@@ -29,15 +30,34 @@ jQuery(document).ready(function(){
 		jQuery('<img />').attr('src', newbgurl); // preload the img into the dom
 	});
 
+/* Swap src for hover src on all .tpf-img-hover and .imghover images */
 	jQuery('.imghover, .tpf-img-hover').hover (
-		function () {
+		function () {	
 		var thesrc = jQuery(this).attr('src');
 		var name = thesrc.substring(0, thesrc.lastIndexOf('.'));
-		var extension = thesrc.substring(thesrc.lastIndexOf('.'));
+		var extension = thesrc.substring(thesrc.lastIndexOf('.'));	
 		jQuery(this).attr('src', name + '_hover' + extension);
 		}, function () {
 		var newsrc = jQuery(this).attr('src').replace("_hover","");
-		jQuery(this).attr('src', newsrc);
+		jQuery(this).attr('src', newsrc);	
+	});
+
+/* 
+ * Function to swap src for hover src on the images inside a .tpf-section-hover 
+ * element, function also adds a class to the span tags inside .tpf-section-hover 
+ */
+	jQuery('.tpf-section-hover').hover (
+		function () {	
+		var thesrc = jQuery('img',this).attr('src');	
+		var name = thesrc.substring(0, thesrc.lastIndexOf('.'));	
+		var extension = thesrc.substring(thesrc.lastIndexOf('.'));	
+		jQuery('img',this).attr('src', name + '_hover' + extension);	
+		jQuery('span',this).addClass( "header_hover" );	
+	
+	}, function () {
+		var newsrc = jQuery('img',this).attr('src').replace("_hover","");
+		jQuery('img',this).attr('src', newsrc);	
+		jQuery('span',this).removeClass( "header_hover" );	
 	});
 
 
