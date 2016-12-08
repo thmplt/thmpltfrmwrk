@@ -239,10 +239,15 @@ function thmplt_sidebar_content($page_ID=NULL){
 	
 	$page_ID = !empty($page_ID)? $page_ID : $_sb_content['pid'];
 
-	$post_type = get_post_type( $page_ID );
-	
-	//echo "POSTTYPE:" .$post_type;
-	
+	// Empty page ID gets last post type
+	// so we check to make sure we get no post type if it has none
+	$post_type = !empty($page_ID)?get_post_type( $page_ID ): "";
+	if ( is_search() ) { 
+		$post_type = "thmplt_search";
+	} 
+
+	//echo "POSTTYPE:" .$post_type . "  :" . $_sb_content['pid'] ;
+	//echo is_search();
 
 
 	// Get All Published Sidebar Content				
@@ -271,11 +276,8 @@ function thmplt_sidebar_content($page_ID=NULL){
 
 		// Include if it's on this post type
 		if ( !empty($include_data[$post_type]) && $include_data[$post_type] == "on" ) {
-		
 			$display = true;
-			
 		}
-
 
 
 		// Exclude content conditions
@@ -406,4 +408,20 @@ function thmplt_add_post_types_to_sb($include_data, $type="include"){
 		$current_checked = NULL;
 	   
 	}
+	
+	
+	// Add checkbox for search pages 
+	// create the input check box 
+	@$current_checked = ($include_data['thmplt_search'] == "on")? "checked":NULL;
+	echo "<label style='padding:0 15px 0 0 '>";	
+	if ($type == "include"){ 
+		echo "<input type='checkbox' name='include[thmplt_search]' ".$current_checked."> ";
+	} elseif ($type == "exclude") {
+		echo "<input type='checkbox' name='exclude[thmplt_search]' ".$current_checked."> ";			
+	}		
+	echo "Search <em>[search]</em>";
+	echo "</label>";	
+	
+	
+	
 }
