@@ -56,26 +56,7 @@ function thmplt_latest_post_type($atts){
 				get_the_author()
 			);		
 			
-			// Get the Taxes and Terms of the post and create a string
-			// To use for a class in the html element 
-			$taxes = get_post_taxonomies( $post->ID );
-			//var_dump($taxes);
-			$taxclass= "";
-			$termsclass = "";
-			if (is_array($taxes)){
-				foreach ($taxes as $t){
-					$taxclass .= " tax-".$t;
-					$terms = get_the_terms($post->ID, $t);
-					//echo "<pre>";var_dump($terms);echo "</pre>";
-					if (is_array($terms)){
-						foreach($terms as $r){
-							$termsclass .= " term-".$t."-".$r->slug;
-						}
-					}
-				}
-			}
-	
-			$html .= "<div class='tpf-latest-post-item ".$item_class." ".$taxclass." ".$termsclass."'  >";
+			$html .= "<div class='tpf-latest-post-item ".$item_class."' >";
 			
 				$html .= "<h3 class='title'>";
 				$html .= "<a href='". get_permalink() ."' >" . get_the_title() ."</a>"; 

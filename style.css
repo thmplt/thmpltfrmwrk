@@ -3,7 +3,7 @@
  * Theme URI: http://www.thmplt.com/thmpltfrmwrk
  * Github Theme URI: https://github.com/thmplt/thmpltfrmwrk
  * Description: Bootstrap 3 ready, responsive theme by thmplt. 
- * Version: 1.1.5.1
+ * Version: 1.1.6
  *
  * Author: thmplt team
  * Author URI: http://www.thmplt.com
@@ -94,6 +94,16 @@
 		.tpf-dropdown>.reverse_dd > ul, .tpf-dropdown>.reversedd > ul  {left:auto; right:0}
 		.tpf-dropdown>.reverse_dd > ul > li  ul, .tpf-dropdown>.reversedd > ul > li  ul	{left:auto; right:100%}
 
+ 
+ /* Thmplt Caption */
+.tpf-caption {}
+.tpf-caption .tpf-caption-title {display:block; padding:5px 0; font-weight:strong}
+.tpf-caption .tpf-caption-content {display:block; padding:5px 0;}
+
+.tpf-caption.tpfstyle { padding:10px; background:#f0f0f0; border:1px solid #bbb}
+.tpf-caption.tpfstyle .tpf-caption-title {display:block; padding:5px 0; font-weight:bold}
+.tpf-caption.tpfstyle .tpf-caption-content {display:block; padding:5px 0;}
+ 
  
 
 /**
