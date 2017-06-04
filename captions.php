@@ -15,7 +15,7 @@ function thmplt_caption($atts, $content){
 		'id' => '', // 
 		'class' => '',
 		'imgclass' => '',
-		'src' => '',
+		'imgsrc' => '',
 		'hvr' => '',
 		'href' => '',
 		'title' => '',
@@ -26,7 +26,7 @@ function thmplt_caption($atts, $content){
 	$html .= " class='tpf-caption ".$class."' >";
 	$html .= (!empty($href)) ? "<a href='".$href."' >": "";
 	$datahvr = (!empty($hvr)) ? "data-hvr='".$hrv."'":"";
-	$html .= (!empty($src)) ? "<div class='tpf-caption-img'><img src='".$src."' alt='".$title."' class='img-responsive ".$imgclass."' ".$datahvr." /></div>": "";
+	$html .= (!empty($imgsrc)) ? "<div class='tpf-caption-img'><img src='".$imgsrc."' alt='".$title."' class='img-responsive ".$imgclass."' ".$datahvr." /></div>": "";
 	$html .= "<div class='tpf-caption-content'>";
 	$html .= "<strong class='tpf-caption-title'>".$title."</strong>";
 	$html .= (!empty($content)) ? "<div class='tpf-caption-text'>".$content."</div>": "";
