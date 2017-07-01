@@ -6,7 +6,7 @@
 /**
  * thmplt current version 
  */
-define("THMPLT_VERSION", "1.1.6");
+define("THMPLT_VERSION", "1.1.7");
 
 
 /**
@@ -353,6 +353,14 @@ function thmplt_special_body_classes($classes) {
 		$classes[] = "inside";
 	} 
 	
+	// Add support for multisite
+	if (is_multisite() ){
+		$classes[] = "is_multisite";
+		$currentms = get_blog_details( get_current_blog_id(), TRUE ); 
+		$classes[] = "multisite-blog-id-" .$currentms->blog_id;
+		$classes[] = "multisite-site-id-" .$currentms->site_id;		
+	}
+	
 	//if (!empty($post)){
 		//$classes[] = "top-parent-". get_top_parent($post->ID) ;
 		
@@ -504,7 +512,7 @@ add_shortcode('thmplt_post_info', 'thmplt_post_info');
 /** 
  * Return the post title in shortcode format 
  */
-function thmplt_the_title( $att ) {
+function thmplt_the_title( $atts ) {
  
  	extract( shortcode_atts( array(
 		'before' => '',
@@ -521,6 +529,37 @@ function thmplt_the_title( $att ) {
     return $title;
 }
 add_shortcode('thmplt_the_title', 'thmplt_the_title');	
+
+
+/** 
+ *  thmplt_featured image swapper 
+ */
+ add_theme_support( 'post-thumbnails', array( 'page' ) ); // Make sure pages supports this 
+ 
+function thmplt_featured_images_swapper($atts){
+	
+	global $post;
+	
+	//var_dump($post);
+	$a = shortcode_atts( array(
+        'class' => '',
+		'src' => '', //default image 
+		'childpages' => 'false'
+    ), $atts );
+	
+	if ( has_post_thumbnail($post) ){
+		$a['src'] = get_the_post_thumbnail_url($post);
+	} elseif( has_post_thumbnail( wp_get_post_parent_id( $post->ID) ) && $a['childpages'] == 'true' ) { 
+		// If there is a parent .. get the parents image 
+		$a['src'] = get_the_post_thumbnail_url( wp_get_post_parent_id( $post->ID) );
+		$a['class'] .= " tpf-parent-featured-image tpf-parent-" . wp_get_post_parent_id( $post->ID);
+	}
+	$html = "<img src='".$a['src']."' class='".$a['class']."' />";
+	return $html;
+	
+}
+add_shortcode("thmplt_featured_image","thmplt_featured_images_swapper");
+
 
 
 include ( TEMPLATEPATH . "/thmplt/theme_options.php" );	

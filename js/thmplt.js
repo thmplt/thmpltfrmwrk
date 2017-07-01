@@ -224,14 +224,31 @@ jQuery(document).ready(function(){
 	/**
 	 * Calculate the margin left of the element
 	 * based on the left of the container and the outerwidth 
+	 * Updated on 6/6/17
 	 */		
+	function tpfFWBleedMargin( e ){
+		
+		var outerW = ( e.closest(".container").outerWidth() - e.closest(".container").width() ) / 2; // Padding to left 
+		var parentW = e.closest(".wrapper").outerWidth();
+		
+		e.css("margin-left", ( ( e.closest(".container").offset().left + outerW ) * -1 ) + "px");
+		e.css("width", parentW + "px");	
+		// ( e.outerWidth(true) - e.width() ) / 2; // <-- Outerwidth formula 
+	}	
+	
+	/**
+	 * Calculate the margin left of the element
+	 * based on the left of the container and the outerwidth 
+	 * /		
 	function tpfFWBleedMargin( e ){
 		var outerW = ( e.closest(".container").outerWidth(true) - e.closest(".container").width() ) / 2; 
 		var parentW = e.closest(".wrapper").outerWidth(true);
 		e.css("margin-left", ( ( e.closest(".container").position().left + outerW ) * -1 ) + "px");
 		e.css("width", parentW + "px");	
-		// ( e.outerWidth(true) - e.width() ) / 2; // <-- Outerwidth formula 
-	}	
+		
+	}	*/	
+	
+	
 
 
 

@@ -3,4 +3,7 @@
 <file name="bootstrap.min.js" server="parakhps.sftp.wpengine.com:2222" local="131408506500000000" remote="131408506500000000" Dst="2" />
 <file name="npm.js" server="parakhps.sftp.wpengine.com:2222" local="131408506500000000" remote="131408506500000000" Dst="2" />
 <file name="bootstrap.js" server="parakhps.sftp.wpengine.com:2222" local="131408506500000000" remote="131408506500000000" Dst="2" />
+<file name="bootstrap.js" server="brunorolaw.sftp.wpengine.com:2222" local="131408506500000000" remote="131430750560000000" Dst="2" />
+<file name="bootstrap.min.js" server="brunorolaw.sftp.wpengine.com:2222" local="131408506500000000" remote="131430750570000000" Dst="2" />
+<file name="npm.js" server="brunorolaw.sftp.wpengine.com:2222" local="131408506500000000" remote="131430750570000000" Dst="2" />
 </dwsync>

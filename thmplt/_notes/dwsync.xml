@@ -10,7 +10,20 @@
 <file name="latest.php" server="parakhps.sftp.wpengine.com:2222" local="131408506500000000" remote="131408506500000000" Dst="2" />
 <file name="sections.php" server="parakhps.sftp.wpengine.com:2222" local="131408506500000000" remote="131408506500000000" Dst="2" />
 <file name="carousel.php" server="parakhps.sftp.wpengine.com:2222" local="131408506500000000" remote="131408506500000000" Dst="2" />
-<file name="functions.php" server="parakhps.sftp.wpengine.com:2222" local="131410667977511409" remote="131410668020000000" Dst="2" />
+<file name="functions.php" server="parakhps.sftp.wpengine.com:2222" local="131413564843329600" remote="131413564990000000" Dst="2" />
 <file name="content.php" server="parakhps.sftp.wpengine.com:2222" local="131408506500000000" remote="131408506500000000" Dst="2" />
-<file name="captions.php" server="parakhps.sftp.wpengine.com:2222" local="131410648573749720" remote="131410648610000000" Dst="2" />
+<file name="captions.php" server="parakhps.sftp.wpengine.com:2222" local="131410807210000000" remote="131410807260000000" Dst="2" />
+<file name="captions.php" server="brunorolaw.sftp.wpengine.com:2222" local="131410807210000000" remote="131430750630000000" Dst="2" />
+<file name="carousel.php" server="brunorolaw.sftp.wpengine.com:2222" local="131408506500000000" remote="131430750630000000" Dst="2" />
+<file name="content.php" server="brunorolaw.sftp.wpengine.com:2222" local="131408506500000000" remote="131430750630000000" Dst="2" />
+<file name="dynamic_sidebars.php" server="brunorolaw.sftp.wpengine.com:2222" local="131408506500000000" remote="131430750630000000" Dst="2" />
+<file name="functions.php" server="brunorolaw.sftp.wpengine.com:2222" local="131434046345290054" remote="131434046360000000" Dst="2" />
+<file name="latest.php" server="brunorolaw.sftp.wpengine.com:2222" local="131408506500000000" remote="131430750630000000" Dst="2" />
+<file name="sections.php" server="brunorolaw.sftp.wpengine.com:2222" local="131408506500000000" remote="131430750630000000" Dst="2" />
+<file name="sections_options.php" server="brunorolaw.sftp.wpengine.com:2222" local="131408506500000000" remote="131430750630000000" Dst="2" />
+<file name="section_options.css" server="brunorolaw.sftp.wpengine.com:2222" local="131408506500000000" remote="131430750630000000" Dst="2" />
+<file name="section_options.js" server="brunorolaw.sftp.wpengine.com:2222" local="131408506500000000" remote="131430750630000000" Dst="2" />
+<file name="theme_options.css" server="brunorolaw.sftp.wpengine.com:2222" local="131408506500000000" remote="131430750640000000" Dst="2" />
+<file name="theme_options.js" server="brunorolaw.sftp.wpengine.com:2222" local="131408506500000000" remote="131430750640000000" Dst="2" />
+<file name="theme_options.php" server="brunorolaw.sftp.wpengine.com:2222" local="131408506500000000" remote="131430750640000000" Dst="2" />
 </dwsync>
