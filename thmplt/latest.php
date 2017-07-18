@@ -17,12 +17,18 @@ function thmplt_latest_post_type($atts){
 		'cat_name' => '',
 		'id' => '',
 		'class' => 'row',		
-		'item_class' => 'col-md-4 col-sm-3 col-xs-12',	//
+		'item_class' => 'col-md-4 col-sm-12 col-xs-12',	//
 		'date_format' => 'M d, Y',
 		'thumbnail' => 'thumbnail',
 		'more' => "... read more",
 		'more_class' => '',
-		'words' => 55
+		'words' => 55,
+		'tax' => '',
+		'field' => 'slug',
+		'term' => '',
+		'operator' => 'IN',
+		'seperate' => '0',
+		'sep_class' => 'spacer visible-md visible-lg '
 		//'excerpt' => ''
 	), $atts ) );
 
@@ -35,12 +41,26 @@ function thmplt_latest_post_type($atts){
 		"category_name" => $cat_name
 	);	
 
+	// Add support for custom taxonomies 
+	if(!empty($tax)){
+		
+		$args['tax_query'] = array(
+			array( 
+				"taxonomy"	=> $tax,
+				"field"		=> $field,
+				"terms"		=> explode( ",",$term),
+				"operator" => $operator
+		));
+	}
+	//echo "<pre>";var_dump($args);echo"</pre>";
+	
 	$the_query = new WP_Query( $args );
 
 
 	// If we have posts start the build of the HTML
 	if ( $the_query->have_posts() ) :
-
+		
+	
 		$html = "<div ";
 		$html .= !empty($id) ? " id='". $id ."' " : NULL;
 		$html .= " class='tpf-latest-post ".$class."' >";	
@@ -48,6 +68,7 @@ function thmplt_latest_post_type($atts){
 		// loop through the items 
 		while ( $the_query->have_posts() ) : $the_query->the_post();
 		
+			$sep_count++;
 		
 			$authorlink = sprintf(
 				'<a href="%1$s" title="%2$s" rel="author">%3$s</a>',
@@ -85,9 +106,15 @@ function thmplt_latest_post_type($atts){
 			
 			$html .= "</div>";
 			
+			if ($sep_count % $seperate == 0 && $seperate != 0 ) { $html .= "<hr class='".$sep_class."' />"; }	
+		
 		endwhile;
 		
 		$html .= "</div>";
+	
+		
+	
+	
 		return  $html ;
 		
 	endif;
