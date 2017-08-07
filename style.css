@@ -103,8 +103,10 @@
 .tpf-caption.tpfstyle { padding:10px; background:#f0f0f0; border:1px solid #bbb}
 .tpf-caption.tpfstyle .tpf-caption-title {display:block; padding:5px 0; font-weight:bold}
 .tpf-caption.tpfstyle .tpf-caption-content {display:block; padding:5px 0;}
- 
- 
+
+.tpf-fig-caption-title {display:block}
+.tpf-fig-caption-img {max-width:100%}
+
 
 /**
  * 8.0 Alignments from WP 
