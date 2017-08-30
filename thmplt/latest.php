@@ -59,7 +59,7 @@ function thmplt_latest_post_type($atts){
 
 	// If we have posts start the build of the HTML
 	if ( $the_query->have_posts() ) :
-		
+		$sep_count = 0;
 	
 		$html = "<div ";
 		$html .= !empty($id) ? " id='". $id ."' " : NULL;
@@ -72,11 +72,12 @@ function thmplt_latest_post_type($atts){
 		
 			$authorlink = sprintf(
 				'<a href="%1$s" title="%2$s" rel="author">%3$s</a>',
-				esc_url( get_author_posts_url( $authordata->ID, $authordata->user_nicename ) ),
+				esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) , get_the_author_meta( 'user_nicename' ) ) ),
 				esc_attr( sprintf( __( 'Posts by %s' ), get_the_author() ) ),
 				get_the_author()
-			);		
+			);	
 			
+	
 			$html .= "<div class='tpf-latest-post-item ".$item_class."' >";
 			
 				$html .= "<h3 class='title'>";
@@ -106,7 +107,9 @@ function thmplt_latest_post_type($atts){
 			
 			$html .= "</div>";
 			
-			if ($sep_count % $seperate == 0 && $seperate != 0 ) { $html .= "<hr class='".$sep_class."' />"; }	
+			if ($seperate != 0 ){
+				if ($sep_count % $seperate == 0 ) { $html .= "<hr class='".$sep_class."' />"; }	
+			}
 		
 		endwhile;
 		
@@ -200,23 +203,5 @@ function tpf_excerpt ($args = NULL){
 
 
 
-
-
-
-
-
-
-
-	$html = "<ul class='tpf-clone-list ".$class."'" ; // opening of the UL 
-	if (!empty($clone)){
-		$html .= " data-clone='". $clone ."'";
-	}
-	if (!empty($contains)){
-		$html .= " data-li-contains='". $contains ."'";
-	}	
-	if (!empty($target)){
-		$html .= " data-target='". $target ."'";
-	}	
-	$html .= "><!-- Auto Generated --></ul>"; // Close the UL
 
 

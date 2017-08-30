@@ -74,10 +74,16 @@ function thmplt_section_featured_image_options( ) {
 		$custom = get_post_custom($post->ID);
 		@$thmplt_section_bg_settings = unserialize($custom['thmplt_section_bg_settings'][0]);
 	
-		$content = "";
+		$content = "<br />";
 	
+		
+		$content .= "<label style='padding:0 15px 0 0 '>Section BG Color:
+			<input type='text' value='".$thmplt_section_bg_settings['bgcolor']."' class='color-field' name='thmplt_section_bg_settings[bgcolor]' />
+			</label>";
+		
+		
 	//	$content = str_replace ( "Set featured image", "Set background Image", $content );
-		$content .= "<br /><label style='padding:0 15px 0 0 '>Section BG Image size: 
+		$content .= "<label style='padding:0 15px 0 0 '>Section BG Image size: 
 			<select name='thmplt_section_bg_settings[bgsize]'>
 		";
 		
@@ -149,7 +155,8 @@ function thmplt_section_featured_image_options( ) {
 				<option value='inherit'>inherit</option>
 				</select>			
 		 </label>";		
-		 
+
+		
 	} #End if 
 	
     echo  $content;
@@ -483,27 +490,41 @@ function thmplt_section_content($section_id=NULL){
 			@$thmplt_section_bg_settings = unserialize($custom['thmplt_section_bg_settings'][0]);
 
 
-			$style = "";
-			if ( has_post_thumbnail($section->ID) ) { 	
-				$style = "<style scoped>";
-					$imgurl = wp_get_attachment_url ( get_post_thumbnail_id( $section->ID ) );
-					$style .= "#".$secid." { background-image: url(".$imgurl." )} \n";
+			if ( has_post_thumbnail($section->ID) || !empty($thmplt_section_bg_settings['bgcolor']) ) { 	
 				
-				if ( !empty( $thmplt_section_bg_settings['bgsize']) || $thmplt_section_bg_settings['bgsize'] != "-" ) { 
-					$style .= "#".$secid." { background-size: ".$thmplt_section_bg_settings['bgsize']."} \n";
-				} 
-				if ( !empty( $thmplt_section_bg_settings['bgposition']) || $thmplt_section_bg_settings['bgposition'] != "-" ) { 
-					$thmplt_section_bg_settings['bgposition'] = str_replace("-", " ", $thmplt_section_bg_settings['bgposition'] );
-					$style .= "#".$secid." { background-position: ".$thmplt_section_bg_settings['bgposition']."} \n";
-				} 
-				if ( !empty( $thmplt_section_bg_settings['bgattachment']) || $thmplt_section_bg_settings['bgattachment'] != "-" ) { 
-					$style .= "#".$secid." { background-attachment: ".$thmplt_section_bg_settings['bgattachment']."} \n";
-				} 
-				if ( !empty( $thmplt_section_bg_settings['bgrepeat']) || $thmplt_section_bg_settings['bgrepeat'] != "-" ) { 
-					$style .= "#".$secid." { background-repeat: ".$thmplt_section_bg_settings['bgrepeat']."} \n";
-				} 
-	
-				$style .= "</style> \n";
+					global $thmplt_section_footer;
+					$style = "";
+
+					$style = "<style scoped>";
+					if ( has_post_thumbnail($section->ID) ) {
+						$imgurl = wp_get_attachment_url ( get_post_thumbnail_id( $section->ID ) );
+						$style .= "#".$secid." { background-image: url(".$imgurl." )} \n";
+					}
+
+					if ( !empty( $thmplt_section_bg_settings['bgcolor']) && $thmplt_section_bg_settings['bgcolor'] != "-" ) { 
+						$style .= "#".$secid." { background-color: ".$thmplt_section_bg_settings['bgcolor']."} \n";
+					} 
+				
+					if ( !empty( $thmplt_section_bg_settings['bgsize']) && $thmplt_section_bg_settings['bgsize'] != "-" ) { 
+						$style .= "#".$secid." { background-size: ".$thmplt_section_bg_settings['bgsize']."} \n";
+					} 
+					if ( !empty( $thmplt_section_bg_settings['bgposition']) && $thmplt_section_bg_settings['bgposition'] != "-" ) { 
+						$thmplt_section_bg_settings['bgposition'] = str_replace("-", " ", $thmplt_section_bg_settings['bgposition'] );
+						$style .= "#".$secid." { background-position: ".$thmplt_section_bg_settings['bgposition']."} \n";
+					} 
+					if ( !empty( $thmplt_section_bg_settings['bgattachment']) && $thmplt_section_bg_settings['bgattachment'] != "-" ) { 
+						$style .= "#".$secid." { background-attachment: ".$thmplt_section_bg_settings['bgattachment']."} \n";
+					} 
+					if ( !empty( $thmplt_section_bg_settings['bgrepeat']) && $thmplt_section_bg_settings['bgrepeat'] != "-" ) { 
+						$style .= "#".$secid." { background-repeat: ".$thmplt_section_bg_settings['bgrepeat']."} \n";
+					} 
+
+					$style .= "</style> \n";
+				
+					if (!array( $thmplt_section_footer )){
+						$thmplt_section_footer = array();
+					}
+					$thmplt_section_footer[] = $style;
 			}
 	
 
@@ -523,6 +544,17 @@ function thmplt_section_content($section_id=NULL){
 
 }#End thmplt_section_content
 
+
+
+function thmplt_section_build_footer(){
+	global $thmplt_section_footer;
+		
+		foreach ( $thmplt_section_footer as $t ){
+			echo $t ."\n";
+		}
+	
+}
+add_action('wp_footer','thmplt_section_build_footer' );
 
 
 

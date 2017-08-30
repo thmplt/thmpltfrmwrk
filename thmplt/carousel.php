@@ -373,7 +373,7 @@ function thmplt_carousel_dropdown($name, $selected_id){
 /**
  * Create the slides that will be shown on the front page
  */
-function thmplt_do_carousel_slides($id) { 
+function thmplt_do_carousel_slides($id, $echo = true ) { 
 
 
 	$thmplt_carousel_options = get_option('thmplt_carousel_options');
@@ -401,14 +401,15 @@ function thmplt_do_carousel_slides($id) {
 
 	$options = array_merge($options, $thmplt_carousel_options );
 
+	$html = "";
 
 	/**
 	 *  Add the hover attribute
 	 */		
 	if ($options['pause'] == "hover" ) { 
 
-		echo "<script type='text/javascript'> \n";
-			echo "$(document).ready(function(){ 
+		$html .=  "<script type='text/javascript'> \n";
+			$html .=  "$(document).ready(function(){ 
 			
 				$('#".$id."').mouseenter(function() {
 					$(this).carousel('pause');
@@ -417,7 +418,7 @@ function thmplt_do_carousel_slides($id) {
 				}); 
 			
 			});";
-		echo "</script> \n \n";
+		$html .=  "</script> \n \n";
 
 	}
 	
@@ -425,16 +426,16 @@ function thmplt_do_carousel_slides($id) {
 	$classes .= "carousel-" . $options['transition'];
 	
 
-	echo "<div id='".$id."' class='carousel slide ".$classes."' ";
+	$html .= "<div id='".$id."' class='carousel slide ".$classes."' ";
 
 		/**
 		 * Add the interval attribute
 		 */		
 		$interval = $options['interval'] * 1000;
-		echo " data-interval='". $interval ."' ";
+		$html .=  " data-interval='". $interval ."' ";
 
 
-	echo " data-ride='carousel' > \n\n";
+	$html .=  " data-ride='carousel' > \n\n";
 
 	/**
 	 * Create the indicators if they are turned on in the settings
@@ -442,27 +443,27 @@ function thmplt_do_carousel_slides($id) {
 	 */	
 	if ( $options['indicators'] == "on" ) {
 
-		echo "<!-- Indicators --> \n";
-		echo "<ol class='carousel-indicators'> \n";
+		$html .=  "<!-- Indicators --> \n";
+		$html .=  "<ol class='carousel-indicators'> \n";
 		
 		foreach ($thmplt_carousel_slides as $slide ) { 
 
 			if ( $slide != "none" ) { 
 			
 				// Build the indicators list items 			
-				echo "\t <li data-target='#".$id."' data-slide-to='".$s."'";
+				$html .=  "\t <li data-target='#".$id."' data-slide-to='".$s."'";
 					
 					// if its the first one, give it a class of active 	
-					if ($s == 0 ) { echo " class='active'"; }
+					if ($s == 0 ) { $html .=  " class='active'"; }
 				
-				echo " ></li> \n";
+				$html .=  " ></li> \n";
 				
 				$s = $s + 1;
 			
 			} 
 		}
 		
-		echo "</ol> \n \n";
+		$html .=  "</ol> \n \n";
 		
 	} #end if 
 
@@ -472,8 +473,8 @@ function thmplt_do_carousel_slides($id) {
 	/**
 	 * Create the slides 
 	 */
-	echo "<!-- Wrapper for slides --> \n";
-	echo "<div class='carousel-inner'> \n";
+	$html .=  "<!-- Wrapper for slides --> \n";
+	$html .=  "<div class='carousel-inner'> \n";
 	 
 	foreach ($thmplt_carousel_slides as $slide ) { 
 	
@@ -481,10 +482,10 @@ function thmplt_do_carousel_slides($id) {
 			
 			$car_post = get_post($slide);
 		
-			echo " \t <div class='item carousel-". $car_post->ID . " ";
+			$html .=  " \t <div class='item carousel-". $car_post->ID . " ";
 			// if its the first one, give it a class of active 	
-			if ($s == 0 ) { echo " active"; }			
-			echo "' > \n";
+			if ($s == 0 ) { $html .=  " active"; }			
+			$html .=  "' > \n";
 			
 			
 				/**
@@ -496,41 +497,41 @@ function thmplt_do_carousel_slides($id) {
 				
 				if ( $options['imageoptions'] == "constrained" ) { 
 				
-					echo "<div class='imageslide constrained' style='background: url(".$imgurl.") center center no-repeat;'>";
-					echo "</div>";
+					$html .=  "<div class='imageslide constrained' style='background: url(".$imgurl.") center center no-repeat;'>";
+					$html .=  "</div>";
 					
 				} elseif ( $options['imageoptions'] == "full-width" )  { 
 				
-					echo "<img src='".$imgurl."' class='imageslide fullwidthimg' \>";
+					$html .=  "<img src='".$imgurl."' class='imageslide fullwidthimg' \>";
 				
 				} else { 
 				
-					echo get_the_post_thumbnail( $car_post->ID , 'full' ); 				
+					$html .=  get_the_post_thumbnail( $car_post->ID , 'full' ); 				
 				
 				} 
 			
 			
 			} else {
 				
-				echo "<img alt='Third slide' src='data:image/gif;base64,R0lGODlhAQABAIAAAFVVVQAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=='>";	
+				$html .=  "<img alt='Third slide' src='data:image/gif;base64,R0lGODlhAQABAIAAAFVVVQAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=='>";	
 				
 			}// End if has_post_thumbnail 
 			
 			
-			echo " \t \t<div class='container'> \n";				
-			echo " \t \t<div class='carousel-caption'> \n";	
-				echo "\t \t \t". wpautop($car_post->post_content) . "\n";
-			echo "\t \t </div> \n";	
-			echo "\t \t </div> \n";				
+			$html .=  " \t \t<div class='container'> \n";				
+			$html .=  " \t \t<div class='carousel-caption'> \n";	
+				$html .=  "\t \t \t". wpautop($car_post->post_content) . "\n";
+			$html .=  "\t \t </div> \n";	
+			$html .=  "\t \t </div> \n";				
 
-			echo "\t </div> \n";
+			$html .=  "\t </div> \n";
 			
 			$s = $s + 1;
 		
 		} 
 	}
 	
-	echo "</div> \n \n"; // end the slides div
+	$html .=  "</div> \n \n"; // end the slides div
 
 
 	/**
@@ -539,22 +540,46 @@ function thmplt_do_carousel_slides($id) {
 	 */	
 	if ( $options['controls'] == "on" ) {
 
-		echo "<!-- Controls --> \n";
+		$html .=  "<!-- Controls --> \n";
 		
-		echo "	<a class='left carousel-control' href='#".$id."' role='button' data-slide='prev'>
+		$html .=  "	<a class='left carousel-control' href='#".$id."' role='button' data-slide='prev'>
 	    			<span class='glyphicon glyphicon-chevron-left'></span>
 			  	</a> \n
 			";
-		echo "	<a class='right carousel-control' href='#".$id."' role='button' data-slide='next'>
+		$html .=  "	<a class='right carousel-control' href='#".$id."' role='button' data-slide='next'>
     				<span class='glyphicon glyphicon-chevron-right'></span>
   				</a> \n
 			";			
 	} #end if 
 
 
-	echo "</div> \n \n"; // End closing carousel
+	$html .=  "</div> \n \n"; // End closing carousel
 
+	
+	if ($echo == true ) {
+		echo $html;
+	} else { 
+		return $html;
+	}
+	
 }
+
+
+/**
+ * Create the javascript to control the carousel 
+ */
+function thmplt_bootstrap_carousel_shortcode($atts){
+
+		extract( shortcode_atts( array(
+		'ID' => 'tpf_carousel', // 
+		//'excerpt' => ''
+	), $atts ) );
+	
+	return thmplt_do_carousel_slides($ID);
+	
+}
+add_shortcode('tpf_carousel','thmplt_bootstrap_carousel_shortcode');
+
 
 
 
@@ -562,14 +587,6 @@ function thmplt_do_carousel_slides($id) {
  * Create the javascript to control the carousel 
  */
 function thmplt_bootstrap_carousel($atts){
-	
-
-
-
-
-
-
-	
 
 	/**
 	 * Create the controls if they are turned on in the seetings
