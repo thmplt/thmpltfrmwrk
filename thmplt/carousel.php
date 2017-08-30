@@ -575,7 +575,7 @@ function thmplt_bootstrap_carousel_shortcode($atts){
 		//'excerpt' => ''
 	), $atts ) );
 	
-	return thmplt_do_carousel_slides($ID);
+	return thmplt_do_carousel_slides($ID, false);
 	
 }
 add_shortcode('tpf_carousel','thmplt_bootstrap_carousel_shortcode');
