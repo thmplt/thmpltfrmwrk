@@ -55,30 +55,49 @@ function thmplt_fig_caption($atts, $content){
 		'hvr' => '',
 		'href' => '',
 		'title' => '',
-		'atagpos' => 'outside',
+		'atagpos' => '',
+		'link' => 'verb', // verb, inside, outside, wrapall, verb
+		'linktext' => 'learn more',
 	), $atts ) );
 	
 	$html = "<figure ";
 	$html .= (!empty($id)) ? "id='".$id."' ": "";
 	$html .= " class='tpf-fig-caption ".$class."' >";
-	//$html .= "<figure class='".$figclass."' >";
-	
-	$html .= (!empty($imgsrc)) ? "<img src='".$imgsrc."' alt='".$title."' class=' tpf-fig-caption-img ".$imgclass."' ".$datahvr." />": "";
-	$html .= "<figcaption class='tpf-fig-caption-text'>";
-	$html .= "<strong class='tpf-fig-caption-title'>".$title."</strong>";
-	$html .= (!empty($content)) ?  $content:"";
-	
-	if ($atagpos='inside') { 
-			$html .= (!empty($href)) ? "<a href='".$href."' ></a>": ""; 
-	}  
-	
-	$thml .= "</figcaption>";
 
-	if ($atagpos='outside') { 
-			$html .= (!empty($href)) ? "<a href='".$href."' ></a>": ""; 
+	
+	if ($link=='wrapall') { 
+			$html .= (!empty($href)) ? "<a href='".$href."' >": ""; 
+	} 	
+
+	#$html .= "<div class='spinner' ></div>";
+	
+	$html .= (!empty($imgsrc)) ? "<div class='tpf-fig-caption-img-wrap'><img src='".$imgsrc."' alt='".$title."' class=' tpf-fig-caption-img ".$imgclass."' ".$datahvr." /></div>": "";
+	$html .= "<figcaption class='tpf-fig-caption-text'><div class='tpf-fig-caption-text-inner'>";
+	$html .= "<strong class='tpf-fig-caption-title'>".$title."</strong>";
+	
+	if ($link == "verb" || $link == "verbiage") {
+		$html .= (!empty($content)) ?  "<div class='tpf-fig-caption-verb'><a href='".$href."' >".$content."</a></div>":"";
+	} else {
+		$html .= (!empty($content)) ?  "<div class='tpf-fig-caption-verb'>".$content."</div>":"";		
+	}
+	
+	if ($link=='inside') { 
+			$html .= (!empty($href)) ? "<a href='".$href."' >".$linktext."</a>": ""; 
 	}  
+	
+	$thml .= "</div></figcaption>";
+
+	if ($link=='outside') { 
+			$html .= (!empty($href)) ? "<a href='".$href."' >".$linktext."</a>": ""; 
+	}  
+	
+	if ($link=='wrap') { 
+			$html .= (!empty($href)) ? "</a>": ""; 
+	} 		
 	
 	$html .= "</figure>";
+	
+	
 	
 	return $html;
 	

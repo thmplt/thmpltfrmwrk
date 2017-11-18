@@ -53,6 +53,28 @@ register_taxonomy( "thmplt_section_tax", " thmplt_section", $thmplt_section_taxo
 register_taxonomy_for_object_type( 'thmplt_section_tax', 'thmplt_section' );
 
 
+$thmplt_section_taxonomy_class_args = array (
+	'labels' => array(
+		'name' => __( 'Section Classes' ), // general name for the taxonomy, usually plural
+		'singular_name' => __( 'Section Classes' ), // name for one object of this taxonomy
+		'add_new_item' => __( 'Add New Class' ), // name for one object of this taxonomy	
+		'separate_items_with_commas' => __( 'Separate classes with commas' ), // name for one object of this taxonomy
+		'choose_from_most_used' => __( 'Choose from the most used classes' ), // name for one object of this taxonomy
+		//'add_new_item' => __( 'Add New Class' ) // name for one object of this taxonomy	
+	),
+	'public' => false,
+	'show_ui' => true,
+	'show_admin_column' => true,
+	'show_in_quick_edit' => true,
+	'description' => true,
+	'sort' => false,
+	'hierarchical' => false // true for category style, false for tag style	
+);
+register_taxonomy( "thmplt_section_classes", " thmplt_section", $thmplt_section_taxonomy_class_args );
+register_taxonomy_for_object_type( 'thmplt_section_classes', 'thmplt_section' );
+
+
+
 
 /**
  * Move the featured image box to the main panel 
@@ -61,6 +83,10 @@ add_action('do_meta_boxes', 'thmplt_section_move_featured_image_meta_box');
 function thmplt_section_move_featured_image_meta_box() {
 	remove_meta_box( 'postimagediv', 'thmplt_section', 'side' );
 	add_meta_box('postimagediv', __('Background Image'), 'post_thumbnail_meta_box', 'thmplt_section', 'normal', 'high');
+	
+	//Classes
+	remove_meta_box( 'tagsdiv-thmplt_section_classes', 'thmplt_section', 'side' );
+
 }
 
 /**
@@ -156,6 +182,29 @@ function thmplt_section_featured_image_options( ) {
 				</select>			
 		 </label>";		
 
+		$content .= "<label style='padding:0 15px 0 0 '>Section BG Opacity: 
+			<select name='thmplt_section_bg_settings[bgopacity]'>";
+		
+		$content .= !empty( $thmplt_section_bg_settings['bgopacity'] )  
+		? "<option value='".$thmplt_section_bg_settings['bgopacity']."'>".$thmplt_section_bg_settings['bgopacity']."</option>"
+		: "";
+		
+		$content .= "
+				<option value='-'> - </option>		
+				<option value='.1'> .1 </option>
+				<option value='.2'> .2 </option>		
+				<option value='.3'> .3 </option>
+				<option value='.4'> .4 </option>		
+				<option value='.5'> .5 </option>
+				<option value='.6'> .6 </option>
+				<option value='.7'> .7 </option>
+				<option value='.8'> .8 </option>
+				<option value='.9'> .9 </option>
+				<option value='1'> 1 </option>				
+				</select>			
+		 </label>";		
+		
+		//bgopacity
 		
 	} #End if 
 	
@@ -169,6 +218,9 @@ function thmplt_section_featured_image_options( ) {
 function thmplt_section_meta(){
 	add_meta_box("thmplt_section_meta_box", "Section Display Conditions", "thmplt_section_html", "thmplt_section", "normal", "high");
 	add_meta_box("thmplt_section_meta_box1", "Section Settings", "thmplt_section_settings_html", "thmplt_section", "normal", "high");
+	// Moved the "classes" metabox to main area
+	add_meta_box('tagsdiv-thmplt_section_classes', __('Section Classes'), 'post_tags_meta_box', 'thmplt_section', 'normal', 'high', array('taxonomy' => 'thmplt_section_classes'));	
+	
 	add_meta_box("thmplt_section_meta_box2", "Section Background Options", "thmplt_section_featured_image_options", "thmplt_section", "normal", "high");
 	
 }
@@ -187,8 +239,12 @@ function thmplt_section_settings_html() {
 	@$thmplt_section_settings = unserialize($custom['thmplt_section_settings'][0]);
 
 	$set = "<label style='padding:0 15px 0 0 '>Section ID: <input type='text' name='thmplt_section_settings[id]' value='".$thmplt_section_settings['id']."' /> </label>";
-	$set .= "<label style='padding:0 15px 0 0 '>Section Class: <input type='text' name='thmplt_section_settings[class]' value='".$thmplt_section_settings['class']."'/> </label>";	
+	$set .= "<label style='padding:0 15px 0 0 '>Section Class <em>(legacy)</em>: <input type='text' name='thmplt_section_settings[class]' value='".$thmplt_section_settings['class']."' style='width:850px'/> </label>";	
 
+	/* $set .= "<br />";
+	$set .= "<strong>Classes:</strong> ";
+	$set .= "<em>fullwidth-container</em>"; */
+	
 	/*<option value='inherit'>inherit</option> */	
 	
 	$set .= "";
@@ -210,8 +266,11 @@ function thmplt_section_html() {
 	
 	// Selections for all pages and children pages. 
 	echo "<strong>Select which pages this content should display on</strong><br /><br />";
+	@$fp_checked = ($include_data['frontpage'] == "on")? "checked":NULL;
 	@$all_checked = ($include_data['all'] == "on")? "checked":NULL;
 	@$all_children_checked = ($include_data['all_children'] == "on")? "checked":NULL;	
+	echo "<label style='padding:0 15px 0 0 '><input type='checkbox' class='' name='include[frontpage]' ".$fp_checked." /> ";
+		echo " Display on front page</label>";	
 	echo "<label style='padding:0 15px 0 0 '><input type='checkbox' class='' name='include[all]' ".$all_checked." /> ";
 		echo " Display on all pages</label>";
 	echo "<label style='padding:0 15px 0 0 '><input type='checkbox' class='' name='include[all_children]' ".$all_children_checked." /> ";
@@ -418,12 +477,17 @@ function thmplt_section_content($section_id=NULL){
 
 		// Include if it's on this post type
 		if ( !empty($include_data[$post_type]) && $include_data[$post_type] == "on" ) {
-		
 			$display = true;
-			
 		}
 
 
+		// Include if it's on the front page
+		if ( !empty($include_data['frontpage']) && $include_data['frontpage'] == "on" ) {
+			if (is_front_page()){
+				$display = true;
+			}
+		}
+	
 
 		// Exclude content conditions
 		@$display = ($exclude_data[$page_ID] == "on")? false: $display; // if its to be included in all pages 	
@@ -475,11 +539,20 @@ function thmplt_section_content($section_id=NULL){
 				$secid = $section->post_name;						
 			} 
 
+			// Get "classes" taxonomy 
+			$classes = wp_get_post_terms($section->ID, 'thmplt_section_classes', array( "fields" => "names" ) );
+			if (is_array($classes)) {
+				
+				$thmplt_section_settings['class'] .= " " . implode(" ", $classes);
+				
+			}
+			
 
 			if ( !empty($thmplt_section_settings['class']) ){ 
 				$section_wrap_open = str_replace("{class}", $thmplt_section_settings['class'], $section_wrap_open );
 			}
-
+		
+			
 			$section_wrap_close = apply_filters('thmplt_section_wrap_close', NULL,$section->ID );
 			//$section_wrap_close = str_replace("{id}", $section->name, $section_wrap_open );			
 
@@ -495,8 +568,8 @@ function thmplt_section_content($section_id=NULL){
 					global $thmplt_section_footer;
 					$style = "";
 
-					$style = "<style scoped>";
-					if ( has_post_thumbnail($section->ID) ) {
+					//$style = "<style scoped> \n";
+/*					if ( has_post_thumbnail($section->ID) ) {
 						$imgurl = wp_get_attachment_url ( get_post_thumbnail_id( $section->ID ) );
 						$style .= "#".$secid." { background-image: url(".$imgurl." )} \n";
 					}
@@ -517,9 +590,72 @@ function thmplt_section_content($section_id=NULL){
 					} 
 					if ( !empty( $thmplt_section_bg_settings['bgrepeat']) && $thmplt_section_bg_settings['bgrepeat'] != "-" ) { 
 						$style .= "#".$secid." { background-repeat: ".$thmplt_section_bg_settings['bgrepeat']."} \n";
-					} 
+					} */
 
-					$style .= "</style> \n";
+					// If the OPACITY is set.. then change the CSS to pseudo 
+					// else use regular background css
+					if ( !empty( $thmplt_section_bg_settings['bgopacity']) && $thmplt_section_bg_settings['bgopacity'] != "-" ) {				
+						if ( has_post_thumbnail($section->ID) ) {
+							$imgurl = wp_get_attachment_url ( get_post_thumbnail_id( $section->ID ) );
+							$style .= "#".$secid."{position:relative} \n";
+							$style .= "#".$secid."::before { 
+								background-image: url(".$imgurl." );
+								content:' ';position:absolute;
+								top:0;left:0;bottom:0;right:0;
+							} \n";
+						}
+						if ( !empty( $thmplt_section_bg_settings['bgposition']) && $thmplt_section_bg_settings['bgposition'] != "-" ) { 
+							$thmplt_section_bg_settings['bgposition'] = str_replace("-", " ", $thmplt_section_bg_settings['bgposition'] );
+							$style .= "#".$secid."::before { background-position: ".$thmplt_section_bg_settings['bgposition']."} \n";
+						} 
+						if ( !empty( $thmplt_section_bg_settings['bgsize']) && $thmplt_section_bg_settings['bgsize'] != "-" ) { 
+							$style .= "#".$secid."::before { background-size: ".$thmplt_section_bg_settings['bgsize']."} \n";
+						} 				
+						if ( !empty( $thmplt_section_bg_settings['bgattachment']) && $thmplt_section_bg_settings['bgattachment'] != "-" ) { 
+							$style .= "#".$secid."::before { background-attachment: ".$thmplt_section_bg_settings['bgattachment']."} \n";
+						} 
+						if ( !empty( $thmplt_section_bg_settings['bgrepeat']) && $thmplt_section_bg_settings['bgrepeat'] != "-" ) { 
+							$style .= "#".$secid."::before { background-repeat: ".$thmplt_section_bg_settings['bgrepeat']."} \n";
+						}
+						if ( !empty( $thmplt_section_bg_settings['bgopacity']) && $thmplt_section_bg_settings['bgopacity'] != "-" ) { 
+							$style .= "#".$secid."::before { opacity: ".$thmplt_section_bg_settings['bgopacity']."} \n";
+						}				
+					} else {
+						if ( has_post_thumbnail($section->ID) ) {
+							$imgurl = wp_get_attachment_url ( get_post_thumbnail_id( $section->ID ) );
+							$style .= "#".$secid." { background-image: url(".$imgurl." )} \n";
+						}
+
+						if ( !empty( $thmplt_section_bg_settings['bgsize']) && $thmplt_section_bg_settings['bgsize'] != "-" ) { 
+							$style .= "#".$secid." { background-size: ".$thmplt_section_bg_settings['bgsize']."} \n";
+						} 
+						if ( !empty( $thmplt_section_bg_settings['bgposition']) && $thmplt_section_bg_settings['bgposition'] != "-" ) { 
+							$thmplt_section_bg_settings['bgposition'] = str_replace("-", " ", $thmplt_section_bg_settings['bgposition'] );
+							$style .= "#".$secid." { background-position: ".$thmplt_section_bg_settings['bgposition']."} \n";
+						} 
+						if ( !empty( $thmplt_section_bg_settings['bgattachment']) && $thmplt_section_bg_settings['bgattachment'] != "-" ) { 
+							$style .= "#".$secid." { background-attachment: ".$thmplt_section_bg_settings['bgattachment']."} \n";
+						} 
+						if ( !empty( $thmplt_section_bg_settings['bgrepeat']) && $thmplt_section_bg_settings['bgrepeat'] != "-" ) { 
+							$style .= "#".$secid." { background-repeat: ".$thmplt_section_bg_settings['bgrepeat']."} \n";
+						} 
+
+					} // End else/if
+				
+					// universal setting for the BG color
+					if ( !empty( $thmplt_section_bg_settings['bgcolor']) && $thmplt_section_bg_settings['bgcolor'] != "-" ) { 
+						$style .= "#".$secid." { background-color: ".$thmplt_section_bg_settings['bgcolor']."} \n";
+					} 
+				
+
+
+ 				
+				
+				
+
+				
+				
+					//$style .= "</style> \n";
 				
 					if (!array( $thmplt_section_footer )){
 						$thmplt_section_footer = array();
@@ -528,7 +664,8 @@ function thmplt_section_content($section_id=NULL){
 			}
 	
 
-			$sb_output = $style . $sb_output;
+			#$sb_output = $style . $sb_output;
+			$sb_output = $sb_output;
 
 
 		} else {
@@ -549,10 +686,16 @@ function thmplt_section_content($section_id=NULL){
 function thmplt_section_build_footer(){
 	global $thmplt_section_footer;
 		
-		foreach ( $thmplt_section_footer as $t ){
-			echo $t ."\n";
-		}
 	
+		if (is_array($thmplt_section_footer)) {
+			$footer_style = "<!-- thmplt footer styles --> \n <style scoped> \n";
+			foreach ( $thmplt_section_footer as $t ){
+				$footer_style .= $t ."\n";
+			}
+			$footer_style .= "</style> \n <!-- end thmplt footer styles --> \n";
+
+			echo $footer_style;
+		}
 }
 add_action('wp_footer','thmplt_section_build_footer' );
 

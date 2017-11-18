@@ -8,7 +8,9 @@
 global $thmplt;
 global $post;
 
-$thmplt['pageID'] = $post->ID;
+set_the_proper_page_id(); 
+
+//echo $thmplt['pageID'];
 
 // Get the options for the theme   
 $thmplt_options = get_option('thmplt_options'); 
@@ -123,5 +125,5 @@ locate_template('/structure/header.php', true);
 $main_content_id = empty($thmplt['main_section_id']) ? "main_content" : $thmplt['main_section_id'];
 
 do_action('thmplt_before_main_section'); ?>
-<div id='<?php echo $main_content_id; ?>' class='wrapper'><div class='container'><div class='content row'>
+<div id='<?php echo $main_content_id; ?>' class='wrapper pcolor2 pcolor-main'><div class='container'><div class='content row'>
 <?php do_action('thmplt_main_section_start'); ?>

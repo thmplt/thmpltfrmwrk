@@ -18,9 +18,11 @@ function thmplt_latest_post_type($atts){
 		'id' => '',
 		'class' => 'row',		
 		'item_class' => 'col-md-4 col-sm-12 col-xs-12',	//
+		'title_class' => '',
 		'date_format' => 'M d, Y',
 		'thumbnail' => 'thumbnail',
-		'more' => "... read more",
+		'thumb_class' => '',
+		'more' => "read more",
 		'more_class' => '',
 		'words' => 55,
 		'tax' => '',
@@ -28,14 +30,21 @@ function thmplt_latest_post_type($atts){
 		'term' => '',
 		'operator' => 'IN',
 		'seperate' => '0',
-		'sep_class' => 'spacer visible-md visible-lg '
-		//'excerpt' => ''
+		'sep_class' => 'spacer visible-md visible-lg ',
+		//'result_data' => 'bottom',
+		"force_more" => false,
+		"elipsis" => "on",
+		//'excerpt' => 'normal',
+		//"title" => "first",
+		"markup" => "title, data, thumbnail, excerpt"
 	), $atts ) );
 
 
 	$args = array ( 
 		"post_type" => explode( ",", $post_type ),
 		"posts_per_page" => $posts_per_page,
+		//'nopaging' => true,
+		//'ignore_sticky_posts'=> true,
 		"post_status" => explode( ",",$post_status),
 		"cat" => $cat,
 		"category_name" => $cat_name
@@ -56,15 +65,26 @@ function thmplt_latest_post_type($atts){
 	
 	$the_query = new WP_Query( $args );
 
-
+	//echo "<pre>";var_dump($the_query);echo"</pre>";
+	
+	
 	// If we have posts start the build of the HTML
 	if ( $the_query->have_posts() ) :
 		$sep_count = 0;
+		$eargs = array ( 
+			'more' => $more,
+			'moreclass' => $more_class, 
+			"words" => $words, 
+			"force_more" => $force_more, 
+			"elipsis" => $elipsis 
+		);
 	
 		$html = "<div ";
 		$html .= !empty($id) ? " id='". $id ."' " : NULL;
 		$html .= " class='tpf-latest-post ".$class."' >";	
 		
+		$markup = explode(",", $markup);
+	
 		// loop through the items 
 		while ( $the_query->have_posts() ) : $the_query->the_post();
 		
@@ -80,31 +100,55 @@ function thmplt_latest_post_type($atts){
 	
 			$html .= "<div class='tpf-latest-post-item ".$item_class."' >";
 			
-				$html .= "<h3 class='title'>";
-				$html .= "<a href='". get_permalink() ."' >" . get_the_title() ."</a>"; 
-				$html .= "</h3>";
-
-				if ( has_post_thumbnail() && $thumbnail != "none" ) { 
-					$html .= "<div class='post_image'>";
-					$html .= "<a href='". get_permalink() ."' >";
-					$html .= get_the_post_thumbnail ( $post->ID ,$thumbnail);
-					$html .= "</a></div>";					
+	
+				foreach ($markup as $m){
+					$m = trim($m);
+					
+					if ($m == "title"){
+						$html .= "<h3 class='title ".$title_class."'>";
+						$html .= "<a href='". get_permalink() ."' >" . get_the_title() ."</a>"; 
+						$html .= "</h3>";
+					}
+					if ($m == "data"){
+						$html .= "
+						<ul class='result_data' >
+							<li class='date'>
+								<strong>Posted on </strong>". get_the_date($date_format) ."
+							</li>
+							<li class='author'>
+								<strong>By:</strong> " . $authorlink . "
+							</li>
+						</ul>"; 
+					}					
+					if ($m == "thumbnail"){
+						if ( has_post_thumbnail() && $thumbnail != "none" ) { 
+							$html .= "<div class='post_image'>";
+							$html .= "<a href='". get_permalink() ."' >";
+							$html .= get_the_post_thumbnail ( @$post->ID ,$thumbnail, array("class"=> $thumb_class));
+							$html .= "</a></div>";					
+						}
+					}
+					
+					
+					if ($m == "figure"){
+						
+						$imgurl = get_the_post_thumbnail_url($post->ID ,$thumbnail );
+						$html .= do_shortcode("[thmplt_fig_caption class='".$thumb_class."' imgsrc='".$imgurl."' href='".get_permalink($post->ID)."'  title='']".$more."[/thmplt_fig_caption]");
+						
+					}
+					
+					if ($m == "excerpt"){
+						$html .= tpf_excerpt( $eargs);
+					}		
+					
+					
+					if ($m == "content"){
+						$html .= tpf_excerpt( $eargs);
+					}							
+					
+					
 				}
-			
-			
-				$eargs = array ( 'more' => $more, 'moreclass' => $more_class, "words" => $words );
-				$html .= tpf_excerpt( $eargs);
-				
-				$html .= "
-				<ul class='result_data' >
-					<li class='date'>
-						<strong>Posted on </strong>". get_the_date($date_format) ."
-					</li>
-					<li class='author'>
-						<strong>By:</strong> " . $authorlink . "
-					</li>
-				</ul>"; 				
-			
+	
 			$html .= "</div>";
 			
 			if ($seperate != 0 ){
@@ -115,7 +159,7 @@ function thmplt_latest_post_type($atts){
 		
 		$html .= "</div>";
 	
-		
+		wp_reset_postdata();
 	
 	
 		return  $html ;
@@ -145,7 +189,9 @@ function tpf_excerpt ($args = NULL){
 		"moreclass" => '',
 		"echo" => false,
 		"link_all" => false,
-		"length" => 0
+		"length" => 0,
+		"force_more" => false,
+		"elipsis" => "on"
 	);
 
 	$args = array_merge($default_args, $attr);
@@ -169,13 +215,16 @@ function tpf_excerpt ($args = NULL){
 
 
 	$words_count = str_word_count($post->post_content);
-	if ( $words_count <= $args['words'] ) { $args['more'] = false; } 
+	if ( $words_count <= $args['words']  && $args['force_more'] == false ) { $args['more'] = false; } 
 
 
 	// If length is set then cut the excerpt to that amount of characters
 	if ( $args['length'] ) { $excerpt = substr($excerpt,0,$length); }
 	
+	if ($args['elipsis'] == "on" && $words_count >= $args['words'] ) { $excerpt = $excerpt . "..."; }
+	
 	$excerpt = "<span class='tpf-excerpt'>".$excerpt."</span>";
+	
 	
 	if ($args['link_all'] === true) {
 		$excerpt = 	'<a href="'. get_permalink($post->ID) . '">' . $excerpt;	

@@ -3,7 +3,7 @@
  * Theme URI: http://www.thmplt.com/thmpltfrmwrk
  * Github Theme URI: https://github.com/thmplt/thmpltfrmwrk
  * Description: Bootstrap 3 ready, responsive theme by thmplt. 
- * Version: 1.1.8
+ * Version: 1.1.9
  *
  * Author: thmplt team
  * Author URI: http://www.thmplt.com
@@ -96,7 +96,6 @@
 
  
  /* Thmplt Caption */
-.tpf-caption {}
 .tpf-caption .tpf-caption-title {display:block; padding:5px 0; font-weight:strong}
 .tpf-caption .tpf-caption-content {display:block; padding:5px 0;}
 
@@ -105,7 +104,27 @@
 .tpf-caption.tpfstyle .tpf-caption-content {display:block; padding:5px 0;}
 
 .tpf-fig-caption-title {display:block}
-.tpf-fig-caption-img {max-width:100%}
+.tpf-fig-caption-img {max-width:100%; width:100%}
+
+
+/* Sections > Containers */
+.maxwidth-container .container
+.tpf-maxwidth-container .container {max-width:1280px}
+
+.fullwidth,
+.fullwidth-container > .container, 
+.section-container-fullwidth > .container {max-width:100%!important;width:100%!important}
+
+.noppadding,
+.nopadding-container > .container,
+.section-container-nopadding > .container{padding:0!important}
+
+.nomargin,
+.nomargin-container > .container,
+.section-container-nomargin > .container{margin:0!important}
+
+.xlargewidth-container >  .container {width: 95%;max-width: 2560px}
+
 
 
 /**
@@ -134,6 +153,60 @@ img.aligncenter {clear: both;margin-top: 0.4em;	margin-bottom: 1.6em;}
 
 .wp-caption-text {color: #707070; color: rgba(51, 51, 51, 0.7);padding: 0.5em 0;}
 .gallery-caption {color: #707070;color: rgba(51, 51, 51, 0.7);display: block;padding: 0.5em 0;}
+
+
+
+
+.carousel-inner > .item > img.fullwidthimg {width:100%; height:auto; max-width: auto}
+.carousel-inner > .item > .constrained {height:600px; background-size:cover!important;}
+
+/* -- LEFT/RIGHT FADE -- */
+/*  Bootstrap Carousel Fade Transition (for Bootstrap 3.3.x) */
+.carousel-fade .carousel-inner .item {opacity:0; transition-property:opacity; transition-duration:.75s;}
+.carousel-fade .carousel-inner .active {opacity:1;}
+.carousel-fade .carousel-inner .active.left, .carousel-fade .carousel-inner .active.right {left:0; opacity:0; z-index:1;}
+.carousel-fade .carousel-inner .next.left, .carousel-fade .carousel-inner .prev.right {opacity:1;}
+.carousel-fade .carousel-control {	z-index: 100;}
+
+
+/*
+  WHAT IS NEW IN 3.3: "Added transforms to improve carousel performance in modern browsers."
+  Need to override the 3.3 new styles for modern browsers & apply opacity
+*/
+@media all and (transform-3d), (-webkit-transform-3d) {
+   .carousel-fade .carousel-inner > .item.next,
+   .carousel-fade .carousel-inner > .item.active.right {
+      opacity: 0; -webkit-transform: translate3d(0, 0, 0); transform: translate3d(0, 0, 0);
+    }
+    .carousel-fade .carousel-inner > .item.prev,
+   .carousel-fade .carousel-inner > .item.active.left {
+      opacity: 0; -webkit-transform: translate3d(0, 0, 0); transform: translate3d(0, 0, 0);
+    }
+    .carousel-fade .carousel-inner > .item.next.left,
+    .carousel-fade .carousel-inner > .item.prev.right,
+    .carousel-fade .carousel-inner > .item.active {
+      opacity: 1; -webkit-transform: translate3d(0, 0, 0); transform: translate3d(0, 0, 0);
+    }
+}
+
+.caption-wrapper {width:100%; position: absolute; }
+.caption-wrapper .caption-box {padding:20px 0;color:#FFF;text-align: center; margin:0 auto; max-width: 1024px}
+.caption-wrapper .caption-box .htag {color:#FFF}
+.caption-dark .caption-wrapper {  background:rgba(0, 0, 0, 0.3) }
+.caption-box-dark .caption-wrapper .caption-box {  background:rgba(0, 0, 0, 0.3); padding:20px}
+.caption-flood .caption-wrapper {  top:0; bottom:0; left:0; right:0 }
+.caption-top .caption-wrapper {top:0;}
+.caption-middle .caption-wrapper {top:42%}
+.caption-bottom .caption-wrapper {bottom:0}
+.caption-left .caption-wrapper .caption-box {float:left; width:50%; margin:0;text-align:left;}
+.caption-right .caption-wrapper .caption-box {float:right; width:50%; margin:0}
+
+.caption-flood.caption-bottom .caption-box-wrapper{bottom:0; position:absolute}
+.caption-flood.caption-top .caption-box-wrapper{top:0; position:absolute}
+
+.caption-text-left .caption-wrapper .caption-box{text-align:left}
+.caption-text-right .caption-wrapper .caption-box{text-align:right}
+
 
 
 /* -- Quick Columns --*/

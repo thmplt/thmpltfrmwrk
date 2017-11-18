@@ -358,6 +358,11 @@ function thmplt_logo($src=NULL, $href=NULL, $alt=NULL){
 
 
 
+
+
+
+
+
 /**
  * Depecrate this @TYPO LOOK THERE'S AND EXTRA T :'(
  */

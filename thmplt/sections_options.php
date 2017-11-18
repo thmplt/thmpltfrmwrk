@@ -133,9 +133,12 @@ function thmplt_section_options_callback () {
 										//echo $listitem; = ID
 										$post_7 = get_post( $listitem ); 
 										$title = $post_7->post_title;
+										$editlink = get_edit_post_link( $listitem);
+										
 										
 										echo "<li>";
 										echo $title;
+										echo "<a href='".$editlink."' style='float:right'><em>Edit</em></a>";
 										echo "<input type='hidden' name='thmplt_section[".$arg['hook']."][]' value='".$listitem."'/>";
 										echo "</li>";
 										

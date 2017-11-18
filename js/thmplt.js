@@ -228,13 +228,17 @@ jQuery(document).ready(function(){
 	 */		
 	function tpfFWBleedMargin( e ){
 		
-		var outerW = ( e.closest(".container").outerWidth() - e.closest(".container").width() ) / 2; // Padding to left 
-		var parentW = e.closest(".wrapper").outerWidth();
+		//var outerW = ( e.closest(".container").outerWidth() - e.closest(".container").width() ) / 2; // Padding to left 
+		var outerW = e.closest(".container").width(); // Padding to left 
+		var parentW = e.closest(".wrapper").outerWidth(); //1488
 		
-		e.css("margin-left", ( ( e.closest(".container").offset().left + outerW ) * -1 ) + "px");
+		//e.css("margin-left", ( ( e.closest(".container").offset().left + outerW ) * -1 ) + "px");
+		e.css("margin-left", ( (  parentW - outerW ) / 2 * -1) + "px");
 		e.css("width", parentW + "px");	
 		// ( e.outerWidth(true) - e.width() ) / 2; // <-- Outerwidth formula 
 	}	
+
+	
 	
 	/**
 	 * Calculate the margin left of the element

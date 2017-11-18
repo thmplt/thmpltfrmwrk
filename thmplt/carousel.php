@@ -373,7 +373,7 @@ function thmplt_carousel_dropdown($name, $selected_id){
 /**
  * Create the slides that will be shown on the front page
  */
-function thmplt_do_carousel_slides($id, $echo = true ) { 
+function thmplt_do_carousel_slides($id, $echo = true, $legacy = 'on' ) { 
 
 
 	$thmplt_carousel_options = get_option('thmplt_carousel_options');
@@ -409,12 +409,12 @@ function thmplt_do_carousel_slides($id, $echo = true ) {
 	if ($options['pause'] == "hover" ) { 
 
 		$html .=  "<script type='text/javascript'> \n";
-			$html .=  "$(document).ready(function(){ 
+			$html .=  "jQuery(document).ready(function(){ 
 			
-				$('#".$id."').mouseenter(function() {
-					$(this).carousel('pause');
+				jQuery('#".$id."').mouseenter(function() {
+					jQuery(this).carousel('pause');
 				}).mouseleave(function() {
-					$(this).carousel('cycle');
+					jQuery(this).carousel('cycle');
 				}); 
 			
 			});";
@@ -435,6 +435,13 @@ function thmplt_do_carousel_slides($id, $echo = true ) {
 		$html .=  " data-interval='". $interval ."' ";
 
 
+	if ($options['pause'] == "hover" ) {
+		#$html .=  " data-pause='true' ";
+	} else {
+		$html .=  " data-pause='false' ";
+	}
+	
+	
 	$html .=  " data-ride='carousel' > \n\n";
 
 	/**
@@ -482,7 +489,13 @@ function thmplt_do_carousel_slides($id, $echo = true ) {
 			
 			$car_post = get_post($slide);
 		
-			$html .=  " \t <div class='item carousel-". $car_post->ID . " ";
+			$custom = get_post_custom($car_post->ID);
+			@$thmplt_carousel_slide_settings = unserialize($custom['thmplt_carousel_slide_settings'][0]);
+			
+			
+			$html .= " \t <div ";
+			$html .= !empty($thmplt_carousel_slide_settings['ID'])? "id='".$thmplt_carousel_slide_settings['ID']."' ":"";
+			$html .= " class='item carousel-". $car_post->ID . " ".$thmplt_carousel_slide_settings['class']." ";
 			// if its the first one, give it a class of active 	
 			if ($s == 0 ) { $html .=  " active"; }			
 			$html .=  "' > \n";
@@ -513,16 +526,30 @@ function thmplt_do_carousel_slides($id, $echo = true ) {
 			
 			} else {
 				
-				$html .=  "<img alt='Third slide' src='data:image/gif;base64,R0lGODlhAQABAIAAAFVVVQAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=='>";	
+				$html .=  "<img alt='Carousel Slide' src='data:image/gif;base64,R0lGODlhAQABAIAAAFVVVQAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=='>";	
 				
 			}// End if has_post_thumbnail 
 			
 			
-			$html .=  " \t \t<div class='container'> \n";				
-			$html .=  " \t \t<div class='carousel-caption'> \n";	
-				$html .=  "\t \t \t". wpautop($car_post->post_content) . "\n";
-			$html .=  "\t \t </div> \n";	
-			$html .=  "\t \t </div> \n";				
+			if ($legacy == 'on' ){
+				$html .=  " \t \t<div class='container'> \n";				
+				$html .=  " \t \t<div class='carousel-caption'> \n";
+					$html .=  "\t \t \t". wpautop($car_post->post_content) . "\n";
+					$html .=  "\t \t </div> \n";	
+				$html .=  "\t \t </div> \n";
+			}
+			
+			if ($legacy == 'off' ){
+				$html .=  " \t \t<div class='caption-wrapper'> \n";
+				$html .=  " \t \t<div class='container'> \n";				
+				$html .=  " \t \t<div class='caption-box-wrapper container row'> \n";
+				$html .=  " \t \t<div class='caption-box'> \n";
+					$html .=  "\t \t \t". wpautop($car_post->post_content) . "\n";
+				$html .=  "\t \t </div> \n";
+				$html .=  "\t \t </div> \n";
+				$html .=  "\t \t </div> \n";	
+				$html .=  "\t \t </div> \n";			
+			}
 
 			$html .=  "\t </div> \n";
 			
@@ -572,10 +599,11 @@ function thmplt_bootstrap_carousel_shortcode($atts){
 
 		extract( shortcode_atts( array(
 		'ID' => 'tpf_carousel', // 
+		'legacy' => 'on'	
 		//'excerpt' => ''
 	), $atts ) );
 	
-	return thmplt_do_carousel_slides($ID, false);
+	return thmplt_do_carousel_slides($ID, false, $legacy);
 	
 }
 add_shortcode('tpf_carousel','thmplt_bootstrap_carousel_shortcode');
@@ -625,4 +653,51 @@ function thmplt_move_featured_image_meta_box() {
 }
 
 
-?>
+/**
+ * Create Metabox for thmplt_section
+ */
+function thmplt_carousel_slide_meta(){
+	add_meta_box("thmplt_carousel_meta_box1", "Slide Settings", "thmplt_carousel_slide_settings_html", "thmplt_carousel", "normal", "high");
+
+}
+
+add_action("admin_init", "thmplt_carousel_slide_meta");
+
+
+
+/**
+ * Thmplt Sections Settings 
+ */
+function thmplt_carousel_slide_settings_html() { 
+
+	global $post;
+	$custom = get_post_custom($post->ID);
+	@$thmplt_carousel_slide_settings = unserialize($custom['thmplt_carousel_slide_settings'][0]);
+
+	$set = "<label style='padding:0 15px 0 0 '>Slide ID: <input type='text' name='thmplt_carousel_slide_settings[id]' value='".$thmplt_carousel_slide_settings['id']."' /> </label>";
+	$set .= "<label style='padding:0 15px 0 0 '>Slide Class: <input type='text' name='thmplt_carousel_slide_settings[class]' value='".$thmplt_carousel_slide_settings['class']."' style='width:550px'/> </label>";
+
+	/*<option value='inherit'>inherit</option> */	
+	
+	$set .= "";
+	echo $set;
+
+} 
+
+
+// Save 
+function save_thmplt_carousel_slide(){
+	if ( (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) || (defined('DOING_AJAX') && DOING_AJAX) ) {  return; }
+	if ( isset($_REQUEST['bulk_edit']) ) {  return; }	
+	if ( !empty($_POST['post_type']) && $_POST['post_type'] != 'thmplt_carousel') { return; }
+	if ( empty($_POST['post_type'])) { return; }	
+	global $post;
+
+	update_post_meta($post->ID, "thmplt_carousel_slide_settings", $_POST["thmplt_carousel_slide_settings"]);		
+		
+}
+add_action('save_post', 'save_thmplt_carousel_slide'); 
+
+
+
+

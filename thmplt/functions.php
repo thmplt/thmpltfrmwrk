@@ -6,7 +6,7 @@
 /**
  * thmplt current version 
  */
-define("THMPLT_VERSION", "1.1.8");
+define("THMPLT_VERSION", "1.1.9");
 
 
 /**
@@ -103,6 +103,26 @@ function thmplt_content_pagination(){
 	echo "</div>";
 
 }#End Function Pagination 
+
+
+
+/**
+ * archive title 
+ */
+function set_the_proper_page_id(){
+	global $thmplt;
+	global $post;
+
+	$thmplt['pageID'] = $post->ID;
+	
+	// If there is a page_for_posts set... get the page
+	if (is_category() || is_tax() || is_tag() || is_day() || is_month() || is_year() || is_author() || is_home() ){
+		if ( get_option( 'page_for_posts' ) ) { 
+			$hostpost = get_post( get_option( 'page_for_posts' ) );
+			$thmplt['pageID'] = $hostpost->ID;		
+		} 
+	}	
+}
 
 
 
@@ -253,6 +273,7 @@ function thmplt_do_registered_scripts () {
 	
 	if ( is_array($thmplt_scripts) ) { 
 		foreach ($thmplt_scripts as $key => $val ){
+			
 			
 			wp_enqueue_script ( $val['ID'], $val['src'], $val['deps'], $val['ver'], $val['in_footer'] );
 			
@@ -429,6 +450,32 @@ add_shortcode('thmplt_clone_list','thmplt_clone_list');
 
 
 /**
+ * Creates list item based on the .tps-clone-list jQuery action
+ */
+function thmplt_child_pages($atts){
+
+	$a = shortcode_atts( array(
+		'child_of' => '',
+		'authors' => '',
+		'depth' => '1',
+		'echo' => false,
+		'exclude' => '',
+		'class' => '',
+		'title_li' => ''
+	), $atts );
+	
+	$pages = wp_list_pages($a);
+	
+	$html = "<ul class='tpf-list-pages ".$a['class']."' >" ; // opening of the UL 
+	$html .= $pages;
+	$html .= "<!-- Auto Generated --></ul>"; // Close the UL
+	return  $html ;
+}
+add_shortcode('thmplt_child_pages','thmplt_child_pages');
+
+
+
+/**
  * lists all sub-nav items based on menu location in the admin
  *
  * example :[thmplt_wp_nav location='XXXX']
@@ -488,6 +535,22 @@ function thmplt_bloginfo_shortcode($atts){
 add_shortcode('thmplt_bloginfo','thmplt_bloginfo_shortcode');
 
 
+/**
+ * Display Dates in the editor 
+ */
+function thmplt_date($atts){
+	extract( shortcode_atts( array(
+		'format' => 'F j, Y',
+		'time' => time()
+	), $atts ) );	
+	
+	return date($format, $time);
+	
+}
+add_shortcode('thmplt_date','thmplt_date');
+
+
+
 /** 
  * Get the current post information and retun it via shortcode
  */
@@ -539,20 +602,23 @@ add_shortcode('thmplt_the_title', 'thmplt_the_title');
 function thmplt_featured_images_swapper($atts){
 	
 	global $post;
+	global $thmplt;
 	
-	//var_dump($post);
+	$postID = !empty($thmplt['pageID'])? $thmplt['pageID'] : $post->ID;
+	
+	//var_dump($postID);
 	$a = shortcode_atts( array(
         'class' => '',
 		'src' => '', //default image 
 		'childpages' => 'false'
     ), $atts );
 	
-	if ( has_post_thumbnail($post) ){
-		$a['src'] = get_the_post_thumbnail_url($post);
-	} elseif( has_post_thumbnail( wp_get_post_parent_id( $post->ID) ) && $a['childpages'] == 'true' ) { 
+	if ( has_post_thumbnail($postID) ){
+		$a['src'] = get_the_post_thumbnail_url($postID );
+	} elseif( has_post_thumbnail( wp_get_post_parent_id( $postID ) ) && $a['childpages'] == 'true' ) { 
 		// If there is a parent .. get the parents image 
-		$a['src'] = get_the_post_thumbnail_url( wp_get_post_parent_id( $post->ID) );
-		$a['class'] .= " tpf-parent-featured-image tpf-parent-" . wp_get_post_parent_id( $post->ID);
+		$a['src'] = get_the_post_thumbnail_url( wp_get_post_parent_id( $postID ) );
+		$a['class'] .= " tpf-parent-featured-image tpf-parent-" . wp_get_post_parent_id( $postID );
 	}
 	$html = "<img src='".$a['src']."' class='".$a['class']."' />";
 	return $html;
@@ -562,11 +628,15 @@ add_shortcode("thmplt_featured_image","thmplt_featured_images_swapper");
 
 
 
-include ( TEMPLATEPATH . "/thmplt/theme_options.php" );	
+
+
+
+include ( TEMPLATEPATH . "/thmplt/theme_options.php" );
 include ( TEMPLATEPATH . "/thmplt/carousel.php" );
 include ( TEMPLATEPATH . "/thmplt/content.php" );
-include ( TEMPLATEPATH . "/thmplt/dynamic_sidebars.php" );	
+include ( TEMPLATEPATH . "/thmplt/dynamic_sidebars.php" );
 include ( TEMPLATEPATH . "/thmplt/sections.php" );
-include ( TEMPLATEPATH . "/thmplt/sections_options.php" );	
+include ( TEMPLATEPATH . "/thmplt/sections_options.php" );
 include ( TEMPLATEPATH . "/thmplt/latest.php" );
 include ( TEMPLATEPATH . "/thmplt/captions.php" );
+#include ( TEMPLATEPATH . "/thmplt/scripts_options.php" ); // Will not be needed (plugins can handle this )
