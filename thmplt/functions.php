@@ -605,6 +605,7 @@ function thmplt_featured_images_swapper($atts){
 	global $thmplt;
 	
 	$postID = !empty($thmplt['pageID'])? $thmplt['pageID'] : $post->ID;
+	$postID = (is_404())? NULL:$postID;
 	
 	//var_dump($postID);
 	$a = shortcode_atts( array(
@@ -613,9 +614,12 @@ function thmplt_featured_images_swapper($atts){
 		'childpages' => 'false'
     ), $atts );
 	
-	if ( has_post_thumbnail($postID) ){
+			
+	if ( has_post_thumbnail($postID) && !is_404()){
+		
 		$a['src'] = get_the_post_thumbnail_url($postID );
-	} elseif( has_post_thumbnail( wp_get_post_parent_id( $postID ) ) && $a['childpages'] == 'true' ) { 
+	} elseif( has_post_thumbnail( wp_get_post_parent_id( $postID ) ) && $a['childpages'] == 'true' && !is_404() ) { 
+		
 		// If there is a parent .. get the parents image 
 		$a['src'] = get_the_post_thumbnail_url( wp_get_post_parent_id( $postID ) );
 		$a['class'] .= " tpf-parent-featured-image tpf-parent-" . wp_get_post_parent_id( $postID );
