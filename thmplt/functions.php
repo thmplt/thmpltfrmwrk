@@ -6,7 +6,7 @@
 /**
  * thmplt current version 
  */
-define("THMPLT_VERSION", "1.1.9");
+define("THMPLT_VERSION", "1.1.9.1");
 
 
 /**
@@ -116,7 +116,7 @@ function set_the_proper_page_id(){
 	$thmplt['pageID'] = $post->ID;
 	
 	// If there is a page_for_posts set... get the page
-	if (is_category() || is_tax() || is_tag() || is_day() || is_month() || is_year() || is_author() || is_home() ){
+	if (is_category() || is_tag() || is_day() || is_month() || is_year() || is_author() || is_home() ){
 		if ( get_option( 'page_for_posts' ) ) { 
 			$hostpost = get_post( get_option( 'page_for_posts' ) );
 			$thmplt['pageID'] = $hostpost->ID;		
