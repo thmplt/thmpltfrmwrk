@@ -1,17 +1,31 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <dwsync>
-<file name="section_options.css" server="foundsig2017.sftp.wpengine.com:2222" local="131546317780000000" remote="131546317780000000" Dst="1" />
-<file name="sections.php" server="foundsig2017.sftp.wpengine.com:2222" local="131547055610000000" remote="131547055610000000" Dst="1" />
-<file name="dynamic_sidebars.php" server="foundsig2017.sftp.wpengine.com:2222" local="131546317760000000" remote="131546317760000000" Dst="1" />
-<file name="captions.php" server="foundsig2017.sftp.wpengine.com:2222" local="131546317750000000" remote="131546317750000000" Dst="1" />
-<file name="functions.php" server="foundsig2017.sftp.wpengine.com:2222" local="131555136909524971" remote="131555136920000000" Dst="1" />
-<file name="theme_options.css" server="foundsig2017.sftp.wpengine.com:2222" local="131546317780000000" remote="131546317780000000" Dst="1" />
-<file name="content.php" server="foundsig2017.sftp.wpengine.com:2222" local="131546317760000000" remote="131546317760000000" Dst="1" />
-<file name="section_options.js" server="foundsig2017.sftp.wpengine.com:2222" local="131546317780000000" remote="131546317780000000" Dst="1" />
-<file name="latest.php" server="foundsig2017.sftp.wpengine.com:2222" local="131546317770000000" remote="131546317770000000" Dst="1" />
-<file name="theme_options.js" server="foundsig2017.sftp.wpengine.com:2222" local="131546317780000000" remote="131546317780000000" Dst="1" />
-<file name="scripts_options.php" server="foundsig2017.sftp.wpengine.com:2222" local="131546317770000000" remote="131546317770000000" Dst="1" />
-<file name="carousel.php" server="foundsig2017.sftp.wpengine.com:2222" local="131546317750000000" remote="131546317750000000" Dst="1" />
-<file name="sections_options.php" server="foundsig2017.sftp.wpengine.com:2222" local="131547089380000000" remote="131547089380000000" Dst="1" />
-<file name="theme_options.php" server="foundsig2017.sftp.wpengine.com:2222" local="131548058660000000" remote="131548058660000000" Dst="1" />
+<file name="captions.php" server="orseckmd2017m.sftp.wpengine.com:2222//" local="131585532600000000" remote="131585532600000000" Dst="1" />
+<file name="theme_options.js" server="orseckmd2017m.sftp.wpengine.com:2222//" local="131585532600000000" remote="131585532600000000" Dst="1" />
+<file name="section_options.css" server="orseckmd2017m.sftp.wpengine.com:2222//" local="131585532600000000" remote="131585532600000000" Dst="1" />
+<file name="section_options.js" server="orseckmd2017m.sftp.wpengine.com:2222//" local="131585532600000000" remote="131585532600000000" Dst="1" />
+<file name="theme_options.php" server="orseckmd2017m.sftp.wpengine.com:2222//" local="131585532600000000" remote="131585532600000000" Dst="1" />
+<file name="latest.php" server="orseckmd2017m.sftp.wpengine.com:2222//" local="131585532600000000" remote="131585532600000000" Dst="1" />
+<file name="carousel.php" server="orseckmd2017m.sftp.wpengine.com:2222//" local="131585532600000000" remote="131585532600000000" Dst="1" />
+<file name="content.php" server="orseckmd2017m.sftp.wpengine.com:2222//" local="131585532600000000" remote="131585532600000000" Dst="1" />
+<file name="sections.php" server="orseckmd2017m.sftp.wpengine.com:2222//" local="131587784986316190" remote="131587785310000000" Dst="1" />
+<file name="sections_options.php" server="orseckmd2017m.sftp.wpengine.com:2222//" local="131587740312785529" remote="131587740320000000" Dst="1" />
+<file name="dynamic_sidebars.php" server="orseckmd2017m.sftp.wpengine.com:2222//" local="131585532600000000" remote="131585532600000000" Dst="1" />
+<file name="functions.php" server="orseckmd2017m.sftp.wpengine.com:2222//" local="131587796521714159" remote="131587796540000000" Dst="1" />
+<file name="scripts_options.php" server="orseckmd2017m.sftp.wpengine.com:2222//" local="131585532600000000" remote="131585532600000000" Dst="1" />
+<file name="theme_options.css" server="orseckmd2017m.sftp.wpengine.com:2222//" local="131585532600000000" remote="131585532600000000" Dst="1" />
+<file name="captions.php" server="amshowcase.sftp.wpengine.com:2222" local="131585532600000000" remote="131587799700000000" Dst="1" />
+<file name="carousel.php" server="amshowcase.sftp.wpengine.com:2222" local="131585532600000000" remote="131587799710000000" Dst="1" />
+<file name="content.php" server="amshowcase.sftp.wpengine.com:2222" local="131585532600000000" remote="131587799710000000" Dst="1" />
+<file name="dynamic_sidebars.php" server="amshowcase.sftp.wpengine.com:2222" local="131585532600000000" remote="131587799710000000" Dst="1" />
+<file name="functions.php" server="amshowcase.sftp.wpengine.com:2222" local="131587796521714159" remote="131587799720000000" Dst="1" />
+<file name="latest.php" server="amshowcase.sftp.wpengine.com:2222" local="131585532600000000" remote="131587799720000000" Dst="1" />
+<file name="scripts_options.php" server="amshowcase.sftp.wpengine.com:2222" local="131585532600000000" remote="131587799720000000" Dst="1" />
+<file name="sections.php" server="amshowcase.sftp.wpengine.com:2222" local="131587784986316190" remote="131587799720000000" Dst="1" />
+<file name="sections_options.php" server="amshowcase.sftp.wpengine.com:2222" local="131587740312785529" remote="131587799730000000" Dst="1" />
+<file name="section_options.css" server="amshowcase.sftp.wpengine.com:2222" local="131585532600000000" remote="131587799730000000" Dst="1" />
+<file name="section_options.js" server="amshowcase.sftp.wpengine.com:2222" local="131585532600000000" remote="131587799730000000" Dst="1" />
+<file name="theme_options.css" server="amshowcase.sftp.wpengine.com:2222" local="131585532600000000" remote="131587799730000000" Dst="1" />
+<file name="theme_options.js" server="amshowcase.sftp.wpengine.com:2222" local="131585532600000000" remote="131587799740000000" Dst="1" />
+<file name="theme_options.php" server="amshowcase.sftp.wpengine.com:2222" local="131588627628744816" remote="131588628070000000" Dst="1" />
 </dwsync>

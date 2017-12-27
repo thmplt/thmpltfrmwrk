@@ -6,7 +6,7 @@
 /**
  * thmplt current version 
  */
-define("THMPLT_VERSION", "1.1.9.1");
+define("THMPLT_VERSION", "1.2.0");
 
 
 /**
@@ -364,6 +364,7 @@ function thmplt_special_body_classes($classes) {
 	if( preg_match('/iphone/i', $_SERVER['HTTP_USER_AGENT'])) { $classes = thmplt_del_value($classes,"mac"); $classes[] =  "iphone"; }
 	if( preg_match('/ipod/i', $_SERVER['HTTP_USER_AGENT'])) { $classes = thmplt_del_value($classes,"mac"); $classes[] =  "ipod"; }
 	if( preg_match('/chrome/i', $_SERVER['HTTP_USER_AGENT'])) { $classes = thmplt_del_value($classes,"safari");  $classes[] =  "chrome"; }
+	if( preg_match('/Edge/i', $_SERVER['HTTP_USER_AGENT'])) { $classes = thmplt_del_value($classes,"chrome");  $classes[] =  "edge"; }	
 	
 	
 	if  ( !empty($thmplt['nosidebar']) && $thmplt['nosidebar'] == true ) { 
@@ -597,7 +598,7 @@ add_shortcode('thmplt_the_title', 'thmplt_the_title');
 /** 
  *  thmplt_featured image swapper 
  */
- add_theme_support( 'post-thumbnails', array( 'page' ) ); // Make sure pages supports this 
+add_theme_support( 'post-thumbnails', array( 'page' ) ); // Make sure pages supports this 
  
 function thmplt_featured_images_swapper($atts){
 	
@@ -614,12 +615,9 @@ function thmplt_featured_images_swapper($atts){
 		'childpages' => 'false'
     ), $atts );
 	
-			
-	if ( has_post_thumbnail($postID) && !is_404()){
-		
+	if ( has_post_thumbnail($postID) && !is_404() ){
 		$a['src'] = get_the_post_thumbnail_url($postID );
 	} elseif( has_post_thumbnail( wp_get_post_parent_id( $postID ) ) && $a['childpages'] == 'true' && !is_404() ) { 
-		
 		// If there is a parent .. get the parents image 
 		$a['src'] = get_the_post_thumbnail_url( wp_get_post_parent_id( $postID ) );
 		$a['class'] .= " tpf-parent-featured-image tpf-parent-" . wp_get_post_parent_id( $postID );

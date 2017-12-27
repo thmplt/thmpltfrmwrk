@@ -598,10 +598,11 @@ function thmplt_section_content($section_id=NULL){
 						if ( has_post_thumbnail($section->ID) ) {
 							$imgurl = wp_get_attachment_url ( get_post_thumbnail_id( $section->ID ) );
 							$style .= "#".$secid."{position:relative} \n";
+							$style .= "#".$secid." .container {position:relative;z-index:2} \n";
 							$style .= "#".$secid."::before { 
 								background-image: url(".$imgurl." );
 								content:' ';position:absolute;
-								top:0;left:0;bottom:0;right:0;
+								top:0;left:0;bottom:0;right:0;z-index:1;
 							} \n";
 						}
 						if ( !empty( $thmplt_section_bg_settings['bgposition']) && $thmplt_section_bg_settings['bgposition'] != "-" ) { 
@@ -741,6 +742,37 @@ function thmplt_section_screen() {
 add_action( 'current_screen', 'thmplt_section_screen' );
 
 
+
+/**
+ * Set the default order of sections by name in the admin Dashboard
+ * Sort posts in wp_list_table by column in ascending or descending order.
+ */
+function thmplt_section_default_order($query){
+    /* 
+        Set post types.
+        _builtin => true returns WordPress default post types. 
+        _builtin => false returns custom registered post types. 
+    */
+    $post_types = get_post_types(array('_builtin' => false), 'names');
+    /* The current post type. */
+    $post_type = $query->get('post_type');
+	/* Effects only a specific post type in the array of post types. */
+	if(in_array($post_type, $post_types) && $post_type == 'thmplt_section'){
+        /* Post Column: e.g. title */
+        if($query->get('orderby') == ''){
+            $query->set('orderby', 'title');
+        }
+        /* Post Order: ASC / DESC */
+        if($query->get('order') == ''){
+            $query->set('order', 'ASC');
+        }
+    }
+}
+
+// Add action only if within the admin panel 
+if(is_admin()){
+    add_action('pre_get_posts', 'thmplt_section_default_order');
+}
 
 
 /**

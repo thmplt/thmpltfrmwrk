@@ -25,10 +25,6 @@ function theme_enqueue_styles() {
 	// Load the main thmplt JS file
 	wp_enqueue_script( 'thmplt_js', 
 		get_template_directory_uri() . "/js/thmplt.js", array('jquery', 'jquery-migrate') );
-
-	wp_enqueue_script('bootsrap_js',
-		get_template_directory_uri() . "/bootstrap/js/bootstrap.min.js", array('jquery','jquery-migrate') );
-
 }
 
 

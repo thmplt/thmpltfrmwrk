@@ -219,22 +219,17 @@ function thmplt_section_options_callback () {
  */
 function thmplt_section_selectbox($name, $selected_id){
 	
-	$args = array('sort_column' => 'post_title', 'post_type' => 'thmplt_section', 'post_status' => 'publish', 'posts_per_page' => -1);
+	$args = array('orderby' => 'post_title', 'order' => 'ASC' , 'post_type' => 'thmplt_section', 'post_status' => 'publish', 'posts_per_page' => -1);
 	$pages = get_posts($args);
 	
 	if (is_array($pages)) {
 		echo "<ul class='tpf-jq-sortable-master' style='width:90%; height:300px'>";		
 		foreach ($pages as $page) {
 			echo "<li>".ucfirst($page->post_title)." <input type='hidden' name='thmplpt_section[][]' value='".ucfirst($page->ID)."' /></li>";
-			
 		}
 		echo "</ul>";
 	}
-	
 }
-
-
-
 
 
 
@@ -416,4 +411,68 @@ function thmplt_show_section($current_hook){
 	}
 	
 }
+
+
+
+/**
+ * Add Section quicklinks to the admin menu 
+ */
+function thmplt_sections_admin_bar_menu() {
+	global $wp_admin_bar;
+	global $thmplt_register_section;
+	do_action('thmplt_init_section'); 
+	
+	$thmplt_section = get_option('thmplt_section');
+	$menu_id = 'thmplt_sctions';
+	$wp_admin_bar->add_menu(array('id' => $menu_id, 'title' => __('thmplt Sections'), 'href' => '/wp-admin/edit.php?post_type=thmplt_section'));
+	
+	
+	#echo "<pre> SECTIONS: "; var_dump($thmplt_register_section); echo "</pre>";
+	
+	
+foreach ( $thmplt_register_section as $id => $arg ) { 
+
+#$echo "<li id='".$id."' data-hook='".$arg['hook']."'>";
+	//echo "<div class='dragdropclose'>";
+	//echo "<h3>title goes here</h3>";
+	//echo "</div>";
+
+#	echo "<strong>" .$arg['label'] . "</strong> ";
+	if (!empty($arg['description'])) { 
+#		echo "<br /><span class='description'>". $arg['description'] . "</span> <br />";
+	}
+
+		if (!empty($thmplt_section[$arg['hook']]) && is_array($thmplt_section[$arg['hook']]) ){
+			foreach ( $thmplt_section[$arg['hook']] as $listitem ){
+
+				//echo $listitem; = ID
+				$post_7 = get_post( $listitem ); 
+				$title = $post_7->post_title;
+				$editlink = get_edit_post_link( $listitem);
+
+				$wp_admin_bar->add_menu(
+					array(
+						'parent' => $menu_id,
+						'title' => __( $title ),
+						'id' => $listitem,
+						'href' => $editlink,
+						'meta' => array('target' => '_blank')
+					)
+				);
+
+
+			}
+		}
+
+}	
+	
+
+}
+add_action('admin_bar_menu', 'thmplt_sections_admin_bar_menu', 2000);
+
+
+
+
+
+
 

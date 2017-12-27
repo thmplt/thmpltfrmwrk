@@ -174,6 +174,30 @@ function thmplt_options_callback () {
 					echo "</tr>";
 
 
+					/**
+					 * HTML/Option for bootstrap version
+					 */ 
+					echo "<tr>";
+					echo "<th scope='row'><label for='fonts'>Bootstrap Version</label></th>";
+					echo "<td>";
+					
+						echo "<fieldset>";
+						echo "<label>Enable/Disable default Bootstrap assets</label><br /><br />";
+
+						$boostrap_options = array ( "3", "4");
+						
+						echo "<select name='thmplt_options[bootstrapver]' >";
+						foreach ( $boostrap_options as $bo ) { 
+						
+							$bo_selected = ($bo == $thmplt_options['bootstrapver']) ? "selected": NULL;
+							echo "<option value='".$bo."' ".$bo_selected." >".ucfirst($bo)."</option>";
+						
+						} 
+						
+						echo "</fieldset>";
+					echo "</td>";
+					echo "</tr>";	
+	
 
 
 				echo "</tbody>"; 
@@ -316,11 +340,15 @@ function thmplt_favicon_url() {
  * @param string $href The HREF to link to 
  * @param string $alt The Alt attribute 
  */
-function thmplt_logo($src=NULL, $href=NULL, $alt=NULL){
+function thmplt_logo($src=NULL, $href=NULL, $alt=NULL, $nm=NULL, $dsc=NULL){
 	
 	$src = is_null($src) ? 	false : $src;
 	$href = is_null($href) ? get_bloginfo('url'): $href;
 	$alt = is_null($alt) ? get_bloginfo('name'): $alt;
+	
+	$name = is_null($nm) ? get_bloginfo('name'): $nm;
+	$desc = is_null($dsc)? get_bloginfo('description'): $dsc;
+	
 
 	$html = "";
 	
@@ -340,13 +368,13 @@ function thmplt_logo($src=NULL, $href=NULL, $alt=NULL){
 	
 		$html .= "\n <h1 class='thmplt_logo tpf-logo'> \n";
 		$html .= " <a href='".$href."'> \n";
-		$html .= get_bloginfo( 'name' ) ."\n";
+		$html .= $name ."\n";
 		$html .= " </a> \n";
 		$html .= " </h1> \n";
 		
 		$html .= "\n <h2 class='thmplt_logo tpf-logo'> \n";
 		$html .= " <a href='".$href."'> \n";
-		$html .= get_bloginfo('description')."\n";
+		$html .= $desc."\n";
 		$html .= " </a> \n";
 		$html .= " </h2> \n";	
 	
@@ -357,8 +385,19 @@ function thmplt_logo($src=NULL, $href=NULL, $alt=NULL){
 }
 
 
-
-
+function thmplt_logo_shortcode($atts){
+	extract(shortcode_atts( array(
+		'src' => NULL, // Which Element to clone
+		'href' => NULL, // contains a word/text
+		'alt' => NULL,	// selector/s
+		'name' => NULL,
+		'desc' => NULL
+	), $atts ));
+	
+	return thmplt_logo($src, $href, $alt, $name, $desc );
+	
+}
+add_shortcode('thmplt_logo','thmplt_logo_shortcode');
 
 
 
