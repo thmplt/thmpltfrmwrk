@@ -192,9 +192,8 @@ img.aligncenter {clear: both;margin-top: 0.4em;	margin-bottom: 1.6em;}
     }
 }
 
-.tpf-videomask{display: block;position: absolute;top: 0;bottom: 0;left: 0; right: 0; z-index:11}
-.tpf-linkslide{display: block;position: absolute;top: 0;bottom: 0;left: 0; right: 0; z-index:12}
-
+.tpf-videomask{display: block;position: absolute;top: 0;bottom: 0;left: 0; right: 0; z-index:9}
+.tpf-linkslide{display: block;position: absolute;top: 0;bottom: 0;left: 0; right: 0; z-index:11}
 
 .caption-wrapper {width:100%; position: absolute; }
 .caption-wrapper .caption-box {padding:20px 0;color:#FFF;text-align: center; margin:0 auto; max-width: 1024px}
