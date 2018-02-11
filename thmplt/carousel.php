@@ -422,6 +422,9 @@ function thmplt_do_carousel_slides($id, $echo = true, $legacy = 'on' ) {
 
 	}
 	
+
+	
+	
 	// Appened which transition we want 
 	$classes .= "carousel-" . $options['transition'];
 	
@@ -490,73 +493,139 @@ function thmplt_do_carousel_slides($id, $echo = true, $legacy = 'on' ) {
 			$car_post = get_post($slide);
 		
 			$custom = get_post_custom($car_post->ID);
-			@$thmplt_carousel_slide_settings = unserialize($custom['thmplt_carousel_slide_settings'][0]);
+			@$slide_set = unserialize($custom['thmplt_carousel_slide_settings'][0]);
+			
+			
+			$yt = thmplt_extract_yt_video_id($slide_set['video']);
+			
+			$slideid = !empty($slide_set['ID'])? $slide_set['ID'] : "slide-".$car_post->ID;
 			
 			
 			$html .= " \t <div ";
-			$html .= !empty($thmplt_carousel_slide_settings['ID'])? "id='".$thmplt_carousel_slide_settings['ID']."' ":"";
-			$html .= " class='item carousel-". $car_post->ID . " ".$thmplt_carousel_slide_settings['class']." ";
+			$html .= !empty($slideid)? "id='".$slideid."' ":"";
+			$html .= " class='item carousel-". $car_post->ID . " ".$slide_set['class']." ";
 			// if its the first one, give it a class of active 	
-			if ($s == 0 ) { $html .=  " active"; }			
-			$html .=  "' > \n";
+			if ($s == 0 ) { $html .=  " active"; }
+			$html .=  "' ";
+			$html .= !empty($slide_set['interval'])? " data-interval='".($slide_set['interval']*1000)."' ":"";
 			
+			//$html .= !empty($slide_set['height'])? " style='height:".$slide_set['height']."px'":"";
 			
+			$html .=  " > \n";
+			
+
+			//.1666666
+			//$margintop = "52.5$";
+			
+			if (!empty($yt)){
+				
+				// iF Responsive 
+				if(!empty($slide_set['vresponsive']) && $slide_set['vresponsive'] == "yes"){ 
+					
+					$heightratio = ($slide_set['height'] / $slide_set['width']) * 100;
+					$scale = empty($slide_set['scale']) ? "100" : str_replace("%", "", $slide_set['scale']);
+					$scaleoffset = (100 - $scale)/2;					
+					$html .= "
+					<style scoped>
+						#".$slideid." .video-container {width:100%;height:0;padding-bottom:".$heightratio."%}
+						#".$slideid." .video-container iframe {height:".$scale."%;top:".$scaleoffset."%}
+						#".$slideid." .video-container iframe {width:".$scale."%;left:".$scaleoffset."%}
+					</style>";
+				}
+				
+				$html .= "<!-- YT ID: ".$yt." -->"; //width='560' height='315'
+				$html .= "<div class='video-container ";
+				$html .= ($slide_set['vresponsive'] == "yes") ? " embed-responsive ": "";
+				$html .= "'><iframe id='#".$slideid."-video' class='carousel-video position-center' ";
+				
+				$html .= (!empty($slide_set['height']))? " height='".$slide_set['height']."'":"";
+				$html .= (!empty($slide_set['width']))? " width='".$slide_set['width']."'":"";
+				
+				//$slide_set['sound'] = "no";
+				
+				$mute = (!empty($slide_set['sound']) && $slide_set['sound'] == "no")? "1" :"0";
+				
+				$src_sets = "?rel=0&controls=0&showinfo=0&disablekb=0&autoplay=1&loop=1&mute=".$mute."&playlist=".$yt;
+				
+				$html .= " src='//www.youtube.com/embed/".$yt.$src_sets."' frameborder='0' allow='autoplay; encrypted-media' volume='0' allowfullscreen> </iframe></div>";
+				$html .= "<div class='tpf-videomask'></div>";
+				
+/*				$html .= "
+				<script>
+					var myVideo =  iframe.getElementById('".$slideid."-video'); 
+					myVideo.mute();
+				</script>
+				";*/
+				
+			} else {			
 				/**
 				* Check if a featured image was set, if not then use the bootstrap default grascale image
 				*/			
 				if ( has_post_thumbnail($car_post->ID) ) { 
-				
-					$imgurl = wp_get_attachment_url ( get_post_thumbnail_id( $car_post->ID ) );
-				
-				if ( $options['imageoptions'] == "constrained" ) { 
-				
-					$html .=  "<div class='imageslide constrained' style='background: url(".$imgurl.") center center no-repeat;'>";
-					$html .=  "</div>";
-					
-				} elseif ( $options['imageoptions'] == "full-width" )  { 
-				
-					$html .=  "<img src='".$imgurl."' class='imageslide fullwidthimg' \>";
-				
-				} else { 
-				
-					$html .=  get_the_post_thumbnail( $car_post->ID , 'full' ); 				
-				
-				} 
-			
-			
-			} else {
-				
-				$html .=  "<img alt='Carousel Slide' src='data:image/gif;base64,R0lGODlhAQABAIAAAFVVVQAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=='>";	
-				
-			}// End if has_post_thumbnail 
-			
-			
-			if ($legacy == 'on' ){
-				$html .=  " \t \t<div class='container'> \n";				
-				$html .=  " \t \t<div class='carousel-caption'> \n";
-					$html .=  "\t \t \t". wpautop($car_post->post_content) . "\n";
-					$html .=  "\t \t </div> \n";	
-				$html .=  "\t \t </div> \n";
-			}
-			
-			if ($legacy == 'off' ){
-				$html .=  " \t \t<div class='caption-wrapper'> \n";
-				$html .=  " \t \t<div class='container'> \n";				
-				$html .=  " \t \t<div class='caption-box-wrapper container row'> \n";
-				$html .=  " \t \t<div class='caption-box'> \n";
-					$html .=  "\t \t \t". wpautop($car_post->post_content) . "\n";
-				$html .=  "\t \t </div> \n";
-				$html .=  "\t \t </div> \n";
-				$html .=  "\t \t </div> \n";	
-				$html .=  "\t \t </div> \n";			
+
+						$imgurl = wp_get_attachment_url ( get_post_thumbnail_id( $car_post->ID ) );
+
+					if ( $options['imageoptions'] == "constrained" ) { 
+
+						$html .=  "<div class='imageslide constrained' style='background: url(".$imgurl.") center center no-repeat;'>";
+						$html .=  "</div>";
+
+					} elseif ( $options['imageoptions'] == "full-width" )  { 
+
+						$html .=  "<img src='".$imgurl."' class='imageslide fullwidthimg' \>";
+
+					} else { 
+
+						$html .=  get_the_post_thumbnail( $car_post->ID , 'full' ); 				
+
+					} 
+
+
+				} else {
+
+					$html .=  "<img alt='Carousel Slide' src='data:image/gif;base64,R0lGODlhAQABAIAAAFVVVQAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=='>";	
+
+				}// End if has_post_thumbnail 
+
 			}
 
+			
+			if ( !empty($car_post->post_content)){
+			
+				if ($legacy == 'on' ){
+					$html .=  " \t \t<div class='container'> \n";				
+					$html .=  " \t \t<div class='carousel-caption'> \n";
+						$html .=  "\t \t \t". wpautop($car_post->post_content) . "\n";
+						$html .=  "\t \t </div> \n";	
+					$html .=  "\t \t </div> \n";
+				}
+
+				if ($legacy == 'off' ){
+					$html .=  " \t \t<div class='caption-wrapper'> \n";
+					$html .=  " \t \t<div class='container'> \n";				
+					$html .=  " \t \t<div class='caption-box-wrapper container row'> \n";
+					$html .=  " \t \t<div class='caption-box'> \n";
+						$html .=  "\t \t \t". wpautop($car_post->post_content) . "\n";
+					$html .=  "\t \t </div> \n";
+					$html .=  "\t \t </div> \n";
+					$html .=  "\t \t </div> \n";	
+					$html .=  "\t \t </div> \n";			
+				}
+			} // if !empty($car_post->post_content)
+
+			
+			// Add an A TAG here 
+			if (!empty($slide_set['href'])){
+				$html .= "<a class='tpf-linkslide' href='".$slide_set['href']."'>&nbsp;</a>";
+			}			
+			
 			$html .=  "\t </div> \n";
 			
 			$s = $s + 1;
 		
 		} 
 	}
+	
 	
 	$html .=  "</div> \n \n"; // end the slides div
 
@@ -582,6 +651,37 @@ function thmplt_do_carousel_slides($id, $echo = true, $legacy = 'on' ) {
 
 	$html .=  "</div> \n \n"; // End closing carousel
 
+
+	// @todo check that data interval is set... if not, do not run this 
+	
+	$html .=  "<script type='text/javascript'> \n";
+		 $html .=  "jQuery(document).ready(function(){ 
+		 	var defaultInterval = jQuery('#".$id."').attr('data-interval');
+			var activeInterval = jQuery('#".$id."').find('.item.active').attr('data-interval');
+			if ( activeInterval ){
+				jQuery('#".$id."').carousel({interval: activeInterval});
+			}
+
+			jQuery('#".$id."').on('slide.bs.carousel', function (e) {   
+
+				var newInterval = jQuery(e.relatedTarget).attr('data-interval'); // next slide 
+			
+				if ( newInterval ) { 
+					c = $('#".$id."')
+					opt = c.data()['bs.carousel'].options
+					opt.interval= newInterval;
+					c.data({options: opt})
+
+				} else { 
+					c = $('#".$id."')
+					opt = c.data()['bs.carousel'].options
+					opt.interval= defaultInterval;
+					c.data({options: opt})				
+				}
+			})
+		});"; 
+	$html .=  "</script> \n \n";		
+	
 	
 	if ($echo == true ) {
 		echo $html;
@@ -672,17 +772,74 @@ function thmplt_carousel_slide_settings_html() {
 
 	global $post;
 	$custom = get_post_custom($post->ID);
-	@$thmplt_carousel_slide_settings = unserialize($custom['thmplt_carousel_slide_settings'][0]);
+	@$slide_set = unserialize($custom['thmplt_carousel_slide_settings'][0]);
 
-	$set = "<label style='padding:0 15px 0 0 '>Slide ID: <input type='text' name='thmplt_carousel_slide_settings[id]' value='".$thmplt_carousel_slide_settings['id']."' /> </label>";
-	$set .= "<label style='padding:0 15px 0 0 '>Slide Class: <input type='text' name='thmplt_carousel_slide_settings[class]' value='".$thmplt_carousel_slide_settings['class']."' style='width:550px'/> </label>";
+	$set = "<style>
+		.setwrap {display:block; clear:both;}
+		.setwrap label, .setwrap input  {float:left;display:block;padding:3px 0; width:100%}
+		.setwrap input, .setwrap textarea { width:99%; padding:5px 4px}
+		.setwrap select { width:99%; padding:5px 4px; height:31px}
+		.setwrap textarea{ height:200px}
+		.setwrap .fifth { width:20% }		
+		.setwrap .quater { width:25% }
+		.setwrap .third { width:33% }			
+		.setwrap .half { width:50% }
+		.setwrap .quater3 { width:75% }
+		.setwrap hr  { float:left; width:100%; clear:both; margin:20px 0 }			
+	</style>";	
+	
+	$set .= "<div class='setwrap'>";
+	
+	$set .= "<label class='quater'>ID: <input type='text' name='thmplt_carousel_slide_settings[id]' value='".$slide_set['id']."' /> </label>";
+	$set .= "<label class='quater'>Class: <input type='text' name='thmplt_carousel_slide_settings[class]' value='".$slide_set['class']."' /> </label>";
+
+	$set .= "<label class='quater'>Duration: <em class='small'>(in seconds) *empty value will use default</em><input type='text' name='thmplt_carousel_slide_settings[interval]' value='".$slide_set['interval']."' /> </label>";	
+
+	//$set .= "<hr  />";
+	$set .= "<label class='quater' >Href: <em class='small'>Link entire slide</em><input type='text' name='thmplt_carousel_slide_settings[href]' value='".$slide_set['href']."' /> </label>";	
+		
+	$set .= "<hr />";
+	$set .= "<label ><strong>Video Settings:</strong> <em class='small'>These settings will overwrite image settings</em></label>";
+	
+	$set .= "<label class='' >Video src: <input type='text' name='thmplt_carousel_slide_settings[video]' value='".$slide_set['video']."' /> </label>";
+	
+	$set .= "<label class='fifth'>Width: <input type='text' name='thmplt_carousel_slide_settings[width]' value='".$slide_set['width']."' /> </label>";
+	$set .= "<label class='fifth'>Height: <input type='text' name='thmplt_carousel_slide_settings[height]' value='".$slide_set['height']."' /> </label>";	
+	
+	$set .= "<label class='fifth'>Responsive: ";
+	$set .= "<select name='thmplt_carousel_slide_settings[vresponsive]'>";
+	$set .= !empty( $slide_set['vresponsive'] )  
+	? "<option value='".$slide_set['vresponsive']."'>".$slide_set['vresponsive']."</option>"
+	: "";
+	$set .= "	
+		<option value='yes'>yes</option>
+		<option value='no'>no</option>
+	";	
+	$set .= "</select>";
+	$set .= "</label>";
+
+	$set .= "<label class='fifth'>Scale: <em>Default is 100</em><input type='text' name='thmplt_carousel_slide_settings[scale]' value='".$slide_set['scale']."' /> </label>";	
+	
+	$set .= "<label class='fifth'>Sound: ";
+	$set .= "<select name='thmplt_carousel_slide_settings[sound]'>";
+	$set .= !empty( $slide_set['sound'] )  
+	? "<option value='".$slide_set['sound']."'>".$slide_set['sound']."</option>"
+	: "";
+	$set .= "	
+		<option value='yes'>yes</option>
+		<option value='no'>no</option>
+	";	
+	$set .= "</select>";
+	$set .= "</label>";	
+	
 
 	/*<option value='inherit'>inherit</option> */	
-	
-	$set .= "";
+	$set .=  "<div style='clear:both'></div>";
+	$set .= "</div>";
 	echo $set;
 
 } 
+
 
 
 // Save 
@@ -697,6 +854,23 @@ function save_thmplt_carousel_slide(){
 		
 }
 add_action('save_post', 'save_thmplt_carousel_slide'); 
+
+
+function thmplt_extract_yt_video_id($src){
+	
+#preg_match("/^(?:http(?:s)?:\/\/)?(?:www\.)?(?:m\.)?(?:youtu\.be\/|youtube\.com\/(?:(?:watch)?\?(?:.*&)?v(?:i)?=|(?:embed|v|vi|user)\/))([^\?&\"'>]+)/", $src, $match);
+#preg_match('%(?:youtube(?:-nocookie)?\.com/(?:[^/]+/.+/|(?:v|e(?:mbed)?)/|.*[?&]v=)|youtu\.be/)([^"&?/ ]{11})%i', $src, $match)
+	
+	if (preg_match("/^(?:http(?:s)?:\/\/)?(?:www\.)?(?:m\.)?(?:youtu\.be\/|youtube\.com\/(?:(?:watch)?\?(?:.*&)?v(?:i)?=|(?:embed|v|vi|user)\/))([^\?&\"'>]+)/", $src, $match)) {
+    	$id = $match[1];
+		return $id;
+    	//var_dump($id);
+	} else {
+		return false;
+	}
+	
+}
+
 
 
 

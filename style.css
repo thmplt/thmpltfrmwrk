@@ -3,7 +3,7 @@
  * Theme URI: http://www.thmplt.com/thmpltfrmwrk
  * Github Theme URI: https://github.com/thmplt/thmpltfrmwrk
  * Description: Bootstrap 3 ready, responsive theme by thmplt. 
- * Version: 1.2.0
+ * Version: 1.2.1
  *
  * Author: thmplt team
  * Author URI: http://www.thmplt.com
@@ -127,6 +127,8 @@
 
 
 
+
+
 /**
  * 8.0 Alignments from WP 
  */
@@ -155,8 +157,7 @@ img.aligncenter {clear: both;margin-top: 0.4em;	margin-bottom: 1.6em;}
 .gallery-caption {color: #707070;color: rgba(51, 51, 51, 0.7);display: block;padding: 0.5em 0;}
 
 
-
-
+/* Carousel */
 .carousel-inner > .item > img.fullwidthimg {width:100%; height:auto; max-width: auto}
 .carousel-inner > .item > .constrained {height:600px; background-size:cover!important;}
 
@@ -168,6 +169,8 @@ img.aligncenter {clear: both;margin-top: 0.4em;	margin-bottom: 1.6em;}
 .carousel-fade .carousel-inner .next.left, .carousel-fade .carousel-inner .prev.right {opacity:1;}
 .carousel-fade .carousel-control {	z-index: 100;}
 
+.carousel-video {display: block; height:100% }
+.carousel-video.position-center {margin:0 auto}
 
 /*
   WHAT IS NEW IN 3.3: "Added transforms to improve carousel performance in modern browsers."
@@ -188,6 +191,10 @@ img.aligncenter {clear: both;margin-top: 0.4em;	margin-bottom: 1.6em;}
       opacity: 1; -webkit-transform: translate3d(0, 0, 0); transform: translate3d(0, 0, 0);
     }
 }
+
+.tpf-videomask{display: block;position: absolute;top: 0;bottom: 0;left: 0; right: 0; z-index:11}
+.tpf-linkslide{display: block;position: absolute;top: 0;bottom: 0;left: 0; right: 0; z-index:12}
+
 
 .caption-wrapper {width:100%; position: absolute; }
 .caption-wrapper .caption-box {padding:20px 0;color:#FFF;text-align: center; margin:0 auto; max-width: 1024px}
