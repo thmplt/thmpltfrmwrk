@@ -3,7 +3,7 @@
  * Theme URI: http://www.thmplt.com/thmpltfrmwrk
  * Github Theme URI: https://github.com/thmplt/thmpltfrmwrk
  * Description: Bootstrap 3 ready, responsive theme by thmplt. 
- * Version: 1.2.1
+ * Version: 1.2.2
  *
  * Author: thmplt team
  * Author URI: http://www.thmplt.com
@@ -126,7 +126,26 @@
 .xlargewidth-container >  .container {width: 95%;max-width: 2560px}
 
 
+/* -- Responsive strip -- */
+.tpf-scrollable {min-height:.01%;overflow-x:auto;overflow-y:hidden;white-space:nowrap;width:100%; padding-bottom:24px}
+.tpf-scrollable {-webkit-overflow-scrolling:touch;-ms-overflow-style:-ms-autohiding-scrollbar}
+.tpf-scrollable > .row {margin-left:0; margin-right:0}
 
+.tpf-scrollable-hint {position:relative}
+.tpf-scrollable-hint::after { 
+	content:" ";display:none;position:absolute;right:40px; top:50%; margin:-15px; 
+	border: 5px solid #77c3ea;border-radius:50%;height:30px;width:30px;
+	animation: fadeinout linear 2s 2 forwards;opacity:0}
+.tpf-scrollable-hint:hover::after{display:block}
+
+@-webkit-keyframes fadeinout {
+	0% {opacity:1;transform: translateX(0)}
+	100% {opacity:0;transform: translateX(-300px)}
+}
+@keyframes fadeinout {
+	0% {opacity:1;transform: translateX(0)}
+	100% {opacity:0;transform: translateX(-300px)}
+}
 
 
 /**
@@ -192,8 +211,20 @@ img.aligncenter {clear: both;margin-top: 0.4em;	margin-bottom: 1.6em;}
     }
 }
 
+
+/* latest carousel */ 
+.tpf-latest-carousel .tpf-lastest-image {float:left;margin:0 20px 0 0 }
+.tpf-latest-carousel .carousel-indicators {margin-bottom:0;bottom:-10px}
+
+
+/* Slider video */
 .tpf-videomask{display: block;position: absolute;top: 0;bottom: 0;left: 0; right: 0; z-index:9}
+.caption-wrapper{z-index:10}
 .tpf-linkslide{display: block;position: absolute;top: 0;bottom: 0;left: 0; right: 0; z-index:11}
+@media screen and (max-width: 1200px) {
+	.tpf-videomask{ display: none;}	
+}
+
 
 .caption-wrapper {width:100%; position: absolute; }
 .caption-wrapper .caption-box {padding:20px 0;color:#FFF;text-align: center; margin:0 auto; max-width: 1024px}
@@ -222,7 +253,7 @@ img.aligncenter {clear: both;margin-top: 0.4em;	margin-bottom: 1.6em;}
 
 @media screen and (max-width: 1200px) {
 	/* Stack the caption under the image on 992px and lower */
-	.caption-stack-md .caption-wrapper {position:relative; transform: none}
+	.caption-stack-md .caption-wrapper {position:relative; transform: none; background:#343535}
 	.caption-stack-md .caption-wrapper .caption-box-wrapper {position:relative;}
 	.caption-stack-md .caption-wrapper .caption-box-wrapper .caption-box {float:none; width:100%;}
 }
@@ -230,7 +261,7 @@ img.aligncenter {clear: both;margin-top: 0.4em;	margin-bottom: 1.6em;}
 
 @media screen and (max-width: 992px) {
 	/* Stack the caption under the image on 992px and lower */
-	.caption-stack-sm .caption-wrapper {position:relative; transform: none}
+	.caption-stack-sm .caption-wrapper {position:relative; transform: none; background:#343535}
 	.caption-stack-sm .caption-wrapper .caption-box-wrapper {position:relative;}
 	.caption-stack-sm .caption-wrapper .caption-box-wrapper .caption-box {float:none; width:100%;}
 	
@@ -240,7 +271,7 @@ img.aligncenter {clear: both;margin-top: 0.4em;	margin-bottom: 1.6em;}
 
 @media screen and (max-width: 768px) {
 	/* Stack the caption under the image on 992px and lower */
-	.caption-stack-xs .caption-wrapper {position:relative; transform: none}
+	.caption-stack-xs .caption-wrapper {position:relative; transform: none; background:#343535}
 	.caption-stack-xs .caption-wrapper .caption-box-wrapper {position:relative;}
 	.caption-stack-xs .caption-wrapper .caption-box-wrapper .caption-box {float:none; width:100%;}
 }

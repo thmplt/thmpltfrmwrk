@@ -238,7 +238,30 @@ jQuery(document).ready(function(){
 		// ( e.outerWidth(true) - e.width() ) / 2; // <-- Outerwidth formula 
 	}	
 
+/* 
+	jQuery('.tpf-scrollable').mousewheel(function(e, delta) {
+		jQuery(this).scrollLeft(this.scrollLeft + (-delta * 40));
+		e.preventDefault();
+	});	
+*/	
 	
+	/**
+	 * This function is used to 
+	 * Check if a node "element" is in view 
+	 * @todo future plans!!
+	 */	
+	/* function tpfIsVisible(node){
+		jQuery(node).each(function(){
+			var viewport = {};
+			viewport.height = jQuery(window).height() - 100; // adjust the height to % 
+			var bounds = {};
+			bounds.top = jQuery(this).offset().top - jQuery(window).scrollTop();
+			if (bounds.top < viewport.height) { 
+				// once the section becomes visible add isvisible class
+				jQuery(this).addClass('tpf-visible');
+			}
+		});				
+	}	*/
 	
 	/**
 	 * Calculate the margin left of the element

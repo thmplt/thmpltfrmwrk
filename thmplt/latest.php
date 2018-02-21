@@ -21,6 +21,7 @@ function thmplt_latest_post_type($atts){
 		'title_class' => '',
 		'date_format' => 'M d, Y',
 		'thumbnail' => 'thumbnail',
+		'move_thumb' => '', //before , after
 		'thumb_class' => '',
 		'more' => "read more",
 		'more_class' => '',
@@ -36,7 +37,13 @@ function thmplt_latest_post_type($atts){
 		"elipsis" => "on",
 		//'excerpt' => 'normal',
 		//"title" => "first",
-		"markup" => "title, data, thumbnail, excerpt"
+		"markup" => "title, data, thumbnail, excerpt",
+		"carousel" => 'false',
+		"indicators" => 'true',
+		"controls" => 'true',
+		"interval" => "5000",
+		"carousel_class" => '', //carousel-fade
+		"carousel_markup" => "indicators,slides,controls"
 	), $atts ) );
 
 
@@ -66,11 +73,14 @@ function thmplt_latest_post_type($atts){
 	$the_query = new WP_Query( $args );
 
 	//echo "<pre>";var_dump($the_query);echo"</pre>";
+	$query_count = $the_query->post_count;
 	
+	//echo "COUNT:".$query_count;
 	
 	// If we have posts start the build of the HTML
 	if ( $the_query->have_posts() ) :
 		$sep_count = 0;
+		$item_count = 0;
 		$eargs = array ( 
 			'more' => $more,
 			'moreclass' => $more_class, 
@@ -79,7 +89,27 @@ function thmplt_latest_post_type($atts){
 			"elipsis" => $elipsis 
 		);
 	
-		$html = "<div ";
+		$id = !empty($id)?$id: "tpf-latest-auto-id-".rand(1,9999);
+	
+		$html ="";
+		$item_class .= ($carousel == "true")? " item ":"";
+		$class .= ($carousel == "true")? " carousel-inner ":"";
+	
+	
+		if ($carousel == "true"){
+			$html .= "<div id='".$id."-carousel' class='tpf-latest-carousel carousel slide ".$carousel_class."' data-ride='carousel' data-interval='".$interval."'>";	
+
+			if ($indicators == "true") {
+			  $html .= "<ol class='carousel-indicators'>";
+				for ($s=0;$s<=($query_count-1);$s++){
+					$liclass = ($s==0)?"active":"";
+					$html .= "<li data-target='#".$id."-carousel' data-slide-to='".$s."' class='".$liclass."'></li>";
+				}
+			  $html .= "</ol>";
+			}	
+		}
+	
+		$html .= "<div ";
 		$html .= !empty($id) ? " id='". $id ."' " : NULL;
 		$html .= " class='tpf-latest-post ".$class."' >";	
 		
@@ -89,6 +119,8 @@ function thmplt_latest_post_type($atts){
 		while ( $the_query->have_posts() ) : $the_query->the_post();
 		
 			$sep_count++;
+			$car_class = ($carousel == "true" && $sep_count == 1)? " active slide-". $sep_count:" slide-".$sep_count;
+	
 		
 			$authorlink = sprintf(
 				'<a href="%1$s" title="%2$s" rel="author">%3$s</a>',
@@ -98,8 +130,20 @@ function thmplt_latest_post_type($atts){
 			);	
 			
 	
-			$html .= "<div class='tpf-latest-post-item ".$item_class."' >";
-			
+			$html .= "<div class='tpf-latest-post-item ".$item_class.$car_class."' >";
+	
+	
+			if ( $move_thumb == "before"){
+
+				if ( has_post_thumbnail() && $thumbnail != "none" ) { 
+					$html .= "<div class='post_image tpf-lastest-image'>";
+					$html .= "<a href='". get_permalink() ."' >";
+					$html .= get_the_post_thumbnail ( @$post->ID ,$thumbnail, array("class"=> $thumb_class));
+					$html .= "</a></div>";					
+				}				
+			}
+	
+			$html .= "<div class='tpf-latest-markup'>";
 	
 				foreach ($markup as $m){
 					$m = trim($m);
@@ -111,7 +155,7 @@ function thmplt_latest_post_type($atts){
 					}
 					if ($m == "data"){
 						$html .= "
-						<ul class='result_data' >
+						<ul class='result_data tpf-latest-result-data' >
 							<li class='date'>
 								<strong>Posted on </strong>". get_the_date($date_format) ."
 							</li>
@@ -122,7 +166,7 @@ function thmplt_latest_post_type($atts){
 					}					
 					if ($m == "thumbnail"){
 						if ( has_post_thumbnail() && $thumbnail != "none" ) { 
-							$html .= "<div class='post_image'>";
+							$html .= "<div class='post_image tpf-lastest-image'>";
 							$html .= "<a href='". get_permalink() ."' >";
 							$html .= get_the_post_thumbnail ( @$post->ID ,$thumbnail, array("class"=> $thumb_class));
 							$html .= "</a></div>";					
@@ -148,6 +192,18 @@ function thmplt_latest_post_type($atts){
 					
 					
 				}
+			$html .= "</div>";	
+	
+			if ( $move_thumb == "after"){
+
+				if ( has_post_thumbnail() && $thumbnail != "none" ) { 
+					$html .= "<div class='post_image tpf-lastest-image'>";
+					$html .= "<a href='". get_permalink() ."' >";
+					$html .= get_the_post_thumbnail ( @$post->ID ,$thumbnail, array("class"=> $thumb_class));
+					$html .= "</a></div>";					
+				}				
+			}	
+	
 	
 			$html .= "</div>";
 			
@@ -158,6 +214,22 @@ function thmplt_latest_post_type($atts){
 		endwhile;
 		
 		$html .= "</div>";
+
+		if ($carousel == "true"){
+		
+			if ($controls == "true"){
+				$html .= "<a class='left carousel-control' href='#".$id."-carousel' data-slide='prev'>
+				<span class='glyphicon glyphicon-chevron-left'></span>
+				<span class='sr-only'>Previous</span>
+				</a>
+				<a class='right carousel-control' href='#".$id."-carousel' data-slide='next'>
+				<span class='glyphicon glyphicon-chevron-right'></span>
+				<span class='sr-only'>Next</span>
+				</a>";			
+			}
+			
+			$html .= "</div>";	
+		}	
 	
 		wp_reset_postdata();
 	
@@ -168,6 +240,7 @@ function thmplt_latest_post_type($atts){
 
 }
 add_shortcode('tpf_latest','thmplt_latest_post_type');
+add_shortcode('thmplt_latest','thmplt_latest_post_type'); // Use the latter 
  
   
  

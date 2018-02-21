@@ -91,7 +91,7 @@ function thmplt_fig_caption($atts, $content){
 			$html .= (!empty($href)) ? "<a href='".$href."' >".$linktext."</a>": ""; 
 	}  
 	
-	if ($link=='wrap') { 
+	if ($link=='wrapall') { 
 			$html .= (!empty($href)) ? "</a>": ""; 
 	} 		
 	

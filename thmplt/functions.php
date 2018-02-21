@@ -6,7 +6,7 @@
 /**
  * thmplt current version 
  */
-define("THMPLT_VERSION", "1.2.1");
+define("THMPLT_VERSION", "1.2.2");
 
 
 /**
@@ -629,7 +629,26 @@ function thmplt_featured_images_swapper($atts){
 add_shortcode("thmplt_featured_image","thmplt_featured_images_swapper");
 
 
-
+function thmplt_accordion($atts, $content){
+	$a = shortcode_atts( array(
+        'title_class' => '',
+		'title' => '',
+		'tag' => 'div',
+		'pane_class' => '',
+		'class' => '',
+	    ), $atts );
+	
+	$a['title_class'] .= (!empty($a['class']))? " ".$a['class'] : "";
+	$a['pane_class'] .= (!empty($a['class']))? " ".$a['class'] : "";
+	
+	$html = "";
+	$html .= "<".$a['tag']." class='tpf-ac-trigger ".$a['title_class']."'>".$a['title']."</".$a['tag'].">";
+	$html .= "<div class='tpf-ac-pane ".$a['pane_class']."'>".$content."</div>";
+	
+	return $html;
+	
+}
+add_shortcode("thmplt_accordion","thmplt_accordion");
 
 
 
