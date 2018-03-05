@@ -413,7 +413,9 @@ function thmplt_del_value ($array=array(), $value=NULL){
  */
 function thmplt_remove_empty_p($content){
 	
-    $content = force_balance_tags($content);
+// Bug in "force_balance_tags" reformats scripts passed inside of "the_content"
+    #$content = force_balance_tags($content);
+	$content = $content; 
     return preg_replace('#<p>\s*+(<br\s*/*>)?\s*</p>#i', '', $content);
 	
 }
