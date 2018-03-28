@@ -133,15 +133,21 @@ jQuery(document).ready(function(){
 	jQuery(".tpf-ac-open").toggleClass('tpf-active').next('.tpf-ac-pane').show();
 
 
-	//ACMENU  UL BASED
 	jQuery(".tpf-accordion li:has(ul)>a").addClass('tpf-ac-click'); // Add accmenu-click class to make it a clickable accordion tab   
 
-	jQuery('.tpf-accordion ul').hide();
+	// Add accmenu-click class to make it a clickable accordion tab   
+	jQuery(".tpf-accordion-toggle li:has(ul)").append('<span class="tpf-ac-click tpf-ac-toggle">+</span>');
+	jQuery(".tpf-accordion-toggle").addClass('tpf-accordion');
+	
+	//jQuery('.tpf-accordion-toggle ul').hide();
+	jQuery('.tpf-accordion ul').hide();	
+	//ACMENU  UL BASED
+
 	jQuery('.tpf-accordion li .tpf-ac-click').on("click", function(e) {
 		e.preventDefault();
 		jQuery(this).parent().siblings().removeClass('tpf-active').addClass('tpf-inactive');
 		jQuery(this).parent().removeClass('tpf-inactive').toggleClass('tpf-active');
-		jQuery(this).next().slideToggle('normal');
+		jQuery(this).siblings('ul').slideToggle('normal');
 		jQuery('.tpf-inactive ul').slideUp('normal'); 
 	});	
   
@@ -152,7 +158,7 @@ jQuery(document).ready(function(){
 	//For the ac menu - keep a specific menu open
 	jQuery(".tpf-accordion .tpf-ac-open").addClass('tpf-active').children('ul').show();
 
-
+	
 /**
  * finds the first and last items and first and last elements
  * and adds a class to it

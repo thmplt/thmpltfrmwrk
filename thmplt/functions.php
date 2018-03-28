@@ -6,7 +6,7 @@
 /**
  * thmplt current version 
  */
-define("THMPLT_VERSION", "1.2.2");
+define("THMPLT_VERSION", "1.2.3");
 
 
 /**
@@ -413,9 +413,7 @@ function thmplt_del_value ($array=array(), $value=NULL){
  */
 function thmplt_remove_empty_p($content){
 	
-// Bug in "force_balance_tags" reformats scripts passed inside of "the_content"
-    #$content = force_balance_tags($content);
-	$content = $content; 
+    $content = force_balance_tags($content);
     return preg_replace('#<p>\s*+(<br\s*/*>)?\s*</p>#i', '', $content);
 	
 }
