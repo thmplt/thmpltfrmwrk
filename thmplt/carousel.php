@@ -667,13 +667,13 @@ function thmplt_do_carousel_slides($id, $echo = true, $legacy = 'on' ) {
 				var newInterval = jQuery(e.relatedTarget).attr('data-interval'); // next slide 
 			
 				if ( newInterval ) { 
-					c = $('#".$id."')
+					c = jQuery('#".$id."')
 					opt = c.data()['bs.carousel'].options
 					opt.interval= newInterval;
 					c.data({options: opt})
 
 				} else { 
-					c = $('#".$id."')
+					c = jQuery('#".$id."')
 					opt = c.data()['bs.carousel'].options
 					opt.interval= defaultInterval;
 					c.data({options: opt})				
