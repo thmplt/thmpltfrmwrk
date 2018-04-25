@@ -650,6 +650,40 @@ function thmplt_accordion($atts, $content){
 }
 add_shortcode("thmplt_accordion","thmplt_accordion");
 
+/** 
+ *  loops through the wp_filter array and finds the function you would like to delete 
+ */
+function thmplt_filter_delete($tag, $func, $priority ){
+	
+	global $wp_filter;
+
+	$filter = $wp_filter[ $tag ][$priority];
+
+	if ( empty ( $filter ) ){ return;} // If no filter, then don't bother.. lets leave 
+	
+	foreach ( $filter as $key  => $val ) {
+		
+		if (is_array($val)){
+			if ($val['function'][1] == $func){
+				unset( $wp_filter[$tag]->callbacks[$priority][$key] );
+			}
+		}
+	}
+}
+
+//Fix for Add_this filters
+function thmplt_remove_addthis_from_filters(){
+	
+	thmplt_filter_delete('thmplt_section_content', 'addHtmlFilterTheContent', 16 );
+	thmplt_filter_delete('thmplt_section_content', 'addHtmlFilterTheContent', 17 );	
+	thmplt_filter_delete('thmplt_content', 'addHtmlFilterTheContent', 16 );
+	thmplt_filter_delete('thmplt_content', 'addHtmlFilterTheContent', 17 );
+	thmplt_filter_delete('thmplt_sidebar_content', 'addHtmlFilterTheContent', 16 );
+	thmplt_filter_delete('thmplt_sidebar_content', 'addHtmlFilterTheContent', 17 );
+	#am_pluginx_filter_kill('mncontentmenu_content', 'addHtmlFilterTheContent', 16 );
+	#am_pluginx_filter_kill('mncontentmenu_content', 'addHtmlFilterTheContent', 17 );	
+}
+add_action('wp_head', 'thmplt_remove_addthis_from_filters');
 
 
 include ( TEMPLATEPATH . "/thmplt/theme_options.php" );
