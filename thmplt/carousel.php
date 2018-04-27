@@ -92,7 +92,6 @@ function carousel_options_callback () {
 			echo "<table class='form-table' >";
 				echo "<tbody>";
 
-
 					/**
 					 * HTML/Option for the slides 
 					 */ 
@@ -560,10 +559,29 @@ function thmplt_do_carousel_slides($id, $echo = true, $legacy = 'on' ) {
 			} else {			
 				/**
 				* Check if a featured image was set, if not then use the bootstrap default grascale image
-				*/			
-				if ( has_post_thumbnail($car_post->ID) ) { 
+				*/		
+				$pictures="";
+				$custom = get_post_custom($car_post->ID);
+				@$slide_set = unserialize($custom['thmplt_carousel_slide_images'][0]);			
+				
+				if (has_post_thumbnail($car_post->ID) && empty($slide_set['main'])){
+					$slide_set['main'] = get_the_post_thumbnail_url($car_post->ID);
+				} 
 
-						$imgurl = wp_get_attachment_url ( get_post_thumbnail_id( $car_post->ID ) );
+				if (!empty($slide_set)){
+					$slide_set = array_reverse($slide_set);
+					foreach ($slide_set as $key => $img ){
+						if (!empty($img)){
+							$key = ($key == "main")? "2560":$key;							
+							$sz = str_replace("p","", $key);
+							$pictures .= "<source media='(max-width: ".$sz."px)' srcset='".$img."'> \n";
+						}
+					}
+				}
+				
+				if ( !empty($slide_set['main'])) { 
+
+					$imgurl = $slide_set['main'];//wp_get_attachment_url ( get_post_thumbnail_id( $car_post->ID ) );
 
 					if ( $options['imageoptions'] == "constrained" ) { 
 
@@ -571,15 +589,19 @@ function thmplt_do_carousel_slides($id, $echo = true, $legacy = 'on' ) {
 						$html .=  "</div>";
 
 					} elseif ( $options['imageoptions'] == "full-width" )  { 
-
-						$html .=  "<img src='".$imgurl."' class='imageslide fullwidthimg' \>";
-
+						$html .= "<picture>";
+							$html .= $pictures;
+							$html .= "<img src='".$imgurl."' class='imageslide fullwidthimg' >";
+						$html .= "</picture>";
 					} else { 
-
-						$html .=  get_the_post_thumbnail( $car_post->ID , 'full' ); 				
-
+						
+						$html .= "<picture>";
+							$html .= $pictures;
+							$html .= "<img src='".$imgurl."' class='imageslide'  >";
+						$html .= "</picture>";						
+						
+						//$html .=  get_the_post_thumbnail( $car_post->ID , 'full' ); 				
 					} 
-
 
 				} else {
 
@@ -748,7 +770,7 @@ function thmplt_move_featured_image_meta_box() {
 
 	remove_meta_box( 'postimagediv', 'thmplt_carousel', 'side' );
 
-	add_meta_box('postimagediv', __('Background Image'), 'post_thumbnail_meta_box', 'thmplt_carousel', 'normal', 'high');
+	//add_meta_box('postimagediv', __('Background Image'), 'post_thumbnail_meta_box', 'thmplt_carousel', 'normal', 'high');
 
 }
 
@@ -758,9 +780,8 @@ function thmplt_move_featured_image_meta_box() {
  */
 function thmplt_carousel_slide_meta(){
 	add_meta_box("thmplt_carousel_meta_box1", "Slide Settings", "thmplt_carousel_slide_settings_html", "thmplt_carousel", "normal", "high");
-
+	add_meta_box("thmplt_carousel_meta_box2", "Slide Images", "thmplt_carousel_slide_settings_html2", "thmplt_carousel", "normal", "high");
 }
-
 add_action("admin_init", "thmplt_carousel_slide_meta");
 
 
@@ -841,6 +862,86 @@ function thmplt_carousel_slide_settings_html() {
 } 
 
 
+/**
+ * Thmplt Sections Settings 
+ */
+function thmplt_carousel_slide_settings_html2() { 
+
+	global $post;
+	$custom = get_post_custom($post->ID);
+	@$slide_set = unserialize($custom['thmplt_carousel_slide_images'][0]);
+
+	$set = "<style>
+		.setwrap {display:block; clear:both;}
+		.setwrap label, .setwrap input  {float:left;display:block;padding:3px 0; width:100%}
+		.setwrap input, .setwrap textarea { width:99%; padding:5px 4px}
+		.setwrap select { width:99%; padding:5px 4px; height:31px}
+		.setwrap .half { width:50% }
+
+		.imageinput {position:relative}
+		.arrow_box {position:absolute;width:50%;right:0;bottom:100%;background: #000;border: 2px solid #b0bcf5;display:none;text-align:center}
+		.arrow_box:after, 
+		.arrow_box:before {
+			top: 100%;left: 50%;border: solid transparent;
+			content: ' ';height: 0;width: 0;position: absolute;	pointer-events: none;
+		}
+		.arrow_box:after {border-color: rgba(0, 0, 0, 0);	border-top-color: #000;	border-width: 10px;	margin-left: -10px;	}
+		.arrow_box:before {	border-color: rgba(176, 188, 245, 0);border-top-color: #b0bcf5;border-width: 13px;margin-left: -13px;}
+		.arrow_box img {max-width:100%;max-height:250px;height:auto;width:auto;}
+		
+		.imageinput:hover .arrow_box{display:block}
+		.add_img {position:absolute;right:12px;top:50%;font-size:20px;font-weight:bold;text-decoration:none}
+	</style>";	
+	
+	$set .= "<div class='setwrap'>";
+	
+	if (has_post_thumbnail() && empty($slide_set['main'])){
+		$main_image = get_the_post_thumbnail_url();
+	} else {
+		$main_image = $slide_set['main'];
+	}
+	
+	$set .= "<label > <em class='small'>Breakpoints are from large to small. Always use main image for best results.</em></label>";	
+	
+	
+	$set .= "<label class='half imageinput'>Main: <em>Large Desktop monitors</em> <a href='#' class='add_img'>+</a>";
+		$set .= "<input type='text' name='thmplt_carousel_slide_images[main]' value='".$main_image."'  />";
+		$set .= (!empty($main_image))? "<div class='arrow_box'><img src='".$main_image."' /></div>":"";
+	$set .= "</label>";
+	
+	$set .= "<label class='half imageinput'>1920: <em>Common desktop monitors, laptops</em> <a href='#' class='add_img'>+</a>";
+		$set .= "<input type='text' name='thmplt_carousel_slide_images[p1920]' value='".$slide_set['p1920']."' />";
+		$set .= (!empty($slide_set['p1920']))? "<div class='arrow_box'><img src='".$slide_set['p1920']."' /></div>":"";
+	$set .= "</label>";	
+	
+	
+	$set .= "<label class='half imageinput'>1200: <em>Large devices</em> <a href='#' class='add_img'>+</a>";
+		$set .= "<input type='text' name='thmplt_carousel_slide_images[p1200]' value='".$slide_set['p1200']."' />";
+		$set .= (!empty($slide_set['p1200']))? "<div class='arrow_box'><img src='".$slide_set['p1200']."' /></div>":"";
+	$set .= "</label>";		
+	
+	$set .= "<label class='half imageinput'>992: <em>Medium devices</em> <a href='#' class='add_img'>+</a>";
+		$set .= "<input type='text' name='thmplt_carousel_slide_images[p992]' value='".$slide_set['p992']."' />";
+		$set .= (!empty($slide_set['p992']))? "<div class='arrow_box'><img src='".$slide_set['p992']."' /></div>":"";
+	$set .= "</label>";	
+	
+	$set .= "<label class='half imageinput'>768: <em>Small devices</em> <a href='#' class='add_img'>+</a>";
+		$set .= "<input type='text' name='thmplt_carousel_slide_images[p768]' value='".$slide_set['p768']."' />";
+		$set .= (!empty($slide_set['p768']))? "<div class='arrow_box'><img src='".$slide_set['p768']."' /></div>":"";
+	$set .= "</label>";
+
+	$set .= "<label class='half imageinput'>576: <em>Small devices</em> <a href='#' class='add_img'>+</a>";
+		$set .= "<input type='text' name='thmplt_carousel_slide_images[p576]' value='".$slide_set['p576']."' />";
+		$set .= (!empty($slide_set['p576']))? "<div class='arrow_box'><img src='".$slide_set['p576']."' /></div>":"";
+	$set .= "</label>";
+	
+	/*<option value='inherit'>inherit</option> */	
+	$set .=  "<div style='clear:both'></div>";
+	$set .= "</div>";
+	echo $set;
+
+} 
+
 
 // Save 
 function save_thmplt_carousel_slide(){
@@ -850,7 +951,8 @@ function save_thmplt_carousel_slide(){
 	if ( empty($_POST['post_type'])) { return; }	
 	global $post;
 
-	update_post_meta($post->ID, "thmplt_carousel_slide_settings", $_POST["thmplt_carousel_slide_settings"]);		
+	update_post_meta($post->ID, "thmplt_carousel_slide_settings", $_POST["thmplt_carousel_slide_settings"]);
+	update_post_meta($post->ID, "thmplt_carousel_slide_images", $_POST["thmplt_carousel_slide_images"]);
 		
 }
 add_action('save_post', 'save_thmplt_carousel_slide'); 
@@ -872,6 +974,15 @@ function thmplt_extract_yt_video_id($src){
 }
 
 
-
+// Attach the CSS and JS to the editor screen
+function thmplt_carousel_add_jscss() {
+    global $post;
+	$url_to_here = str_replace( TEMPLATEPATH, get_bloginfo('template_url'), dirname(__FILE__) );
+	if ('thmplt_carousel' === $post->post_type) {		
+		echo "<script type='text/javascript'  src='".$url_to_here. "/carousel.js'></script>\n";
+		#echo "<link rel='stylesheet'href='".$plugin_url."/editor.css' type='text/css' media='all' \>\n";		
+	}
+}
+add_action('admin_head', 'thmplt_carousel_add_jscss');
 
 
