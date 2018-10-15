@@ -612,6 +612,7 @@ function thmplt_featured_images_swapper($atts){
 	$a = shortcode_atts( array(
         'class' => '',
 		'src' => '', //default image 
+		'alt' => ' ',
 		'childpages' => 'false'
     ), $atts );
 	
@@ -622,7 +623,7 @@ function thmplt_featured_images_swapper($atts){
 		$a['src'] = get_the_post_thumbnail_url( wp_get_post_parent_id( $postID ) );
 		$a['class'] .= " tpf-parent-featured-image tpf-parent-" . wp_get_post_parent_id( $postID );
 	}
-	$html = "<img src='".$a['src']."' class='".$a['class']."' />";
+	$html = "<img src='".$a['src']."' class='".$a['class']."' alt='".$a['alt']."'/>";
 	return $html;
 	
 }
