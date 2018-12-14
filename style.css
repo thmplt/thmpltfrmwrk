@@ -3,7 +3,7 @@
  * Theme URI: http://www.thmplt.com/thmpltfrmwrk
  * Github Theme URI: https://github.com/thmplt/thmpltfrmwrk
  * Description: Bootstrap 3 ready, responsive theme by thmplt. 
- * Version: 1.2.4
+ * Version: 1.2.5
  *
  * Author: thmplt team
  * Author URI: http://www.thmplt.com
@@ -178,7 +178,7 @@ img.aligncenter {clear: both;margin-top: 0.4em;	margin-bottom: 1.6em;}
 
 /* Carousel */
 .carousel-inner > .item  img.fullwidthimg {width:100%; height:auto; max-width: auto}
-.carousel-inner > .item  .constrained {height:600px; background-size:cover!important;}
+.carousel-inner > .item  .constrained {min-height:600px; background-size:cover!important;background-attachment: fixed!important;}
 
 /* -- LEFT/RIGHT FADE -- */
 /*  Bootstrap Carousel Fade Transition (for Bootstrap 3.3.x) */
