@@ -586,6 +586,10 @@ function thmplt_do_carousel_slides($id, $echo = true, $legacy = 'on' ) {
 					if ( $options['imageoptions'] == "constrained" ) { 
 
 						$html .=  "<div class='imageslide constrained' style='background: url(".$imgurl.") center center no-repeat;'>";
+							$html .= "<picture style='visibility:hidden'>";
+								$html .= $pictures;
+								$html .= "<img src='".$imgurl."' class='imageslide fullwidthimg' >";
+							$html .= "</picture>";						
 						$html .=  "</div>";
 
 					} elseif ( $options['imageoptions'] == "full-width" )  { 
